@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>鎌倉パーソナル観光ルート｜有名スポット選択</title>
+  <!-- CSS読み込み -->
+  <link rel="stylesheet" href="area.css">
+</head>
+</head>
+<body>
+  <main>
+    <!-- 言語切替ボタン -->
+    <div id="language-switcher">
+      <button data-lang="ja">日本語</button>
+      <button data-lang="en">English</button>
+      <button data-lang="cn">中文</button>
+    </div>
+
+    <!-- ステップ1 -->
+    <h1>
+      <span class="lang-ja">ステップ1：今いる場所から近いスポットを選択</span>
+      <span class="lang-en" style="display:none">Step 1: Select a nearby spot</span>
+      <span class="lang-cn" style="display:none">步骤1：选择离当前位置较近的景点</span>
+    </h1>
+    <p>
+      <span class="lang-ja">クリックしてスポットを1つ選んでください。</span>
+      <span class="lang-en" style="display:none">Click to select one spot.</span>
+      <span class="lang-cn" style="display:none">请点击选择一个地点</span>
+    </p>
+
+    <!-- カテゴリごとに枠を用意 -->
+    <section id="step1">
+      <h2>
+        <span class="lang-ja">歴史・寺社・文化</span>
+        <span class="lang-en" style="display:none">History / Temples / Shrines</span>
+        <span class="lang-cn" style="display:none">历史/寺庙/神社</span>
+      </h2>
+      <div class="spot-list" id="step1-cat-History"></div>
+
+      <h2>
+        <span class="lang-ja">自然・景色</span>
+        <span class="lang-en" style="display:none">Nature / Scenery</span>
+        <span class="lang-cn" style="display:none">自然/风景</span>
+      </h2>
+      <div class="spot-list" id="step1-cat-Nature"></div>
+
+      <h2>
+        <span class="lang-ja">体験・アクティビティ</span>
+        <span class="lang-en" style="display:none">Experiences / Activities</span>
+        <span class="lang-cn" style="display:none">经验/活动</span>
+      </h2>
+      <div class="spot-list" id="step1-cat-Activity"></div>
+
+      <h2>
+        <span class="lang-ja">おみやげ・雑貨</span>
+        <span class="lang-en" style="display:none">Souvenir / Goods</span>
+        <span class="lang-cn" style="display:none">纪念品/杂货</span>
+      </h2>
+      <div class="spot-list" id="step1-cat-Shopping"></div>
+
+      <h2>
+        <span class="lang-ja">グルメ・カフェ</span>
+        <span class="lang-en" style="display:none">Food / Cafe</span>
+        <span class="lang-cn" style="display:none">美食/咖啡</span>
+      </h2>
+      <div class="spot-list" id="step1-cat-Food"></div>
+    </section>
+
+    <!-- ステップ2 -->
+    <h1>
+      <span class="lang-ja">ステップ2：行きたいスポットを1つ選択</span>
+      <span class="lang-en" style="display:none">Step 2: Select a spot you want to visit</span>
+      <span class="lang-cn" style="display:none">步骤2：请选择一个想去的景点</span>
+    </h1>
+    <p>
+      <span class="lang-ja">クリックしてスポットを1つ選んでください。</span>
+      <span class="lang-en" style="display:none">Click to select one spot.</span>
+      <span class="lang-cn" style="display:none">请点击选择一个地点。</span>
+    </p>
+
+    <section id="step2">
+      <h2>
+        <span class="lang-ja">歴史・寺社・文化</span>
+        <span class="lang-en" style="display:none">History / Temples / Shrines</span>
+        <span class="lang-cn" style="display:none">历史/寺庙/神社</span>
+      </h2>
+      <div class="spot-list" id="step2-cat-History"></div>
+
+      <h2>
+        <span class="lang-ja">自然・景色</span>
+        <span class="lang-en" style="display:none">Nature / Scenery</span>
+        <span class="lang-cn" style="display:none">自然/风景</span>
+      </h2>
+      <div class="spot-list" id="step2-cat-Nature"></div>
+
+      <h2>
+        <span class="lang-ja">体験・アクティビティ</span>
+        <span class="lang-en" style="display:none">Experiences / Activities</span>
+        <span class="lang-cn" style="display:none">经验/活动</span>
+      </h2>
+      <div class="spot-list" id="step2-cat-Activity"></div>
+
+      <h2>
+        <span class="lang-ja">おみやげ・雑貨</span>
+        <span class="lang-en" style="display:none">Souvenir / Goods</span>
+        <span class="lang-cn" style="display:none">纪念品/杂货</span>
+      </h2>
+      <div class="spot-list" id="step2-cat-Shopping"></div>
+
+      <h2>
+        <span class="lang-ja">グルメ・カフェ</span>
+        <span class="lang-en" style="display:none">Food / Cafe</span>
+        <span class="lang-cn" style="display:none">美食/咖啡</span>
+      </h2>
+      <div class="spot-list" id="step2-cat-Food"></div>
+    </section>
+
+    <!-- 次のページに進むボタン -->
+    <button id="next-step">
+      <span class="lang-ja">次へ</span>
+      <span class="lang-en" style="display:none">Next</span>
+      <span class="lang-cn" style="display:none">下一步</span>
+    </button>
+  </main>
+
+  <!-- JS担当が後でデータ読み込みやクリック処理、言語切替を追加 -->
+<script>
+  // 言語切替ボタン取得
+  const langButtons = document.querySelectorAll('#language-switcher button');
+
+  langButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const lang = button.getAttribute('data-lang'); // ja, en, cn
+
+      // 全てのlangクラスを一旦非表示
+      document.querySelectorAll('.lang-ja, .lang-en, .lang-cn').forEach(el => {
+        el.style.display = 'none';
+      });
+
+      // 選ばれた言語の要素を表示
+      document.querySelectorAll(`.lang-${lang}`).forEach(el => {
+        el.style.display = '';
+      });
+    });
+  });
+</script>
+<script src="area.js"></script>
+</body>
+</html>
