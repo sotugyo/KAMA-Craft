@@ -1,0 +1,117 @@
+@charset "UTF-8";
+body {
+  font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
+  text-align: center;
+  background-color: #fffaf5;
+  margin: 0;
+  padding: 0;
+}
+
+/* ページタイトル */
+h1 {
+  font-size: 28px;
+  color: #0066cc;
+  font-weight: bold;
+  margin: 30px 0 15px;
+  border-bottom: 3px solid #0066cc;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+/* ステップ説明文 */
+p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* 言語切替ボタン */
+#language-switcher {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1000;
+}
+
+#language-switcher button {
+  margin-left: 8px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #4da6ff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#language-switcher button:hover {
+  background-color: #3399ff;
+}
+
+/* スポットリスト */
+.spot-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+/* 個々のスポットカード */
+.spot-item {
+  display: inline-block;
+  width: 120px;
+  margin: 8px;
+  padding: 6px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.spot-item img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.spot-item .spot-name {
+  font-size: 14px;
+  color: #333;
+}
+
+/* 選択中のスポット */
+.spot-item.selected {
+  transform: scale(1.05);    /* 少し拡大 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 軽い影 */
+}
+
+/* 次へボタン */
+#next-step {
+  width: 200px;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4da6ff;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 30px;
+  transition: all 0.2s;
+}
+
+#next-step:hover {
+  background-color: #3399ff;
+}
+
+/* カテゴリタイトル */
+section h2 {
+  font-size: 18px;
+  color: #0066cc;
+  margin: 20px 0 10px;
+}
+
+/* 多言語対応クラスはJSで表示切替 */
+.lang-ja, .lang-en, .lang-cn {
+  display: inline;
+}
