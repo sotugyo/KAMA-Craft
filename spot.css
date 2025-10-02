@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+/* =================================== */
+/* 基本設定 (area.cssと共通) */
+/* =================================== */
+body {
+  font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
+  text-align: center;
+  background-color: #fffaf5;
+  margin: 0;
+  padding: 20px 20px 40px; /* 下の余白を多めに */
+}
+
+h1 {
+  font-size: 28px;
+  color: #0066cc;
+  font-weight: bold;
+  margin: 30px 0 15px;
+  border-bottom: 3px solid #0066cc;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+#language-switcher {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1000;
+}
+
+#language-switcher button {
+  margin-left: 8px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #4da6ff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+#language-switcher button:hover {
+  background-color: #3399ff;
+}
+
+
+/* =================================== */
+/* 3ページ目 独自スタイル */
+/* =================================== */
+
+/* スポット表示コンテナ */
+#spotContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px; /* カード間の余白 */
+  margin-bottom: 40px;
+  padding: 0 16px;
+}
+
+/* 個々のスポットカード */
+.spot-item {
+  width: 320px; /* カード幅を広めに設定 */
+  background-color: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  text-align: left; /* カード内のテキストは左揃え */
+  overflow: hidden; /* 画像の角を丸くするため */
+}
+
+/* カードのホバー効果 */
+.spot-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.spot-item img {
+  width: 100%;
+  height: 180px; /* 画像の高さを固定 */
+  object-fit: cover; /* 画像が引き伸ばされないように調整 */
+  display: block;
+}
+
+/* カード内の詳細情報エリア */
+.spot-details {
+  padding: 16px;
+}
+
+.spot-details h3.spot-name {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.spot-details p.spot-description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  min-height: 60px; /* 説明文エリアの高さをある程度確保 */
+}
+
+.spot-details p.spot-info {
+  font-size: 13px;
+  color: #777;
+  margin: 6px 0;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 6px;
+}
+
+.spot-details p.spot-info a {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: bold;
+}
+.spot-details p.spot-info a:hover {
+  text-decoration: underline;
+}
+
+/* 選択中のスポット */
+.spot-item.selected {
+  border-color: #4da6ff; /* 選択中であることが分かりやすいように枠線の色を変更 */
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(77, 166, 255, 0.4);
+}
+
+/* 候補がない場合のメッセージ */
+.no-results {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  color: #777;
+}
+
+/* 次へボタン (IDを#nextBtnに変更) */
+#nextBtn {
+  width: 200px;
+  padding: 14px;
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background-color: #4da6ff;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 30px;
+  transition: all 0.2s;
+}
+
+#nextBtn:hover {
+  background-color: #3399ff;
+  transform: scale(1.05);
+}
