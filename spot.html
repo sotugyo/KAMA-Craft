@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>穴場スポット選択</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="spot.css">
+</head>
+<body>
+  <!-- 言語切替ボタン -->
+  <div id="language-switcher">
+    <button data-lang="ja">日本語</button>
+    <button data-lang="en">English</button>
+    <button data-lang="cn">中文</button>
+  </div>
+
+  <!-- ページタイトル -->
+  <h1>
+    <span class="lang-ja">ステップ3：穴場スポットを選んでください</span>
+    <span class="lang-en" style="display:none">Step 3: Select a Hidden Gem</span>
+    <span class="lang-cn" style="display:none">步骤3：请选择一个隐藏景点</span>
+  </h1>
+
+  <!-- 説明文 -->
+  <p>
+    <span class="lang-ja">以下の候補から1つ選んでください。</span>
+    <span class="lang-en" style="display:none">Please select one from the options below.</span>
+    <span class="lang-cn" style="display:none">请从以下选项中选择一个。</span>
+  </p>
+
+  <!-- スポット表示エリア -->
+  <div class="spot-container" id="spotContainer">
+    <!-- JSでジャンルに合った3つのスポットをランダム表示 -->
+  </div>
+
+  <!-- 次へ進むボタン -->
+  <button id="nextBtn">
+    <span class="lang-ja">次へ</span>
+    <span class="lang-en" style="display:none">Next</span>
+    <span class="lang-cn" style="display:none">下一步</span>
+  </button>
+
+  <!-- JSを最後に読み込む -->
+  <script>
+    // 言語切替処理
+    const langButtons = document.querySelectorAll('#language-switcher button');
+
+    langButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const lang = button.getAttribute('data-lang');
+
+        // いったん全部非表示
+        document.querySelectorAll('.lang-ja, .lang-en, .lang-cn').forEach(el => {
+          el.style.display = 'none';
+        });
+
+        // 選択された言語だけ表示
+        document.querySelectorAll(`.lang-${lang}`).forEach(el => {
+          el.style.display = '';
+        });
+      });
+    });
+  </script>
+  <script src="spot.js"></script>
+</body>
+</html>
