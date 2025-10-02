@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>鎌倉パーソナル観光ルート｜属性選択</title>
+  <link rel="stylesheet" href="属性.css">
+  <style>
+    #language-select { display: none; margin-bottom: 16px; }
+    #language-select button { margin-right: 8px; }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- 設定ボタン -->
+    <div>
+      <button type="button" onclick="showLanguageSelect()">設定</button>
+    </div>
+
+    <!-- 言語切替ボタン -->
+    <div id="language-select">
+      <button type="button" onclick="switchLang('ja')">日本語</button>
+      <button type="button" onclick="switchLang('en')">English</button>
+      <button type="button" onclick="switchLang('cn')">中文</button>
+    </div>
+
+    <h1 id="title">鎌倉パーソナル観光ルートサイト</h1>
+    <p id="description">あなたに合った観光ルートを提案します！</p>
+
+    <form id="attributeForm">
+      <!-- 国籍 -->
+      <div class="field">
+        <label for="nationality" id="label-nationality">国籍</label>
+        <select id="nationality" name="nationality" required>
+          <option value="">選択してください</option>
+          <option value="jp">日本</option>
+          <option value="us">アメリカ</option>
+          <option value="cn">中国</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+
+      <!-- 年代 -->
+      <div class="field">
+        <label for="age" id="label-age">年代</label>
+        <select id="age" name="age" required>
+          <option value="">選択してください</option>
+          <option value="teens">10代以下</option>
+          <option value="20s">20代</option>
+          <option value="30s">30代</option>
+          <option value="40s">40代</option>
+          <option value="50s">50代以上</option>
+        </select>
+      </div>
+
+      <!-- 同行者 -->
+      <div class="field">
+        <label for="companions" id="label-companions">同行者</label>
+        <select id="companions" name="companions" required>
+          <option value="">選択してください</option>
+          <option value="solo">ひとり旅</option>
+          <option value="couple">カップル</option>
+          <option value="family">家族</option>
+          <option value="friends">友人</option>
+          <option value="group">グループ</option>
+        </select>
+      </div>
+
+      <!-- 滞在時間 -->
+      <div class="field">
+        <label for="stay" id="label-stay">滞在時間</label>
+        <select id="stay" name="stay" required>
+          <option value="">選択してください</option>
+          <option value="daytrip">日帰り</option>
+          <option value="1n2d">1泊2日</option>
+          <option value="2n3d">2泊3日</option>
+          <option value="3nplus">3泊以上</option>
+        </select>
+      </div>
+
+      <!-- 興味のあるジャンル（スプレッドシート文字列に対応） -->
+      <div class="field">
+        <label for="interests" id="label-interests">興味のあるジャンル</label>
+        <select id="interests" name="interests" required>
+          <option value="">選択してください</option>
+          <option value="History">歴史・寺社・文化</option>
+          <option value="Nature">自然・景観</option>
+          <option value="Food">グルメ・カフェ</option>
+          <option value="Shopping">お土産・雑貨</option>
+          <option value="Activity">体験・アクティビティ</option>
+        </select>
+      </div>
+
+      <!-- 送信ボタン -->
+      <div class="actions">
+        <button type="submit" id="submit-btn">完了</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- 言語切替スクリプト -->
+  <script>
+    // 言語設定ボタン表示
+    function showLanguageSelect() {
+      document.getElementById('language-select').style.display = 'block';
+    }
+
+    // 多言語テキスト辞書
+    const texts = {
+      ja: {
+        title: "鎌倉パーソナル観光ルートサイト",
+        description: "あなたに合った観光ルートを提案します！",
+        nationality: "国籍",
+        nationalityOptions: ["選択してください","日本","アメリカ","中国","その他"],
+        age: "年代",
+        ageOptions: ["選択してください","10代以下","20代","30代","40代","50代以上"],
+        companions: "同行者",
+        companionsOptions: ["選択してください","ひとり旅","カップル","家族","友人","グループ"],
+        stay: "滞在時間",
+        stayOptions: ["選択してください","日帰り","1泊2日","2泊3日","3泊以上"],
+        interests: "興味のあるジャンル",
+        interestsOptions: ["選択してください","歴史・寺社・文化","自然・景観","グルメ・カフェ","お土産・雑貨","体験・アクティビティ"],
+        submit: "完了"
+      },
+      en: {
+        title: "Kamakura Personal Tour Routes",
+        description: "We suggest a tour route that fits you!",
+        nationality: "Nationality",
+        nationalityOptions: ["Please select","Japan","USA","China","Other"],
+        age: "Age",
+        ageOptions: ["Please select","Teens","20s","30s","40s","50s+"],
+        companions: "Companions",
+        companionsOptions: ["Please select","Solo","Couple","Family","Friends","Group"],
+        stay: "Stay Duration",
+        stayOptions: ["Please select","Day trip","1 night 2 days","2 nights 3 days","3 nights+"],
+        interests: "Interests",
+        interestsOptions: ["Please select","History/Temples/Culture","Nature/Scenery","Food/Cafe","Souvenir/Goods","Experiences/Activities"],
+        submit: "Submit"
+      },
+      cn: {
+        title: "镰仓个人旅游路线网站",
+        description: "为您推荐适合的旅游路线！",
+        nationality: "国籍",
+        nationalityOptions: ["请选择","日本","美国","中国","其他"],
+        age: "年龄",
+        ageOptions: ["请选择","10岁以下","20多岁","30多岁","40多岁","50岁以上"],
+        companions: "同行者",
+        companionsOptions: ["请选择","独自旅行","情侣","家庭","朋友","团体"],
+        stay: "停留时间",
+        stayOptions: ["请选择","当天往返","1晚2天","2晚3天","3晚以上"],
+        interests: "兴趣类别",
+        interestsOptions: ["请选择","历史/寺庙/文化","自然/景观","美食/咖啡","纪念品/杂货","体验/活动"],
+        submit: "完成"
+      }
+    };
+
+    // 言語切替関数
+    function switchLang(lang) {
+      localStorage.setItem("siteLanguage", lang);
+      const t = texts[lang];
+
+      document.getElementById("title").textContent = t.title;
+      document.getElementById("description").textContent = t.description;
+      document.getElementById("label-nationality").textContent = t.nationality;
+      document.getElementById("label-age").textContent = t.age;
+      document.getElementById("label-companions").textContent = t.companions;
+      document.getElementById("label-stay").textContent = t.stay;
+      document.getElementById("label-interests").textContent = t.interests;
+      document.getElementById("submit-btn").textContent = t.submit;
+
+      const setOptions = (id, options) => {
+        const sel = document.getElementById(id);
+        sel.innerHTML = "";
+        options.forEach((opt, i) => {
+          const option = document.createElement("option");
+          // スプレッドシート文字列を value として保持（先頭は空文字）
+          option.value = i === 0 ? "" : opt;
+          option.textContent = opt;
+          sel.appendChild(option);
+        });
+      };
+
+      setOptions("nationality", t.nationalityOptions);
+      setOptions("age", t.ageOptions);
+      setOptions("companions", t.companionsOptions);
+      setOptions("stay", t.stayOptions);
+      setOptions("interests", t.interestsOptions);
+    }
+
+    // ページ読み込み時に前回選択言語を反映
+    document.addEventListener("DOMContentLoaded", () => {
+      const lang = localStorage.getItem("siteLanguage") || "ja";
+      switchLang(lang);
+
+      // フォーム送信時に localStorage に保存して次ページへ
+      const form = document.getElementById("attributeForm");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const userAttributes = {
+          nationality: document.getElementById("nationality").value,
+          age: document.getElementById("age").value,
+          companions: document.getElementById("companions").value,
+          stay: document.getElementById("stay").value,
+          interests: document.getElementById("interests").value
+        };
+        localStorage.setItem("userAttributes", JSON.stringify(userAttributes));
+        // 次のページへ
+        window.location.href = "spot.html";
+      });
+    });
+  </script>
+
+  <script src="index.js"></script>
+</body>
+</html>
