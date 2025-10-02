@@ -1,0 +1,132 @@
+@charset "UTF-8";
+
+/* フォーム全体 */
+form {
+  width: 400px;
+  margin: 40px auto;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fffaf5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
+}
+
+body {
+  text-align: center; /* body直下の要素を中央に */
+}
+
+/* ページ全体の大きなタイトル */
+#title {
+  text-align: center;       /* 中央揃え */
+  margin: 30px 0 40px;      /* 上下の余白を広めに */
+  font-size: 32px;          /* 大きめの文字 */
+  color: #0066cc;           /* 明るめの青 */
+  font-weight: bold;        /* 太字 */
+  border-bottom: 3px solid #0066cc; /* 下線を青でアクセント */
+  display: inline-block;    /* 下線が文字の幅に合わせて出る */
+  padding-bottom: 8px;      /* 下線と文字の間隔 */
+}
+
+/* ラベル */
+form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #444;
+  font-size: 15px;
+}
+
+/* 入力フィールド・セレクト */
+form input[type="text"],
+form input[type="email"],
+form input[type="number"],
+form select {
+  width: 100%;
+  padding: 14px; /* 少し大きめ */
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 15px;
+  background-color: #fff;
+  transition: all 0.2s;
+}
+
+/* 入力時の強調 */
+form input:focus,
+form select:focus {
+  border-color: #3399ff;
+  box-shadow: 0 0 6px rgba(51, 153, 255, 0.4);
+  outline: none;
+}
+
+/* ラジオボタンやチェックボックスのグループ */
+.option-group {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.option-group label {
+  font-weight: normal;
+  margin-right: 18px;
+  cursor: pointer;
+}
+
+/* ボタン */
+form button,
+form input[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background-color: #4da6ff; /* 明るめの青（タップ前） */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 17p
+}
+
+/* 設定ボタンのdivごと固定 */
+body > main > div:first-child {
+  position: fixed; /* 画面に固定 */
+  top: 16px;
+  right: 16px;
+  text-align: right; /* div内のボタンを右寄せ */
+  z-index: 1000;
+}
+
+/* 設定ボタンを絵文字に（元の文字はフォントサイズ0で消す） */
+body > main > div:first-child > button {
+  background: none;  /* 背景なし */
+  border: none;      /* 枠なし */
+  cursor: pointer;   /* ポインタに変化 */
+  padding: 0;        /* 余白なし */
+  line-height: 1;    /* 行間を詰める */
+  font-size: 0;      /* ← これで「設定」の文字を消す */
+  position: relative; /* 擬似要素配置の基準に */
+}
+
+/* 擬似要素で歯車アイコンを表示 */
+body > main > div:first-child > button::before {
+  content: "⚙️";  /* 歯車アイコン */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px;  /* 擬似要素だけ大きく */
+  line-height: 1;
+}
+
+
+
+/* 言語切替ボタン */
+#language-select {
+  position: fixed;
+  top: 64px;
+  right: 16px;
+  text-align: right;
+  z-index: 1000;
+}
+
+#language-select button {
+  margin-left: 8px;
+}
