@@ -1,59 +1,111 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>おすすめルート作成</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="route.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <meta charset="UTF-8">
+    <title>完成した旅のプラン</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="route.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* ピンのラベルを常時表示するためのCSS */
+        .leaflet-tooltip {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #4da6ff; 
+            color: #000;
+            font-weight: bold;
+            padding: 2px 5px;
+            white-space: nowrap;
+            opacity: 1 !important;
+            border-radius: 4px;
+        }
+        /* 初期状態で日本語以外は非表示 (JSで管理) */
+        .lang-en, .lang-cn { display: none; }
+        /* 言語切替ボタンは写真に合わせて一時的に非表示 */
+        #language-switcher { display: none; } 
+    </style>
 </head>
 <body>
-  <!-- 言語切替ボタン -->
-  <div id="language-switcher">
-    <button data-lang="ja">日本語</button>
-    <button data-lang="en">English</button>
-    <button data-lang="cn">中文</button>
-  </div>
+    <div id="language-switcher">
+        <button data-lang="ja">日本語</button>
+        <button data-lang="en">English</button>
+        <button data-lang="cn">中文</button>
+    </div>
 
-  <!-- ページタイトル -->
-  <h1>
-    <span class="lang-ja">ステップ4：おすすめルート</span>
-    <span class="lang-en" style="display:none">Step 4: Your Recommended Route</span>
-    <span class="lang-cn" style="display:none">步骤4：推荐路线</span>
-  </h1>
+    <header id="page-header">
+        <div id="header-top-bg">
+            <p id="logo-text">KAMA-Craft</p>
+            <p id="catch-phrase">
+                <span class="lang-ja">創る、あなただけの旅の鎌倉</span>
+                <span class="lang-en">Create your own KAMAKURA</span>
+                <span class="lang-cn">打造你的专属镰仓</span>
+            </p>
+            <div class="hill-separator"></div>
+        </div>
+        
+        <div id="header-bottom-bg">
+            <h2>
+                <span class="lang-ja">完成した旅のプランはこちら</span>
+                <span class="lang-en">Your complete travel plan</span>
+                <span class="lang-cn">您的完整旅行计划</span>
+            </h2>
+            <hr class="dashed-separator">
+        </div>
+    </header>
 
-  <!-- 説明文 -->
-  <p>
-    <span class="lang-ja">選んだスポットを地図上で確認できます。ピンをクリックすると詳細が見られます。</span>
-    <span class="lang-en" style="display:none">You can see your selected spots on the map. Click the pins for details.</span>
-    <span class="lang-cn" style="display:none">您可以在地图上查看所选景点，点击标记查看详情。</span>
-  </p>
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+    
+    <div id="google-map-link-container" style="display:none;"></div> 
 
-  <!-- 地図表示エリア -->
-  <div id="map"></div>
+    <div id="route-details-section">
+        <div id="spot-cards-container">
+            </div>
+        
+        <div id="overall-route-message-container">
+            </div>
+    </div>
 
-  <!-- JSライブラリ -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 
-  <!-- 言語切替スクリプト -->
-  <script>
-    const langButtons = document.querySelectorAll('#language-switcher button');
-    langButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const lang = button.getAttribute('data-lang');
-        document.querySelectorAll('.lang-ja, .lang-en, .lang-cn').forEach(el => {
-          el.style.display = 'none';
+    <script>
+        const langButtons = document.querySelectorAll('#language-switcher button');
+        let currentLang = localStorage.getItem('siteLanguage') || 'ja'; 
+
+        function switchLang(lang) {
+            currentLang = lang;
+            
+            document.querySelectorAll('.lang-ja, .lang-en, .lang-cn').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll(`.lang-${lang}`).forEach(el => {
+                el.style.display = el.tagName === 'P' || el.tagName === 'H2' ? 'block' : 'initial';
+                if (el.tagName === 'H2' || el.id === 'catch-phrase') {
+                    el.style.display = 'block';
+                } else if (el.tagName === 'SPAN') {
+                    el.style.display = 'inline';
+                } else {
+                    el.style.display = 'block';
+                }
+            });
+
+            if (window.updateLanguage) {
+                window.updateLanguage(lang);
+            }
+            localStorage.setItem('siteLanguage', lang);
+        }
+
+        langButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const lang = button.getAttribute('data-lang');
+                switchLang(lang);
+            });
         });
-        document.querySelectorAll(`.lang-${lang}`).forEach(el => {
-          el.style.display = '';
-        });
-      });
-    });
-  </script>
+        
+        switchLang(currentLang);
+    </script>
 
-  <!-- 自作JS -->
-  <script src="route.js"></script>
+    <script src="route.js"></script>
 </body>
 </html>
