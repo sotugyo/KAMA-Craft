@@ -1,138 +1,284 @@
 @charset "UTF-8";
 
 /* =================================== */
-/* 基本設定 (area.cssと共通) */
+/* 基本設定とヘッダー */
 /* =================================== */
 body {
-  font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
-  text-align: center;
-  background-color: #fffaf5;
-  margin: 0;
-  padding: 20px 20px 40px;
+    font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
+    text-align: center;
+    background-color: #fffaf5; 
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
 }
 
-h1 {
-  font-size: 28px;
-  color: #0066cc;
-  font-weight: bold;
-  margin: 30px 0 15px;
-  border-bottom: 3px solid #0066cc;
-  display: inline-block;
-  padding-bottom: 6px;
-}
-
-p {
-  font-size: 16px;
-  margin-bottom: 30px;
-}
-
-/* 言語切替ボタン */
 #language-switcher {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 1000;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1000;
 }
 
 #language-switcher button {
-  margin-left: 8px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #4da6ff;
-  color: #fff;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s;
+    margin-left: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #4da6ff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-#language-switcher button:hover {
-  background-color: #3399ff;
+#page-header {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 15px 0;
+}
+
+#logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0066cc;
+    margin-bottom: 5px;
+}
+
+#catch-phrase {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.separator {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+h2 {
+    font-size: 24px;
+    color: #0066cc;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 /* =================================== */
-/* 4ページ目 独自スタイル (ルート地図) */
+/* 地図表示エリア */
 /* =================================== */
+#map-container {
+    padding: 10px 0;
+    background-color: #ffffff; 
+    border-top: 1px dashed #4da6ff;
+    border-bottom: 1px dashed #4da6ff;
+}
 
-/* 地図表示領域 */
 #map {
-  width: 100%;
-  height: 70vh; /* 画面の70%を地図表示に使用 */
-  margin-bottom: 30px;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    width: 95%;
+    height: 350px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-/* ポップアップ内の画像 */
-.leaflet-popup-content img {
-  width: 120px;
-  height: auto;
-  margin-top: 6px;
-  border-radius: 6px;
-  display: block;
+/* Googleマップリンク */
+#google-map-link-container {
+    padding: 15px 0;
+}
+#google-map-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4da6ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
 }
 
-/* マーカーのラベル（名前）用カスタムCSS */
-.leaflet-popup-content strong {
-  font-size: 16px;
-  color: #0066cc;
+
+/* =================================== */
+/* スポットカードとルート情報 */
+/* =================================== */
+#route-details-section {
+    padding: 30px 15px;
+    background-color: #f0f8ff; /* 薄い青の背景 */
+    border: 2px solid #ccccff; /* 紫がかった枠線 */
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 20px auto;
 }
 
-/* リンクの装飾 */
-.leaflet-popup-content a {
-  color: #0066cc;
-  text-decoration: none;
-  font-weight: bold;
-}
-.leaflet-popup-content a:hover {
-  text-decoration: underline;
+#spot-cards-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* 高さ揃え */
+    margin-bottom: 20px;
+    flex-wrap: nowrap; 
 }
 
-/* ルートの線スタイル（LeafletのPolyline） */
-.leaflet-polyline {
-  color: #4da6ff;
-  weight: 4;
-  opacity: 0.8;
+.spot-card {
+    flex-basis: 31%; 
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
-/* 出発点・穴場・ゴール用のカスタムアイコンサイズ */
-.leaflet-marker-icon {
-  width: 32px;
-  height: 32px;
+.card-label {
+    font-size: 16px;
+    color: #cc0000;
+    margin: 0 0 10px;
 }
 
-/* 説明文の下余白を確保 */
-#map + p {
-  margin-top: 20px;
+.image-link-container {
+    display: block;
+    height: 100px;
+    background: linear-gradient(to bottom, #ccf2ff 50%, #e6ffe6 100%);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
 }
 
-/* 次へボタン */
-#nextBtn {
-  width: 200px;
-  padding: 14px;
-  font-size: 17px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  background-color: #4da6ff;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 30px;
-  transition: all 0.2s;
+.image-link-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
-#nextBtn:hover {
-  background-color: #3399ff;
-  transform: scale(1.05);
+.spot-info {
+    text-align: left;
+    padding: 0 5px;
+    flex-grow: 1; /* 残りのスペースを埋める */
 }
 
-/* レスポンシブ対応 */
+.spot-info h4 {
+    font-size: 15px;
+    margin: 0 0 5px;
+    color: #333;
+}
+
+.spot-info p {
+    font-size: 13px;
+    margin: 3px 0;
+    line-height: 1.4;
+}
+
+
+/* ルート情報（所要時間） - PC表示 */
+.route-info {
+    flex-basis: 3%;
+    text-align: center;
+    margin-top: 110px; /* カードの中央付近に調整 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.route-time {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+    white-space: nowrap;
+    position: relative;
+}
+
+/* 矢印を所要時間の上下に表示 */
+.route-time::before, .route-time::after {
+    content: "↓";
+    display: block;
+    font-size: 18px;
+    color: #4da6ff;
+    margin: 5px 0;
+}
+
+/* **「〇〇神社→徒歩15分で...」のメッセージ部分** */
+#overall-route-message-container {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.overall-route-message {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.route-summary {
+    display: flex;
+    flex-wrap: wrap; /* スマホで折り返す可能性を考慮 */
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+/* スポット名（ボタン風）と徒歩時間（矢印） */
+.route-summary > div {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px;
+}
+.route-summary-item {
+    padding: 5px 10px;
+    border: 1px solid #0066cc;
+    border-radius: 4px;
+    background-color: #e6f7ff;
+    color: #0066cc;
+}
+.route-summary-arrow {
+    color: #333;
+}
+
+
+/* =================================== */
+/* レスポンシブ対応 (スマホ向け) */
+/* =================================== */
 @media screen and (max-width: 768px) {
-  #map {
-    height: 60vh;
-  }
-  #nextBtn {
-    width: 80%;
-  }
+    
+    #page-header { padding-top: 50px; } /* 固定ボタンがヘッダーを隠さないように */
+    
+    #spot-cards-container {
+        flex-direction: column; /* 縦に積む */
+        align-items: center;
+    }
+
+    .spot-card {
+        flex-basis: 100%;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    /* ルート情報（所要時間） - スマホ表示: カードの間に縦方向で表示 */
+    .route-info {
+        flex-basis: 100%;
+        width: 90%;
+        margin: 5px 0 15px; 
+        flex-direction: row; /* 横並びに戻す */
+        justify-content: center;
+        border-top: 1px dashed #ccccff; 
+        border-bottom: 1px dashed #ccccff;
+        padding: 5px 0;
+    }
+
+    .route-time::before, .route-time::after {
+        display: none; /* 縦の矢印を非表示 */
+    }
+    .route-time {
+        position: relative;
+    }
+    .route-time::before {
+        content: "→"; /* 横の矢印を挿入 */
+        display: inline-block;
+        margin-right: 8px;
+        font-size: 20px;
+        color: #4da6ff;
+    }
 }
