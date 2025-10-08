@@ -14,9 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const latLng = (row.c[5]?.v || '0,0').split(',');
         const lat = parseFloat(latLng[0].trim());
         const lng = parseFloat(latLng[1].trim());
-        const website = row.c[14]?.v || '', 
-        const openingHours = row.c[10]?.v || ,
-        const coolLevel =row.c[9]?.v || '',
+       
         
         return {
           genre: row.c[0]?.v,
@@ -25,9 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
           img: row.c[4]?.v,
           lat: lat,
           lng: lng,
-          website: website,        
-          openingHours: openingHours,  
-          coolLevel: coolLevel    
         };
       });
 
@@ -80,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function selectSpot(spot, step, div) {
-    // ローカルストレージにスポットの詳細情報 (website, openingHours, coolLevel) を含めて保存
     if (step === 1) {
       localStorage.setItem('step1Spot', JSON.stringify(spot));
       highlightSelected('step1', div);
