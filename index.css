@@ -1,139 +1,264 @@
-
-@charset "UTF-8";
-
-/* フォーム全体 */
-form {
-  width: 400px;
-  margin: 40px auto;
-  padding: 25px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  background-color: #fffaf5;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
+/* ================= 基本設定 ================= */
+:root {
+  --base-bg: #F8F6F2;
+  --main-blue: #3A6A8A;
+  --text-dark: #333333;
+  --text-light: #FFFFFF;
+  --border-color: #DDDDDD;
 }
 
 body {
-  text-align: center; /* body直下の要素を中央に */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--base-bg);
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.6;
 }
 
-/* ページ全体の大きなタイトル */
-#title {
-  text-align: center;       /* 中央揃え */
-  margin: 30px 0 40px;      /* 上下の余白を広めに */
-  font-size: 32px;          /* 大きめの文字 */
-  color: #0066cc;           /* 明るめの青 */
-  font-weight: bold;        /* 太字 */
-  border-bottom: 3px solid #0066cc; /* 下線を青でアクセント */
-  display: inline-block;    /* 下線が文字の幅に合わせて出る */
-  padding-bottom: 8px;      /* 下線と文字の間隔 */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-/* ラベル */
-form label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #444;
-  font-size: 15px;
+/* ================= ヘッダー & 言語切替 ================= */
+.hero-section {
+  min-height: 50vh;
+  /* ▼▼▼ この部分を変更しました ▼▼▼ */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/title-background.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--text-light);
+  padding: 20px;
 }
 
-/* 入力フィールド・セレクト */
-form input[type="text"],
-form input[type="email"],
-form input[type="number"],
-form select {
-  width: 100%;
-  padding: 14px; /* 少し大きめ */
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-sizing: border-box;
-  font-size: 15px;
-  background-color: #fff;
-  transition: all 0.2s;
+.hero-content h1 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
 }
 
-/* 入力時の強調 */
-form input:focus,
-form select:focus {
-  border-color: #3399ff;
-  box-shadow: 0 0 6px rgba(51, 153, 255, 0.4);
-  outline: none;
+.hero-content p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
 }
 
-/* ラジオボタンやチェックボックスのグループ */
-.option-group {
-  margin-bottom: 20px;
-  font-size: 15px;
-}
-
-.option-group label {
-  font-weight: normal;
-  margin-right: 18px;
-  cursor: pointer;
-}
-
-/* ボタン */
-form button,
-form input[type="submit"] {
-  width: 100%;
-  padding: 14px;
-  background-color: #4da6ff; /* 明るめの青（タップ前） */
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 17p
-}
-
-/* 設定ボタンのdivごと固定 */
-body > main > div:first-child {
-  position: fixed; /* 画面に固定 */
-  top: 16px;
-  right: 16px;
-  text-align: right; /* div内のボタンを右寄せ */
-  z-index: 1000;
-}
-
-/* 設定ボタンを絵文字に（元の文字はフォントサイズ0で消す） */
-body > main > div:first-child > button {
-  background: none;  /* 背景なし */
-  border: none;      /* 枠なし */
-  cursor: pointer;   /* ポインタに変化 */
-  padding: 0;        /* 余白なし */
-  line-height: 1;    /* 行間を詰める */
-  font-size: 0;      /* ← これで「設定」の文字を消す */
-  position: relative; /* 擬似要素配置の基準に */
-}
-
-/* 擬似要素で歯車アイコンを表示 */
-body > main > div:first-child > button::before {
-  content: "⚙️";  /* 歯車アイコン */
+#language-switcher {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 28px;  /* 擬似要素だけ大きく */
-  line-height: 1;
+  top: 20px;
+  right: 20px;
 }
 
-
-
-/* 言語切替ボタン */
-#language-select {
-  position: fixed;
-  top: 64px;
-  right: 16px;
-  text-align: right;
-  z-index: 1000;
+#language-switcher button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--text-light);
+  color: var(--text-light);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.2s;
+}
+#language-switcher button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
-#language-select button {
-  margin-left: 8px;
+/* ================= 選択項目 ================= */
+.selection-group {
+  margin-bottom: 60px;
+  text-align: center;
 }
 
+.selection-group h2 {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+}
+
+.options-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* --- カードの基本スタイル（アイコンなし版） --- */
+.option-card {
+  background-color: #FFFFFF;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 15px 25px;
+  min-width: 140px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80px;
+}
+
+.option-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.option-card span {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* --- 写真カード以外の、選択されたカードのスタイル --- */
+.option-card.selected:not(.photo-card) {
+  border-color: var(--main-blue);
+  background-color: var(--main-blue);
+  color: var(--text-light);
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(58, 106, 138, 0.3);
+}
+
+/* --- 写真カードのスタイル --- */
+.photo-card {
+  width: 200px;
+  height: 150px;
+  position: relative;
+  color: var(--text-light);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+}
+
+.photo-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+
+/* --- 写真カードが選択された時のスタイル --- */
+.photo-card.selected::before {
+  content: '✔';
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(58, 106, 138, 0.7);
+}
+
+/* --- 背景画像設定 --- */
+.photo-card[data-value="History"] { background-image: url('https://images.unsplash.com/photo-1622327113583-e186b367de19?q=80&w=1974'); }
+.photo-card[data-value="Nature"] { background-image: url('https://images.unsplash.com/photo-1589226322923-8e07b27599a4?q=80&w=2070'); }
+.photo-card[data-value="Food"] { background-image: url('https://images.unsplash.com/photo-1588860205510-8a4b3d115b80?q=80&w=1974'); }
+.photo-card[data-value="Shopping"] { background-image: url('https://images.unsplash.com/photo-1614728263943-b9c4187ac5b3?q=80&w=1974'); }
+
+/* ================= 送信ボタン ================= */
+.button-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.next-button {
+  background-color: var(--main-blue);
+  color: var(--text-light);
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 15px 60px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 10px rgba(58, 106, 138, 0.3);
+}
+
+.next-button:disabled {
+  background-color: #B0C4DE;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ================= 手順説明セクション ================= */
+.process-steps {
+  background-color: #FFFFFF;
+  padding: 50px 20px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
+}
+
+.process-steps h2 {
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 40px;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+}
+
+.step-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--main-blue);
+  color: var(--text-light);
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(58, 106, 138, 0.3);
+}
+
+.step-item h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--text-dark);
+}
+
+.step-arrow {
+  font-size: 2rem;
+  color: var(--main-blue);
+  font-weight: bold;
+}
+
+/* ================= スマホ表示用 ================= */
+@media (max-width: 768px) {
+  .steps-container {
+    flex-direction: column;
+    gap: 20px;
+  }
   
+  .step-item {
+    width: 100%;
+  }
 
- 
-
-
+  .step-arrow {
+    transform: rotate(90deg);
+  }
+}
