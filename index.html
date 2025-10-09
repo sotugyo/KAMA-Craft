@@ -1,215 +1,228 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>鎌倉パーソナル観光ルート｜属性選択</title>
-  <link rel="stylesheet" href="index.css">
-  <style>
-    #language-select { display: none; margin-bottom: 16px; }
-    #language-select button { margin-right: 8px; }
-  </style>
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAMA-Craft｜旅のプランを作成</title>
+  <link rel="stylesheet" href="category.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <main>
-    <!-- 設定ボタン -->
-    <div>
-      <button type="button" onclick="showLanguageSelect()">設定</button>
+
+  <header class="hero-section">
+    <div class="hero-content">
+      <h1 id="title">KAMA-Craft</h1>
+      <p id="description">あなただけの鎌倉旅を</p>
     </div>
+  </header>
 
-    <!-- 言語切替ボタン -->
-    <div id="language-select">
-      <button type="button" onclick="switchLang('ja')">日本語</button>
-      <button type="button" onclick="switchLang('en')">English</button>
-      <button type="button" onclick="switchLang('cn')">中文</button>
+  <div id="language-switcher">
+    <button type="button" data-lang="ja">日本語</button>
+    <button type="button" data-lang="en">English</button>
+    <button type="button" data-lang="cn">中文</button>
+  </div>
+
+  <section class="process-steps">
+    <h2 id="process-title">KAMA-Craftの使い方</h2>
+    <div class="steps-container">
+      
+      <div class="step-item">
+        <div class="step-icon">1</div>
+        <h3 id="step1-title">属性選択</h3>
+      </div>
+
+      <div class="step-arrow">→</div>
+
+      <div class="step-item">
+        <div class="step-icon">2</div>
+        <h3 id="step2-title">スタート・ゴール地点選択</h3>
+      </div>
+
+      <div class="step-arrow">→</div>
+
+      <div class="step-item">
+        <div class="step-icon">3</div>
+        <h3 id="step3-title">穴場スポット選択</h3>
+      </div>
+
+      <div class="step-arrow">→</div>
+
+      <div class="step-item">
+        <div class="step-icon">4</div>
+        <h3 id="step4-title">ルート案内</h3>
+      </div>
+
     </div>
+  </section>
 
-    <h1 id="title">鎌倉パーソナル観光ルートサイト</h1>
-    <p id="description">あなたに合った観光ルートを提案します！</p>
-
+  <main class="container">
     <form id="attributeForm">
-      <!-- 国籍 -->
-      <div class="field">
-        <label for="nationality" id="label-nationality">国籍</label>
-        <select id="nationality" name="nationality" required>
-          <option value="">選択してください</option>
-          <option value="jp">日本</option>
-          <option value="us">アメリカ</option>
-          <option value="cn">中国</option>
-          <option value="other">その他</option>
-        </select>
-      </div>
 
-      <!-- 年代 -->
-      <div class="field">
-        <label for="age" id="label-age">年代</label>
-        <select id="age" name="age" required>
-          <option value="">選択してください</option>
-          <option value="teens">10代以下</option>
-          <option value="20s">20代</option>
-          <option value="30s">30代</option>
-          <option value="40s">40代</option>
-          <option value="50s">50代以上</option>
-        </select>
-      </div>
+      <section class="selection-group">
+        <h2 id="label-companions">同行者はどなたですか？</h2>
+        <div class="options-grid" id="companions-grid">
+          </div>
+      </section>
 
-      <!-- 同行者 -->
-      <div class="field">
-        <label for="companions" id="label-companions">同行者</label>
-        <select id="companions" name="companions" required>
-          <option value="">選択してください</option>
-          <option value="solo">ひとり旅</option>
-          <option value="couple">カップル</option>
-          <option value="family">家族</option>
-          <option value="friends">友人</option>
-          <option value="group">グループ</option>
-        </select>
-      </div>
+      <section class="selection-group">
+        <h2 id="label-stay">滞在時間はどのくらいですか？</h2>
+        <div class="options-grid" id="stay-grid">
+          </div>
+      </section>
 
-      <!-- 滞在時間 -->
-      <div class="field">
-        <label for="stay" id="label-stay">滞在時間</label>
-        <select id="stay" name="stay" required>
-          <option value="">選択してください</option>
-          <option value="daytrip">日帰り</option>
-          <option value="1n2d">1泊2日</option>
-          <option value="2n3d">2泊3日</option>
-          <option value="3nplus">3泊以上</option>
-        </select>
-      </div>
+      <section class="selection-group">
+        <h2 id="label-interests">どんなことに興味がありますか？</h2>
+        <div class="options-grid photo-grid" id="interests-grid">
+          </div>
+      </section>
 
-      <!-- 興味のあるジャンル（スプレッドシート文字列に対応） -->
-      <div class="field">
-        <label for="interests" id="label-interests">興味のあるジャンル</label>
-        <select id="interests" name="interests" required>
-          <option value="">選択してください</option>
-          <option value="History">歴史・寺社・文化</option>
-          <option value="Nature">自然・景観</option>
-          <option value="Food">グルメ・カフェ</option>
-          <option value="Shopping">お土産・雑貨</option>
-          <option value="Activity">体験・アクティビティ</option>
-        </select>
-      </div>
-
-      <!-- 送信ボタン -->
-      <div class="actions">
-        <button type="submit" id="submit-btn">完了</button>
+      <input type="hidden" name="companions" id="companions">
+      <input type="hidden" name="stay" id="stay">
+      <input type="hidden" name="interests" id="interests">
+      <input type="hidden" name="3nplus" id="3nplus"> <div class="button-container">
+        <button type="submit" class="next-button" id="submit-btn" disabled>完了</button>
       </div>
     </form>
   </main>
 
-  <!-- 言語切替スクリプト -->
   <script>
-    // 言語設定ボタン表示
-    function showLanguageSelect() {
-      document.getElementById('language-select').style.display = 'block';
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      const texts = {
+        ja: {
+          title: "KAMA-Craft",
+          description: "いくつかの簡単な質問に答えるだけであなただけの鎌倉旅をご提案します",
+          processTitle: "KAMA-Craftの使い方",
+          step1Title: "属性選択",
+          step2Title: "スタート・ゴール地点選択",
+          step3Title: "穴場スポット選択",
+          step4Title: "ルート案内",
+          companions: "同行者はどなたですか？",
+          companionsOptions: { solo: "ひとり旅", couple: "カップル", family: "家族", friends: "友人" },
+          stay: "滞在時間はどのくらいですか？",
+          stayOptions: { daytrip: "日帰り", "1n2d": "1泊2日", "2n3d": "2泊3日", "3nplus": "3泊以上" },
+          interests: "どんなことに興味がありますか？",
+          interestsOptions: { "History": "歴史・寺社・文化", "Nature": "自然・景観", "Food": "グルメ・カフェ", "Shopping": "お土産・雑貨", "Activity": "体験・アクティビティ" },
+          submit: "プランを作成する",
+          submitDisabled: "すべて選択してください"
+        },
+        en: {
+          title: "KAMA-Craft",
+          description: "Just answer a few simple questions and we will suggest a personalized Kamakura trip just for you.",
+          processTitle: "How to Use KAMA-Craft",
+          step1Title: "Select Attributes",
+          step2Title: "Select Start & Goal",
+          step3Title: "Select Hidden Spot",
+          step4Title: "Route Guidance",
+          companions: "Who are you traveling with?",
+          companionsOptions: { solo: "Solo", couple: "Couple", family: "Family", friends: "Friends" },
+          stay: "How long is your stay?",
+          stayOptions: { daytrip: "Day Trip", "1n2d": "1 Night 2 Days", "2n3d": "2 Nights 3 Days", "3nplus": "3+ Nights" },
+          interests: "What are you interested in?",
+          interestsOptions: { "History": "History/Culture", "Nature": "Nature/Scenery", "Food": "Gourmet/Cafe", "Shopping": "Souvenirs/Goods", "Activity": "Experiences/Activities" },
+          submit: "Create My Plan",
+          submitDisabled: "Please select all items"
+        },
+        cn: {
+          title: "KAMA-Craft",
+          description: "只需回答几个简单问题，我们就会为您推荐专属的镰仓之旅。",
+          processTitle: "KAMA-Craft 使用方法",
+          step1Title: "选择属性",
+          step2Title: "选择起点和终点",
+          step3Title: "选择私房景点",
+          step4Title: "路线向导",
+          companions: "您和谁一起旅行？",
+          companionsOptions: { solo: "独自旅行", couple: "情侣", family: "家庭", friends: "朋友" },
+          stay: "您会停留多长时间？",
+          stayOptions: { daytrip: "当天往返", "1n2d": "1晚2天", "2n3d": "2晚3天", "3nplus": "3晚以上" },
+          interests: "您对什么感兴趣？",
+          interestsOptions: { "History": "历史/文化", "Nature": "自然/景观", "Food": "美食/咖啡", "Shopping": "纪念品/杂货", "Activity": "体验/活动" },
+          submit: "创建我的计划",
+          submitDisabled: "请选择所有项目"
+        }
+      };
+      
+      const form = document.getElementById("attributeForm");
+      const submitBtn = document.getElementById("submit-btn");
 
-    // 多言語テキスト辞書
-    const texts = {
-      ja: {
-        title: "鎌倉パーソナル観光ルートサイト",
-        description: "あなたに合った観光ルートを提案します！",
-        nationality: "国籍",
-        nationalityOptions: ["選択してください","日本","アメリカ","中国","その他"],
-        age: "年代",
-        ageOptions: ["選択してください","10代以下","20代","30代","40代","50代以上"],
-        companions: "同行者",
-        companionsOptions: ["選択してください","ひとり旅","カップル","家族","友人","グループ"],
-        stay: "滞在時間",
-        stayOptions: ["選択してください","日帰り","1泊2日","2泊3日","3泊以上"],
-        interests: "興味のあるジャンル",
-        interestsOptions: ["選択してください","歴史・寺社・文化","自然・景観","グルメ・カフェ","お土産・雑貨","体験・アクティビティ"],
-        submit: "完了"
-      },
-      en: {
-        title: "Kamakura Personal Tour Routes",
-        description: "We suggest a tour route that fits you!",
-        nationality: "Nationality",
-        nationalityOptions: ["Please select","Japan","USA","China","Other"],
-        age: "Age",
-        ageOptions: ["Please select","Teens","20s","30s","40s","50s+"],
-        companions: "Companions",
-        companionsOptions: ["Please select","Solo","Couple","Family","Friends","Group"],
-        stay: "Stay Duration",
-        stayOptions: ["Please select","Day trip","1 night 2 days","2 nights 3 days","3 nights+"],
-        interests: "Interests",
-        interestsOptions: ["Please select","History/Temples/Culture","Nature/Scenery","Food/Cafe","Souvenir/Goods","Experiences/Activities"],
-        submit: "Submit"
-      },
-      cn: {
-        title: "镰仓个人旅游路线网站",
-        description: "为您推荐适合的旅游路线！",
-        nationality: "国籍",
-        nationalityOptions: ["请选择","日本","美国","中国","其他"],
-        age: "年龄",
-        ageOptions: ["请选择","10岁以下","20多岁","30多岁","40多岁","50岁以上"],
-        companions: "同行者",
-        companionsOptions: ["请选择","独自旅行","情侣","家庭","朋友","团体"],
-        stay: "停留时间",
-        stayOptions: ["请选择","当天往返","1晚2天","2晚3天","3晚以上"],
-        interests: "兴趣类别",
-        interestsOptions: ["请选择","历史/寺庙/文化","自然/景观","美食/咖啡","纪念品/杂货","体验/活动"],
-        submit: "完成"
+      const titleElement = document.getElementById('title');
+      titleElement.style.cursor = 'pointer'; 
+      titleElement.addEventListener('click', () => {
+        window.location.reload();
+      });
+
+      function handleCardSelection(group, value) {
+        document.querySelectorAll(`[data-group="${group}"]`).forEach(el => el.classList.remove('selected'));
+        document.querySelector(`[data-group="${group}"][data-value="${value}"]`).classList.add('selected');
+        document.getElementById(group).value = value;
+        checkAllSelected();
       }
-    };
 
-    // 言語切替関数
-    function switchLang(lang) {
-      localStorage.setItem("siteLanguage", lang);
-      const t = texts[lang];
+      function checkAllSelected() {
+        const allSelected = ['companions', 'stay', 'interests'].every(id => document.getElementById(id).value);
+        submitBtn.disabled = !allSelected;
+        const lang = localStorage.getItem("siteLanguage") || "ja";
+        submitBtn.textContent = allSelected ? texts[lang].submit : texts[lang].submitDisabled;
+      }
 
-      document.getElementById("title").textContent = t.title;
-      document.getElementById("description").textContent = t.description;
-      document.getElementById("label-nationality").textContent = t.nationality;
-      document.getElementById("label-age").textContent = t.age;
-      document.getElementById("label-companions").textContent = t.companions;
-      document.getElementById("label-stay").textContent = t.stay;
-      document.getElementById("label-interests").textContent = t.interests;
-      document.getElementById("submit-btn").textContent = t.submit;
-
-      const setOptions = (id, options) => {
-        const sel = document.getElementById(id);
-        sel.innerHTML = "";
-        options.forEach((opt, i) => {
-          const option = document.createElement("option");
-          // スプレッドシート文字列を value として保持（先頭は空文字）
-          option.value = i === 0 ? "" : opt;
-          option.textContent = opt;
-          sel.appendChild(option);
-        });
+      const createCards = (group, options, isPhoto = false) => {
+        const grid = document.getElementById(`${group}-grid`);
+        grid.innerHTML = '';
+        for (const [value, label] of Object.entries(options)) {
+          const card = document.createElement('div');
+          card.className = `option-card ${isPhoto ? 'photo-card' : ''}`;
+          card.dataset.group = group;
+          card.dataset.value = value;
+          card.innerHTML = `<span>${label}</span>`;
+          card.addEventListener('click', () => handleCardSelection(group, value));
+          grid.appendChild(card);
+        }
       };
 
-      setOptions("nationality", t.nationalityOptions);
-      setOptions("age", t.ageOptions);
-      setOptions("companions", t.companionsOptions);
-      setOptions("stay", t.stayOptions);
-      setOptions("interests", t.interestsOptions);
-    }
+      function switchLang(lang) {
+        localStorage.setItem("siteLanguage", lang);
+        const t = texts[lang];
 
-    // ページ読み込み時に前回選択言語を反映
-    document.addEventListener("DOMContentLoaded", () => {
-      const lang = localStorage.getItem("siteLanguage") || "ja";
-      switchLang(lang);
+        document.getElementById("title").innerHTML = t.title;
+        document.getElementById("description").innerHTML = t.description;
+        document.getElementById("process-title").textContent = t.processTitle;
+        document.getElementById("step1-title").textContent = t.step1Title;
+        document.getElementById("step2-title").textContent = t.step2Title;
+        document.getElementById("step3-title").textContent = t.step3Title;
+        document.getElementById("step4-title").textContent = t.step4Title;
+        document.getElementById("label-companions").textContent = t.companions;
+        document.getElementById("label-stay").textContent = t.stay;
+        document.getElementById("label-interests").textContent = t.interests;
 
-      // フォーム送信時に localStorage に保存して次ページへ
-      const form = document.getElementById("attributeForm");
+        createCards('companions', t.companionsOptions);
+        createCards('stay', t.stayOptions);
+        createCards('interests', t.interestsOptions, true);
+        
+        ['companions', 'stay', 'interests'].forEach(id => { document.getElementById(id).value = ''; });
+        checkAllSelected();
+      }
+
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         const userAttributes = {
-          nationality: document.getElementById("nationality").value,
-          age: document.getElementById("age").value,
           companions: document.getElementById("companions").value,
           stay: document.getElementById("stay").value,
           interests: document.getElementById("interests").value
         };
         localStorage.setItem("userAttributes", JSON.stringify(userAttributes));
-        // 次のページへ
-        window.location.href = "spot.html";
+        window.location.href = "area.html";
       });
+
+      document.querySelectorAll('#language-switcher button').forEach(button => {
+        button.addEventListener('click', (e) => switchLang(e.target.dataset.lang));
+      });
+      const lang = localStorage.getItem("siteLanguage") || "ja";
+      switchLang(lang);
     });
   </script>
 
-  <script src="index.js"></script>
 </body>
 </html>
