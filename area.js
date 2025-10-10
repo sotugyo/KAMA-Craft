@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
       div.dataset.index = i;
 
       div.innerHTML = `
-        <img src="${spot.img}" alt="${spot.name.ja}" width="100"><br>
+        <img src="${spot.img}" alt="${spot.name.ja}"><br>
         <p class="spot-name">${spot.name[currentLang] || spot.name.ja}</p>
       `;
 
