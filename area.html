@@ -3,148 +3,211 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>鎌倉パーソナル観光ルート｜有名スポット選択</title>
-  <!-- CSS読み込み -->
+  <title>KAMA-Craft｜スポット選択</title>
   <link rel="stylesheet" href="area.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
-</head>
+
 <body>
-  <main>
-    <!-- 言語切替ボタン -->
-    <div id="language-switcher">
-      <button data-lang="ja">日本語</button>
-      <button data-lang="en">English</button>
-      <button data-lang="cn">中文</button>
+  <!-- ===== ヘッダーエリア ===== -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <h1 id="title">KAMA-Craft</h1>
+      <p id="description">
+        <span class="lang-ja">創る、あなただけの鎌倉旅</span>
+        <span class="lang-en" hidden>Create your own Kamakura trip</span>
+        <span class="lang-cn" hidden>创造您自己的镰仓之旅</span>
+      </p>
     </div>
+  </header>
 
+  <!-- ===== 言語切り替え ===== -->
+  <div id="language-switcher">
+    <button data-lang="ja">日本語</button>
+    <button data-lang="en">English</button>
+    <button data-lang="cn">中文</button>
+  </div>
+
+  <!-- ===== メインコンテンツ ===== -->
+  <main class="container">
     <!-- ステップ1 -->
-    <h1>
-      <span class="lang-ja">ステップ1：今いる場所から近いスポットを選択</span>
-      <span class="lang-en" style="display:none">Step 1: Select a nearby spot</span>
-      <span class="lang-cn" style="display:none">步骤1：选择离当前位置较近的景点</span>
-    </h1>
-    <p>
-      <span class="lang-ja">クリックしてスポットを1つ選んでください。</span>
-      <span class="lang-en" style="display:none">Click to select one spot.</span>
-      <span class="lang-cn" style="display:none">请点击选择一个地点</span>
-    </p>
-
-    <!-- カテゴリごとに枠を用意 -->
-    <section id="step1">
-      <h2>
-        <span class="lang-ja">歴史・寺社・文化</span>
-        <span class="lang-en" style="display:none">History / Temples / Shrines</span>
-        <span class="lang-cn" style="display:none">历史/寺庙/神社</span>
-      </h2>
-      <div class="spot-list" id="step1-cat-History"></div>
-
-      <h2>
-        <span class="lang-ja">自然・景色</span>
-        <span class="lang-en" style="display:none">Nature / Scenery</span>
-        <span class="lang-cn" style="display:none">自然/风景</span>
-      </h2>
-      <div class="spot-list" id="step1-cat-Nature"></div>
-
-      <h2>
-        <span class="lang-ja">体験・アクティビティ</span>
-        <span class="lang-en" style="display:none">Experiences / Activities</span>
-        <span class="lang-cn" style="display:none">经验/活动</span>
-      </h2>
-      <div class="spot-list" id="step1-cat-Activity"></div>
-
-      <h2>
-        <span class="lang-ja">おみやげ・雑貨</span>
-        <span class="lang-en" style="display:none">Souvenir / Goods</span>
-        <span class="lang-cn" style="display:none">纪念品/杂货</span>
-      </h2>
-      <div class="spot-list" id="step1-cat-Shopping"></div>
-
-      <h2>
-        <span class="lang-ja">グルメ・カフェ</span>
-        <span class="lang-en" style="display:none">Food / Cafe</span>
-        <span class="lang-cn" style="display:none">美食/咖啡</span>
-      </h2>
-      <div class="spot-list" id="step1-cat-Food"></div>
+    <section class="spot-selection-section" id="step1">
+      <h1>
+        <span class="lang-ja">1．今いる場所から近いスポットを選択</span>
+        <span class="lang-en" hidden>1. Select a spot near your current location</span>
+        <span class="lang-cn" hidden>1. 从您现在的位置选择一个近的景点</span>
+      </h1>
+      <p>
+        <span class="lang-ja">クリックしてスポットを1つ選んでください。</span>
+        <span class="lang-en" hidden>Click to select one spot.</span>
+        <span class="lang-cn" hidden>请点击选择一个地点</span>
+      </p>
+      <div id="step1-categories"></div>
     </section>
 
     <!-- ステップ2 -->
-    <h1>
-      <span class="lang-ja">ステップ2：行きたいスポットを1つ選択</span>
-      <span class="lang-en" style="display:none">Step 2: Select a spot you want to visit</span>
-      <span class="lang-cn" style="display:none">步骤2：请选择一个想去的景点</span>
-    </h1>
-    <p>
-      <span class="lang-ja">クリックしてスポットを1つ選んでください。</span>
-      <span class="lang-en" style="display:none">Click to select one spot.</span>
-      <span class="lang-cn" style="display:none">请点击选择一个地点。</span>
-    </p>
-
-    <section id="step2">
-      <h2>
-        <span class="lang-ja">歴史・寺社・文化</span>
-        <span class="lang-en" style="display:none">History / Temples / Shrines</span>
-        <span class="lang-cn" style="display:none">历史/寺庙/神社</span>
-      </h2>
-      <div class="spot-list" id="step2-cat-History"></div>
-
-      <h2>
-        <span class="lang-ja">自然・景色</span>
-        <span class="lang-en" style="display:none">Nature / Scenery</span>
-        <span class="lang-cn" style="display:none">自然/风景</span>
-      </h2>
-      <div class="spot-list" id="step2-cat-Nature"></div>
-
-      <h2>
-        <span class="lang-ja">体験・アクティビティ</span>
-        <span class="lang-en" style="display:none">Experiences / Activities</span>
-        <span class="lang-cn" style="display:none">经验/活动</span>
-      </h2>
-      <div class="spot-list" id="step2-cat-Activity"></div>
-
-      <h2>
-        <span class="lang-ja">おみやげ・雑貨</span>
-        <span class="lang-en" style="display:none">Souvenir / Goods</span>
-        <span class="lang-cn" style="display:none">纪念品/杂货</span>
-      </h2>
-      <div class="spot-list" id="step2-cat-Shopping"></div>
-
-      <h2>
-        <span class="lang-ja">グルメ・カフェ</span>
-        <span class="lang-en" style="display:none">Food / Cafe</span>
-        <span class="lang-cn" style="display:none">美食/咖啡</span>
-      </h2>
-      <div class="spot-list" id="step2-cat-Food"></div>
+    <section class="spot-selection-section" id="step2">
+      <h1>
+        <span class="lang-ja">2．行きたいスポットを１つ選択</span>
+        <span class="lang-en" hidden>2. Select one spot you want to visit</span>
+        <span class="lang-cn" hidden>2. 选择一个您想去的景点</span>
+      </h1>
+      <p>
+        <span class="lang-ja">クリックしてスポットを1つ選んでください。</span>
+        <span class="lang-en" hidden>Click to select one spot.</span>
+        <span class="lang-cn" hidden>请点击选择一个地点。</span>
+      </p>
+      <div id="step2-categories"></div>
     </section>
 
-    <!-- 次のページに進むボタン -->
-    <button id="next-step">
-      <span class="lang-ja">次へ</span>
-      <span class="lang-en" style="display:none">Next</span>
-      <span class="lang-cn" style="display:none">下一步</span>
+    <!-- 次へボタン -->
+    <button id="next-step" disabled>
+      <span class="lang-ja">すべて選択してください</span>
+      <span class="lang-en" hidden>Please select both spots</span>
+      <span class="lang-cn" hidden>请选择所有景点</span>
     </button>
   </main>
 
-  <!-- JS担当が後でデータ読み込みやクリック処理、言語切替を追加 -->
-<script>
-  // 言語切替ボタン取得
-  const langButtons = document.querySelectorAll('#language-switcher button');
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 初期化
+      localStorage.removeItem('step1Spot');
+      localStorage.removeItem('step2Spot');
 
-  langButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const lang = button.getAttribute('data-lang'); // ja, en, cn
+      const sheetURL = "https://docs.google.com/spreadsheets/d/1w5waa7_xUlB-_wt0TfLhDw48ehg86yl6/gviz/tq?sheet=有名&headers=1&tq=";
+      const nextBtn = document.getElementById('next-step');
+      const titleElement = document.getElementById('title');
 
-      // 全てのlangクラスを一旦非表示
-      document.querySelectorAll('.lang-ja, .lang-en, .lang-cn').forEach(el => {
-        el.style.display = 'none';
+      let currentLang = localStorage.getItem("siteLanguage") || "ja";
+      let allSpotsData = [];
+
+      // --- 言語テキスト設定 ---
+      const buttonTexts = {
+        ja: { active: '穴場スポット選択へ進む', inactive: 'すべて選択してください' },
+        en: { active: 'Proceed to Hidden Gems', inactive: 'Please select both spots' },
+        cn: { active: '前往选择私房景点', inactive: '请选择所有景点' }
+      };
+
+      // --- タイトルクリックで戻る ---
+      titleElement.addEventListener('click', () => (window.location.href = 'index.html'));
+
+      // --- 言語切り替え ---
+      document.querySelectorAll('#language-switcher button').forEach(btn => {
+        btn.addEventListener('click', () => switchLanguage(btn.dataset.lang));
       });
 
-      // 選ばれた言語の要素を表示
-      document.querySelectorAll(`.lang-${lang}`).forEach(el => {
-        el.style.display = '';
+      function switchLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem("siteLanguage", lang);
+        document.querySelectorAll('[class^="lang-"]').forEach(el => el.hidden = true);
+        document.querySelectorAll(`.lang-${lang}`).forEach(el => el.hidden = false);
+        updateSpotNames();
+        updateNextButton();
+      }
+
+      // --- データ取得 ---
+      fetch(sheetURL)
+        .then(res => res.text())
+        .then(data => {
+          const json = JSON.parse(data.substr(47).slice(0, -2));
+          allSpotsData = json.table.rows.map(r => {
+            const [genre, ja, en, cn, img, latLng, coolness, hours, , , , url] = r.c.map(c => c?.v || "");
+            const [lat, lng] = latLng.split(',').map(Number);
+            return { genre, name: { ja, en, cn }, img, lat, lng, coolness, hours, url };
+          });
+          renderCategories();
+          switchLanguage(currentLang);
+        });
+
+      // --- カテゴリ生成 ---
+      const categories = [
+        { key: "History", ja: "歴史・寺社・文化", en: "History / Temples / Shrines", cn: "历史/寺庙/神社" },
+        { key: "Nature", ja: "自然・景色", en: "Nature / Scenery", cn: "自然/风景" },
+        { key: "Activity", ja: "体験・アクティビティ", en: "Experiences / Activities", cn: "经验/活动" },
+        { key: "Shopping", ja: "おみやげ・雑貨", en: "Souvenir / Goods", cn: "纪念品/杂货" },
+        { key: "Food", ja: "グルメ・カフェ", en: "Food / Cafe", cn: "美食/咖啡" }
+      ];
+
+      function renderCategories() {
+        [1, 2].forEach(step => {
+          const container = document.getElementById(`step${step}-categories`);
+          categories.forEach(cat => {
+            const section = document.createElement('div');
+            section.className = 'spot-category';
+            section.innerHTML = `
+              <h2>
+                <span class="lang-ja">${cat.ja}</span>
+                <span class="lang-en" hidden>${cat.en}</span>
+                <span class="lang-cn" hidden>${cat.cn}</span>
+              </h2>
+              <div class="spot-list" id="step${step}-cat-${cat.key}"></div>
+            `;
+            container.appendChild(section);
+          });
+          displaySpots(step);
+        });
+      }
+
+      // --- スポットを表示 ---
+      function displaySpots(step) {
+        allSpotsData.forEach((spot, i) => {
+          const list = document.getElementById(`step${step}-cat-${spot.genre}`);
+          if (!list) return;
+          const div = document.createElement('div');
+          div.className = 'spot-item';
+          div.dataset.index = i;
+          div.innerHTML = `<img src="${spot.img}" alt="${spot.name.ja}"><p class="spot-name">${spot.name[currentLang] || spot.name.ja}</p>`;
+          div.addEventListener('click', () => selectSpot(spot, step, div));
+          list.appendChild(div);
+        });
+      }
+
+      // --- 言語変更時のスポット名更新 ---
+      function updateSpotNames() {
+        document.querySelectorAll('.spot-item').forEach(div => {
+          const spot = allSpotsData[div.dataset.index];
+          div.querySelector('.spot-name').textContent = spot.name[currentLang] || spot.name.ja;
+        });
+      }
+
+      // --- スポット選択 ---
+      function selectSpot(spot, step, div) {
+        if (div.classList.contains('disabled')) return;
+        const key = `step${step}Spot`;
+        localStorage.setItem(key, JSON.stringify(spot));
+        document.querySelectorAll(`#step${step} .spot-item`).forEach(d => d.classList.remove('selected'));
+        div.classList.add('selected');
+        disableSameSpot(step === 1 ? 2 : 1, div.dataset.index);
+        updateNextButton();
+      }
+
+      // --- 同じスポットをもう片方で選べないように ---
+      function disableSameSpot(targetStep, selectedIndex) {
+        document.querySelectorAll(`#step${targetStep} .spot-item`).forEach(d => d.classList.remove('disabled'));
+        const target = document.querySelector(`#step${targetStep} .spot-item[data-index="${selectedIndex}"]`);
+        if (target) target.classList.add('disabled');
+      }
+
+      // --- 次ボタン制御 ---
+      function updateNextButton() {
+        const step1 = localStorage.getItem('step1Spot');
+        const step2 = localStorage.getItem('step2Spot');
+        const enabled = step1 && step2;
+        nextBtn.disabled = !enabled;
+
+        const t = buttonTexts[currentLang];
+        nextBtn.querySelector('.lang-ja').textContent = enabled ? buttonTexts.ja.active : buttonTexts.ja.inactive;
+        nextBtn.querySelector('.lang-en').textContent = enabled ? buttonTexts.en.active : buttonTexts.en.inactive;
+        nextBtn.querySelector('.lang-cn').textContent = enabled ? buttonTexts.cn.active : buttonTexts.cn.inactive;
+      }
+
+      // --- 次のページへ ---
+      nextBtn.addEventListener('click', () => {
+        if (!nextBtn.disabled) window.location.href = 'spot.html';
       });
     });
-  });
-</script>
-<script src="area.js"></script>
+  </script>
 </body>
 </html>
