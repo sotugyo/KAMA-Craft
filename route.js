@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     // ORS APIキー (元のコードの値を維持 - 動作には有効なキーが必要です)
     const orsApiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjU4ZjE5YTkzYmJlNTRiYTI5MzgyMWNkNjAyM2M0NzRjIiwiaCI6Im11cm11cjY0In0=";
