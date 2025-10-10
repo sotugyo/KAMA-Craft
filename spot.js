@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const userCompanionKey = companionMap[userAttributes.companions] || 'ひとり旅';
-  console.log("userCompanionKey:", userCompanionKey);
 
   function getDistance(lat1, lng1, lat2, lng2) {
     const R = 6371;
@@ -114,23 +113,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // ⭐ オススメ度順 → 距離順にソート
       recommendedSpots = filteredSpots.sort((a, b) => {
         const scoreA = a.companionScores[userCompanionKey] || 0;
         const scoreB = b.companionScores[userCompanionKey] || 0;
-
         if (scoreA !== scoreB) return scoreB - scoreA;
         return (a.distanceFromStart || 0) - (b.distanceFromStart || 0);
       }).slice(0, 4);
-
-      // ⭐ デバッグ用コンソール出力
-      console.log("=== ソート後 推奨スポットリスト ===");
-      recommendedSpots.forEach((spot, index) => {
-        const score = spot.companionScores[userCompanionKey] || 0;
-        console.log(`#${index+1} スポット名: ${spot.name.ja}`);
-        console.log(`   オススメ度: ${score} ★`);
-        console.log(`   距離: ${spot.distanceFromStart.toFixed(2)} km`);
-      });
 
       displaySpots(recommendedSpots, userCompanionKey);
     })
@@ -144,22 +132,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const l = labels[currentLang];
 
     spotsToDisplay.forEach(spot => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'spot-wrapper';
+
+      // 上に距離ラベル
+      const distanceLabel = document.createElement('div');
+      distanceLabel.className = 'spot-distance-label';
+      const walkMinutes = Math.round((spot.distanceFromStart || 0) * 15);
+      distanceLabel.textContent = `${l.distance}: ${(spot.distanceFromStart || 0).toFixed(2)} ${l.unitKm}（${l.walk}${l.about}${walkMinutes} ${l.unitMin}）`;
+
       const div = document.createElement('div');
       div.className = 'spot-item';
-
-      const walkMinutes = Math.round((spot.distanceFromStart || 0) * 15);
-      const totalWalkMinutes = Math.round((spot.totalRouteDistance || 0) * 15);
 
       let detailsHtml = `<p class="spot-description">${spot.description[currentLang] || spot.description.ja}</p>`;
       if (spot.openingHours) detailsHtml += `<p><strong>${l.hours}:</strong> ${spot.openingHours}</p>`;
       if (spot.coolLevel) detailsHtml += `<p><strong>${l.cool}:</strong> ${spot.coolLevel}</p>`;
       if (spot.website) detailsHtml += `<p><a href="${spot.website}" target="_blank">${l.website}</a></p>`;
       if (spot.reservation) detailsHtml += `<p><a href="${spot.reservation}" target="_blank">${l.reservation}</a></p>`;
-
       detailsHtml += `<p><strong>${l.recommendation}:</strong> ${getStars(spot.companionScores[userCompanion] || 0)}</p>`;
-
-      detailsHtml += `<p><strong>${l.distance}:</strong> ${(spot.distanceFromStart || 0).toFixed(2)} ${l.unitKm}（${l.walk}${l.about}${walkMinutes} ${l.unitMin}）</p>
-                      <p><strong>${l.totalRoute}:</strong> ${(spot.totalRouteDistance || 0).toFixed(2)} ${l.unitKm}（${l.walk}${l.about}${totalWalkMinutes} ${l.unitMin}）</p>`;
+      detailsHtml += `<p><strong>${l.totalRoute}:</strong> ${(spot.totalRouteDistance || 0).toFixed(2)} ${l.unitKm}</p>`;
 
       div.innerHTML = `<img src="${spot.img}" alt="${spot.name.ja}">
                        <div class="spot-details">
@@ -168,7 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
                        </div>`;
 
       div.addEventListener('click', () => selectSpot(spot, div));
-      spotContainer.appendChild(div);
+
+      wrapper.appendChild(distanceLabel);
+      wrapper.appendChild(div);
+      spotContainer.appendChild(wrapper);
     });
   }
 
