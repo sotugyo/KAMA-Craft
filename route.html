@@ -10,7 +10,7 @@
         /* ピンのラベルを常時表示するためのCSS */
         .leaflet-tooltip {
             background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #4da6ff; 
+            border: 1px solid #4da6ff;
             color: #000;
             font-weight: bold;
             padding: 2px 5px;
@@ -37,7 +37,7 @@
             </p>
             <div class="hill-separator"></div>
         </div>
-        
+
         <div id="header-bottom-bg">
             <h2>
                 <span class="lang-ja">完成した旅のプランはこちら</span>
@@ -51,13 +51,13 @@
     <div id="map-container">
         <div id="map"></div>
     </div>
-    
-    <div id="google-map-link-container" style="display:none;"></div> 
+
+    <div id="google-map-link-container" style="display:none;"></div>
 
     <div id="route-details-section">
         <div id="spot-cards-container">
             </div>
-        
+
         <div id="overall-route-message-container">
             </div>
     </div>
@@ -67,11 +67,11 @@
 
     <script>
         const langButtons = document.querySelectorAll('#language-switcher button');
-        let currentLang = localStorage.getItem('siteLanguage') || 'ja'; 
+        let currentLang = localStorage.getItem('siteLanguage') || 'ja';
 
         function switchLang(lang) {
             currentLang = lang;
-            
+
             document.querySelectorAll('.lang-ja, .lang-en, .lang-cn').forEach(el => {
                 el.style.display = 'none';
             });
@@ -98,7 +98,7 @@
                 switchLang(lang);
             });
         });
-        
+
         switchLang(currentLang);
     </script>
 
