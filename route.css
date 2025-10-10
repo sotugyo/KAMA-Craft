@@ -6,7 +6,7 @@
 body {
     font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
     text-align: center;
-    background-color: #fffaf5; 
+    background-color: #fffaf5;
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -67,7 +67,7 @@ h2 {
 /* =================================== */
 #map-container {
     padding: 10px 0;
-    background-color: #ffffff; 
+    background-color: #ffffff;
     border-top: 1px dashed #4da6ff;
     border-bottom: 1px dashed #4da6ff;
 }
@@ -114,11 +114,11 @@ h2 {
     justify-content: space-between;
     align-items: stretch; /* 高さ揃え */
     margin-bottom: 20px;
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
 }
 
 .spot-card {
-    flex-basis: 31%; 
+    flex-basis: 31%;
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 10px;
@@ -242,9 +242,9 @@ h2 {
 /* レスポンシブ対応 (スマホ向け) */
 /* =================================== */
 @media screen and (max-width: 768px) {
-    
+
     #page-header { padding-top: 50px; } /* 固定ボタンがヘッダーを隠さないように */
-    
+
     #spot-cards-container {
         flex-direction: column; /* 縦に積む */
         align-items: center;
@@ -260,10 +260,10 @@ h2 {
     .route-info {
         flex-basis: 100%;
         width: 90%;
-        margin: 5px 0 15px; 
+        margin: 5px 0 15px;
         flex-direction: row; /* 横並びに戻す */
         justify-content: center;
-        border-top: 1px dashed #ccccff; 
+        border-top: 1px dashed #ccccff;
         border-bottom: 1px dashed #ccccff;
         padding: 5px 0;
     }
