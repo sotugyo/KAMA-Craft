@@ -171,7 +171,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     .bindPopup(`<strong>${spotName}</strong> (${spot.label})`);
             }
         });
-
+        
+        // ルートサマリーメッセージを挿入
+        const overallRouteMessage = generateOverallRouteMessage(spots, durations);
+        if (overallRouteMessage) {
+              const messageHtml = `
+                 <div class="overall-route-message">
+                     移動区間の所要時間によっては、それぞれのスポット滞在時間と所要時間を短くしても良いかもしれません。
+                     <a href="属性.html" style="font-size:12px; font-weight:normal; color:#0066cc; text-decoration:underline;">
+                         ※滞在時間をクリックしたら決めれるホームに戻るような設定
+                     </a>
+                 </div>
+                 <div class="route-summary">
+                     ${overallRouteMessage}
+                 </div>
+               `;
+               messageContainer.insertAdjacentHTML('beforeend', messageHtml);
+        }
+    }
 
     // 言語切り替え時の動的要素の更新
     window.updateLanguage = function(lang) {
