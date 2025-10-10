@@ -21,30 +21,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // step1Spot (スタート)
     if (step1Data?.lat && step1Data?.lng) {
         // step1Data は area.js からのデータ
-        routeSpots.push({ 
-            label: "スタート", 
-            name: step1Data.name || {ja: 'スタート地点'}, 
+        routeSpots.push({
+            label: "スタート",
+            name: step1Data.name || {ja: 'スタート地点'},
             img: step1Data.img || '',
             lat: parseFloat(step1Data.lat), // 緯度経度は数値に
             lng: parseFloat(step1Data.lng),
             // step1/step2のデータには詳細情報がない場合があるため、デフォルト値を設定
-            website: step1Data.website || '#', 
+            website: step1Data.website || '#',
             opening_hours: step1Data.openingHours || '不明',
-            rating: step1Data.coolLevel || 'N/A' 
+            rating: step1Data.coolLevel || 'N/A'
         });
     }
 
     // hiddenSpot (穴場スポット)
     if (hiddenData?.lat && hiddenData?.lng) {
         // hiddenData は spot.js からのデータ。spot.js のプロパティ名を使用
-        routeSpots.push({ 
-            label: "穴場スポット", 
-            name: hiddenData.name || {ja: '穴場スポット'}, 
+        routeSpots.push({
+            label: "穴場スポット",
+            name: hiddenData.name || {ja: '穴場スポット'},
             img: hiddenData.img || '',
             lat: parseFloat(hiddenData.lat),
             lng: parseFloat(hiddenData.lng),
             // spot.js で取得・保存した詳細情報
-            website: hiddenData.website || '#', 
+            website: hiddenData.website || '#',
             opening_hours: hiddenData.openingHours || '不明', // spot.jsでの名称
             rating: hiddenData.coolLevel || 'N/A'             // spot.jsでの名称
         });
@@ -53,16 +53,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // step2Spot (ゴール)
     if (step2Data?.lat && step2Data?.lng) {
         // step2Data は area.js からのデータ
-        routeSpots.push({ 
-            label: "ゴール", 
-            name: step2Data.name || {ja: 'ゴール地点'}, 
+        routeSpots.push({
+            label: "ゴール",
+            name: step2Data.name || {ja: 'ゴール地点'},
             img: step2Data.img || '',
             lat: parseFloat(step2Data.lat),
             lng: parseFloat(step2Data.lng),
             // step1/step2のデータには詳細情報がない場合があるため、デフォルト値を設定
-            website: step2Data.website || '#', 
+            website: step2Data.website || '#',
             opening_hours: step2Data.openingHours || '不明',
-            rating: step2Data.coolLevel || 'N/A' 
+            rating: step2Data.coolLevel || 'N/A'
         });
     }
 
@@ -88,19 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const remainingMinutes = minutes % 60;
         return `徒歩${hours}時間${remainingMinutes > 0 ? remainingMinutes + '分' : ''}`;
     }
-    
+
     function generateOverallRouteMessage(spots, durations = []) {
         if (spots.length < 2) return '';
-        
+
         let message = '';
         spots.forEach((spot, index) => {
             const spotNameJa = spot.name[currentLang] || spot.name.ja || spot.label;
-            
+
             // スポット名ボタン (写真に合わせたデザイン)
             message += `<div class="route-summary-item">${spotNameJa.replace('地点', '').replace('スポット', '')}神社</div>`;
 
             if (index < spots.length - 1) {
-                const durationText = formatDuration(durations[index]).replace('徒歩', ''); 
+                const durationText = formatDuration(durations[index]).replace('徒歩', '');
                 message += `<div class="route-summary-arrow">徒歩${durationText}</div>`;
             }
         });
@@ -115,36 +115,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const messageContainer = document.getElementById('overall-route-message-container');
         container.innerHTML = '';
         messageContainer.innerHTML = '';
-        markerGroup.clearLayers(); 
+        markerGroup.clearLayers();
 
         spots.forEach((spot, index) => {
             const isLast = index === spots.length - 1;
             const spotName = spot.name[currentLang] || spot.name.ja || spot.label;
             const websiteUrl = spot.website || '#';
-            
+
             // 重要な変更点: spot.opening_hours と spot.rating を使用
-            const openingHours = spot.opening_hours || '不明'; 
+            const openingHours = spot.opening_hours || '不明';
             const coolLevel = spot.rating || 'N/A';
-            
+
             // スポットカードを生成 (写真, 名前, 営業時間, 涼しさ)
             const cardHtml = `
                 <div class="spot-card">
-                    <h4 class="card-label">${spot.label}</h4> 
-                    
+                    <h4 class="card-label">${spot.label}</h4>
+
                     <a href="${websiteUrl}" target="_blank" class="image-link-container" title="${spotName}の公式サイトへ">
-                        ${spot.img ? `<img src="${spot.img}" alt="${spotName}">` : 
+                        ${spot.img ? `<img src="${spot.img}" alt="${spotName}">` :
                         // 画像がない場合のプレースホルダー（CSSで雲と丘のデザイン）
                         `<div style="text-align: center; font-size: 18px; color: #444; font-weight: bold; margin-top: 35px; position:relative; z-index: 10;">
                              ${spotName.replace('地点', '').replace('スポット', '')}神社
                          </div>`}
                     </a>
-                    
+
                     <div class="spot-info">
                         <h4 class="spot-name-dynamic">
                              <span style="font-size: 14px; color: #999;">${spot.label}: </span>
                              ${spotName}
                         </h4>
-                        <p class="spot-desc-dynamic">鎌倉時代のが建つ有名な神社<br>御利益等に記載</p> 
+                        <p class="spot-desc-dynamic">鎌倉時代のが建つ有名な神社<br>御利益等に記載</p>
                         <p>営業時間: <strong>${openingHours}</strong></p>
                         <p>涼しさ: <strong>${coolLevel}</strong></p>
                     </div>
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .bindPopup(`<strong>${spotName}</strong> (${spot.label})`);
             }
         });
-        
+
         // ルートサマリーメッセージを挿入
         const overallRouteMessage = generateOverallRouteMessage(spots, durations);
         if (overallRouteMessage) {
@@ -193,11 +193,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 言語切り替え時の動的要素の更新
     window.updateLanguage = function(lang) {
         currentLang = lang;
-        const durations = document.getElementById('spot-cards-container').dataset.durations ? 
+        const durations = document.getElementById('spot-cards-container').dataset.durations ?
                              JSON.parse(document.getElementById('spot-cards-container').dataset.durations) : [];
         createSpotCards(routeSpots, durations);
     };
-    
+
     // ===========================================
     // ORS ルート取得・描画
     // ===========================================
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(orsUrl, {
             method: "POST",
             headers: {
-                "Authorization": orsApiKey, 
+                "Authorization": orsApiKey,
                 "Content-Type": "application/json; charset=utf-8"
             },
             body: JSON.stringify({ coordinates: coords })
