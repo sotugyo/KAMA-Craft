@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const hiddenData = JSON.parse(localStorage.getItem('hiddenSpot') || '{}');
 
     const sheetData = window.sheetData || [];
-    const nameCol = 0;       
-    const descriptionCol = 11; 
+    const nameCol = 0;
+    const descriptionCol = 11;
 
     const routeSpots = [];
 
