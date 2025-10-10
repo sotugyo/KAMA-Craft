@@ -1,14 +1,12 @@
 @charset "UTF-8";
 
-/* =================================== */
-/* 基本設定 (area.cssと共通) */
-/* =================================== */
+/* 基本設定 */
 body {
   font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
   text-align: center;
   background-color: #fffaf5;
   margin: 0;
-  padding: 20px 20px 40px; /* 下の余白を多めに */
+  padding: 20px 20px 40px;
 }
 
 h1 {
@@ -49,72 +47,103 @@ p {
   background-color: #3399ff;
 }
 
-
 /* =================================== */
-/* 3ページ目 独自スタイル */
+/* 3ページ目 独自スタイル 完全版（高さ揃え & 余白調整） */
 /* =================================== */
 
-/* スポット表示コンテナ */
 #spotContainer {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
-  gap: 24px; /* カード間の余白 */
-  margin-bottom: 40px;
-  padding: 0 16px;
+  align-items: stretch; /* 高さを揃える */
+  gap: 20px; /* カード間隔 */
+  padding: 16px;
+  flex-wrap: nowrap;
+  overflow-x: visible;
 }
 
-/* 個々のスポットカード */
+/* ラッパー：距離ラベル＋カード */
+.spot-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 距離ラベル */
+.spot-distance-label {
+  font-size: 13px;
+  color: #0066cc;
+  margin-bottom: 12px; /* カードとの間隔を広げる */
+  font-weight: bold;
+  text-align: center;
+}
+
+/* スポットカード */
 .spot-item {
-  width: 320px; /* カード幅を広めに設定 */
+  flex: 1 1 auto;
+  width: 280px;
   background-color: #ffffff;
-  border: 2px solid #e0e0e0;
+  border: 1px solid #ddd;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   transition: all 0.25s ease-in-out;
-  text-align: left; /* カード内のテキストは左揃え */
-  overflow: hidden; /* 画像の角を丸くするため */
+  overflow: hidden;
 }
 
-/* カードのホバー効果 */
+/* ホバー時 */
 .spot-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
+/* 画像 */
 .spot-item img {
   width: 100%;
-  height: 180px; /* 画像の高さを固定 */
-  object-fit: cover; /* 画像が引き伸ばされないように調整 */
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
   display: block;
 }
 
-/* カード内の詳細情報エリア */
+/* カード内の詳細情報 */
 .spot-details {
-  padding: 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 10px 12px;
 }
 
+/* タイトル */
 .spot-details h3.spot-name {
-  margin: 0 0 10px 0;
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+  line-height: 1.3;
   color: #333;
 }
 
+/* 説明文 */
 .spot-details p.spot-description {
   font-size: 14px;
   color: #555;
-  line-height: 1.6;
-  margin-bottom: 16px;
-  min-height: 60px; /* 説明文エリアの高さをある程度確保 */
+  line-height: 1.4;
+  margin: 0 0 8px 0; /* 説明文と追加情報の間隔を少し広げる */
+  min-height: 60px;
 }
 
+/* 追加情報 */
 .spot-details p.spot-info {
-  font-size: 13px;
+  font-size: 12px;
   color: #777;
-  margin: 6px 0;
-  border-top: 1px solid #f0f0f0;
-  padding-top: 6px;
+  margin: 6px 0 0 0; /* 上下の余白を広げて詰まりすぎない */
+  border-top: 1px solid #eee;
+  padding-top: 6px;  /* 線との間隔を広げる */
 }
 
 .spot-details p.spot-info a {
@@ -122,18 +151,32 @@ p {
   text-decoration: none;
   font-weight: bold;
 }
+
 .spot-details p.spot-info a:hover {
   text-decoration: underline;
 }
 
+/* 段落調整 */
+.spot-details p {
+  margin: 0;
+  line-height: 1.25;
+}
+
+.spot-details p + p {
+  margin-top: 4px;
+}
+
+/* 高さを揃える：JavaScriptで高さを設定可能 */
+.spot-item { display: flex; flex-direction: column; }
+
 /* 選択中のスポット */
 .spot-item.selected {
-  border-color: #4da6ff; /* 選択中であることが分かりやすいように枠線の色を変更 */
+  border-color: #4da6ff;
   transform: scale(1.03);
   box-shadow: 0 8px 20px rgba(77, 166, 255, 0.4);
 }
 
-/* 候補がない場合のメッセージ */
+/* 候補がない場合 */
 .no-results {
   width: 100%;
   padding: 40px 20px;
@@ -142,7 +185,7 @@ p {
   color: #777;
 }
 
-/* 次へボタン (IDを#nextBtnに変更) */
+/* 次へボタン */
 #nextBtn {
   width: 200px;
   padding: 14px;
