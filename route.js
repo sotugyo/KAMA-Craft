@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lng: parseFloat(step1Data.lng),
             // step1/step2のデータには詳細情報がない場合があるため、デフォルト値を設定
             website: step1Data.website || '#', 
-            opening_hours: step1Data.openingHours || '不明',
-            rating: step1Data.coolLevel || 'N/A' 
+            opening_hours: step1Data.openingHours || '不明',// area.jsでの名称
+            rating: step1Data.coolLevel || 'N/A' // area.jsでの名称
         });
     }
 
@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lng: parseFloat(step2Data.lng),
             // step1/step2のデータには詳細情報がない場合があるため、デフォルト値を設定
             website: step2Data.website || '#', 
-            opening_hours: step2Data.openingHours || '不明',
-            rating: step2Data.coolLevel || 'N/A' 
+            opening_hours: step2Data.openingHours || '不明',// area.jsでの名称
+            rating: step2Data.coolLevel || 'N/A' // area.jsでの名称
         });
     }
 
@@ -172,24 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-        // ルートサマリーメッセージを挿入
-        const overallRouteMessage = generateOverallRouteMessage(spots, durations);
-        if (overallRouteMessage) {
-              const messageHtml = `
-                 <div class="overall-route-message">
-                     移動区間の所要時間によっては、それぞれのスポット滞在時間と所要時間を短くしても良いかもしれません。
-                     <a href="属性.html" style="font-size:12px; font-weight:normal; color:#0066cc; text-decoration:underline;">
-                         ※滞在時間をクリックしたら決めれるホームに戻るような設定
-                     </a>
-                 </div>
-                 <div class="route-summary">
-                     ${overallRouteMessage}
-                 </div>
-               `;
-               messageContainer.insertAdjacentHTML('beforeend', messageHtml);
-        }
-    }
-
     // 言語切り替え時の動的要素の更新
     window.updateLanguage = function(lang) {
         currentLang = lang;
