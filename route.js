@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // OpenRouteService APIキーとURL
     const orsApiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjU4ZjE5YTkzYmJlNTRiYTI5MzgyMWNkNjAyM2M0NzRjIiwiaCI6Im11cm11cjY0In0=";
-    const orsUrl = "https://api.openrouteservice.org/v2/directions/foot-walking/geojson";
+    const orsUrl = "[https://api.openrouteservice.org/v2/directions/foot-walking/geojson](https://api.openrouteservice.org/v2/directions/foot-walking/geojson)";
 
     let currentLang = localStorage.getItem('siteLanguage') || 'ja';
 
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const routeSpots = [];
 
-    // ===== スポットデータ収集 =====
+    // ===== スタートスポット =====
     if (step1Data?.lat && step1Data?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === step1Data.name.ja);
         routeSpots.push({
@@ -48,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ===== 穴場スポット =====
     if (hiddenData?.lat && hiddenData?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === hiddenData.name.ja);
         routeSpots.push({
@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ===== ゴールスポット =====
     if (step2Data?.lat && step2Data?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === step2Data.name.ja);
         routeSpots.push({
@@ -121,15 +122,18 @@ document.addEventListener('DOMContentLoaded', () => {
         spots.forEach((spot, index) => {
             const isLast = index === spots.length - 1;
             const spotName = spot.name[currentLang] || spot.name.ja || spot.label;
-
+            
             // ★修正1: imgタグを文字列で囲む★
-            const imageHtml = spot.img ? `<img src="${spot.img}" alt="${spotName}">` :
-            `<div style="text-align:center;font-size:18px;color:#444;font-weight:bold;margin-top:35px;position:relative;z-index:10;">
-                ${spotName.replace('地点','').replace('スポット','')}
-            </div>`;
+            const imageHtml = spot.img 
+                ? `<img src="${spot.img}" alt="${spotName}">` 
+                : `<div style="text-align:center;font-size:18px;color:#444;font-weight:bold;margin-top:35px;position:relative;z-index:10;">
+                    ${spotName.replace('地点','').replace('スポット','')}
+                </div>`;
 
             // ★修正2: descriptionのpタグを文字列で囲む★
-            const descriptionHtml = spot.description ? `<p class="spot-desc-dynamic">${spot.description}</p>` : '';
+            const descriptionHtml = spot.description 
+                ? `<p class="spot-desc-dynamic">${spot.description}</p>` 
+                : '';
 
             const cardHtml = `
                 <div class="spot-card">
@@ -160,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // ★固定文すべて削除済み★
         const overallRouteMessage = generateOverallRouteMessage(spots, durations);
         if (overallRouteMessage) {
             messageContainer.insertAdjacentHTML('beforeend', `
@@ -177,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const coords = routeSpots.filter(s => s.lat && s.lng).map(s => [s.lng, s.lat]);
 
-    // ===== ルート描画処理 =====
     if (coords.length >= 2) {
         fetch(orsUrl, {
             method: "POST",
@@ -187,28 +191,14 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify({ coordinates: coords })
         })
-        .then(res => {
-            // ステータスコードが4xx/5xxの場合はエラーメッセージを表示
-            if (!res.ok) {
-                console.error(`ORS API Error: ${res.status} ${res.statusText}`);
-                return res.json().then(errorData => {
-                    console.error("ORS API詳細エラー:", errorData);
-                    throw new Error("ORS APIからのエラーレスポンス");
-                });
-            }
-            return res.json();
-        })
+        .then(res => res.json())
         .then(data => {
             if (data.features && data.features.length > 0) {
-                // ルート描画
                 if (routeLayer) map.removeLayer(routeLayer);
                 routeLayer = L.geoJSON(data, { style: { color:"#4da6ff", weight:4 }}).addTo(map);
-                
-                // 地図の範囲をルートに合わせる
                 const routeBounds = routeLayer.getBounds();
                 if (routeBounds.isValid()) map.fitBounds(routeBounds, {padding:[30,30]});
 
-                // 所要時間を取得してカードを更新
                 const segments = data.features[0]?.properties?.segments || [];
                 const durations = segments.map(seg => seg.duration);
                 document.getElementById('spot-cards-container').dataset.durations = JSON.stringify(durations);
