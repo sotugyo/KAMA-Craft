@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const orsApiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjU4ZjE5YTkzYmJlNTRiYTI5MzgyMWNkNjAyM2M0NzRjIiwiaCI6Im11cm11cjY0In0=";
-    const orsUrl = "[https://api.openrouteservice.org/v2/directions/foot-walking/geojson](https://api.openrouteservice.org/v2/directions/foot-walking/geojson)";
+    const orsUrl = "https://api.openrouteservice.org/v2/directions/foot-walking/geojson";
 
     let currentLang = localStorage.getItem('siteLanguage') || 'ja';
 
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return message;
     }
 
-    // ===== スポットカード作成 (修正済み) =====
+    // ===== スポットカード作成 =====
     function createSpotCards(spots, durations = []) {
         const container = document.getElementById('spot-cards-container');
         const messageContainer = document.getElementById('overall-route-message-container');
@@ -122,28 +122,18 @@ document.addEventListener('DOMContentLoaded', () => {
         spots.forEach((spot, index) => {
             const isLast = index === spots.length - 1;
             const spotName = spot.name[currentLang] || spot.name.ja || spot.label;
-            
-            // ★修正1: imgタグを文字列で囲む★
-            const imageHtml = spot.img 
-                ? `<img src="${spot.img}" alt="${spotName}">` 
-                : `<div style="text-align:center;font-size:18px;color:#444;font-weight:bold;margin-top:35px;position:relative;z-index:10;">
-                    ${spotName.replace('地点','').replace('スポット','')}
-                </div>`;
-
-            // ★修正2: descriptionのpタグを文字列で囲む★
-            const descriptionHtml = spot.description 
-                ? `<p class="spot-desc-dynamic">${spot.description}</p>` 
-                : '';
-
             const cardHtml = `
                 <div class="spot-card">
                     <h4 class="card-label">${spot.label}</h4>
                     <a href="${spot.website}" target="_blank" class="image-link-container" title="${spotName}の公式サイトへ">
-                        ${imageHtml}
+                        ${spot.img ? `<img src="${spot.img}" alt="${spotName}">` :
+                        `<div style="text-align:center;font-size:18px;color:#444;font-weight:bold;margin-top:35px;position:relative;z-index:10;">
+                            ${spotName.replace('地点','').replace('スポット','')}
+                        </div>`}
                     </a>
                     <div class="spot-info">
                         <h4 class="spot-name-dynamic"><span style="font-size:14px;color:#999;">${spot.label}: </span>${spotName}</h4>
-                        ${descriptionHtml}
+                        ${spot.description ? `<p class="spot-desc-dynamic">${spot.description}</p>` : ''}
                         <p>営業時間: <strong>${spot.opening_hours}</strong></p>
                         <p>涼しさ: <strong>${spot.rating}</strong></p>
                     </div>
