@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const orsApiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjU4ZjE5YTkzYmJlNTRiYTI5MzgyMWNkNjAyM2M0NzRjIiwiaCI6Im11cm11cjY0In0=";
     const orsUrl = "https://api.openrouteservice.org/v2/directions/foot-walking/geojson";
 
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const routeSpots = [];
 
-    // ===== スタートスポット (キー名と優先度を修正) =====
+    // ===== スタートスポット =====
     if (step1Data?.lat && step1Data?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === step1Data.name.ja);
         routeSpots.push({
@@ -41,14 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
             img: step1Data.img || '',
             lat: parseFloat(step1Data.lat),
             lng: parseFloat(step1Data.lng),
-            website: step1Data.url || '#',
-            opening_hours: step1Data.hours || (rowIndex >= 0 ? sheetData[rowIndex][10] : '不明'),
-            rating: step1Data.coolness || (rowIndex >= 0 ? sheetData[rowIndex][9] : 'N/A'),
-            description: step1Data.description || (rowIndex >= 0 ? sheetData[rowIndex][descriptionCol] : '')
+            website: step1Data.website || '#',
+            opening_hours: rowIndex >= 0 ? sheetData[rowIndex][10] : step1Data.openingHours || '不明',
+            rating: rowIndex >= 0 ? sheetData[rowIndex][9] : step1Data.coolLevel || 'N/A',
+            description: rowIndex >= 0 ? sheetData[rowIndex][descriptionCol] : step1Data.description || ''
         });
     }
 
-    // ===== 穴場スポット (キー名と優先度を修正) =====
+    // ===== 穴場スポット =====
     if (hiddenData?.lat && hiddenData?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === hiddenData.name.ja);
         routeSpots.push({
@@ -57,14 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
             img: hiddenData.img || '',
             lat: parseFloat(hiddenData.lat),
             lng: parseFloat(hiddenData.lng),
-            website: hiddenData.url || '#',
-            opening_hours: hiddenData.hours || (rowIndex >= 0 ? sheetData[rowIndex][10] : '不明'),
-            rating: hiddenData.coolness || (rowIndex >= 0 ? sheetData[rowIndex][9] : 'N/A'),
+            website: hiddenData.website || '#',
+            opening_hours: rowIndex >= 0 ? sheetData[rowIndex][10] : hiddenData.openingHours || '不明',
+            rating: rowIndex >= 0 ? sheetData[rowIndex][9] : hiddenData.coolLevel || 'N/A',
             description: rowIndex >= 0 ? sheetData[rowIndex][descriptionCol] : hiddenData.description || ''
         });
     }
 
-    // ===== ゴールスポット (キー名と優先度を修正) =====
+    // ===== ゴールスポット =====
     if (step2Data?.lat && step2Data?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === step2Data.name.ja);
         routeSpots.push({
@@ -73,10 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
             img: step2Data.img || '',
             lat: parseFloat(step2Data.lat),
             lng: parseFloat(step2Data.lng),
-            website: step2Data.url || '#',
-            opening_hours: step2Data.hours || (rowIndex >= 0 ? sheetData[rowIndex][10] : '不明'),
-            rating: step2Data.coolness || (rowIndex >= 0 ? sheetData[rowIndex][9] : 'N/A'),
-            description: step2Data.description || (rowIndex >= 0 ? sheetData[rowIndex][descriptionCol] : '')
+            website: step2Data.website || '#',
+            opening_hours: rowIndex >= 0 ? sheetData[rowIndex][10] : step2Data.openingHours || '不明',
+            rating: rowIndex >= 0 ? sheetData[rowIndex][9] : step2Data.coolLevel || 'N/A',
+            description: rowIndex >= 0 ? sheetData[rowIndex][descriptionCol] : step2Data.description || ''
         });
     }
 
@@ -112,8 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return message;
     }
 
-
-    // ★★★ ここを修正しました ★★★
     // ===== スポットカード作成 =====
     function createSpotCards(spots, durations = []) {
         const container = document.getElementById('spot-cards-container');
@@ -129,19 +126,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="spot-card">
                     <h4 class="card-label">${spot.label}</h4>
                     <a href="${spot.website}" target="_blank" class="image-link-container" title="${spotName}の公式サイトへ">
-                        ${spot.img ? 
-                            <img src="${spot.img}" alt="${spotName}"> :
-                            `<div style="text-align:center;font-size:18px;color:#444;font-weight:bold;margin-top:35px;position:relative;z-index:10;">
-                                ${spotName.replace('地点','').replace('スポット','')}
-                            </div>`
-                        }
+                        ${spot.img ? <img src="${spot.img}" alt="${spotName}"> :
+                        `<div style="text-align:center;font-size:18px;color:#444;font-weight:bold;margin-top:35px;position:relative;z-index:10;">
+                            ${spotName.replace('地点','').replace('スポット','')}
+                        </div>`}
                     </a>
                     <div class="spot-info">
                         <h4 class="spot-name-dynamic"><span style="font-size:14px;color:#999;">${spot.label}: </span>${spotName}</h4>
-                        ${spot.description ? 
-                            <p class="spot-desc-dynamic">${spot.description}</p> : 
-                            ''
-                        }
+                        ${spot.description ? <p class="spot-desc-dynamic">${spot.description}</p> : ''}
                         <p>営業時間: <strong>${spot.opening_hours}</strong></p>
                         <p>涼しさ: <strong>${spot.rating}</strong></p>
                     </div>
@@ -162,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // ★固定文すべて削除済み★
         const overallRouteMessage = generateOverallRouteMessage(spots, durations);
         if (overallRouteMessage) {
             messageContainer.insertAdjacentHTML('beforeend', `
