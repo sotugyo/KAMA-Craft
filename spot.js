@@ -1,10 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
   const sheetURL = "https://docs.google.com/spreadsheets/d/1w5waa7_xUlB-_wt0TfLhDw48ehg86yl6/gviz/tq?sheet=穴場&headers=1&tq=";
   const spotContainer = document.getElementById('spotContainer');
-  const nextBtn = document.getElementById('nextBtn');
+  const nextBtn = document.getElementById('next-step'); // ←ここ修正！
   let currentLang = 'ja';
   let recommendedSpots = [];
   const langButtons = document.querySelectorAll('#language-switcher button');
+
+  const buttonTexts = {
+  ja: { inactive: '穴場スポットを選んでください', active: '次へ' },
+  en: { inactive: 'Please select a hidden spot', active: 'Next' },
+  cn: { inactive: '请选择一个隐藏景点', active: '下一步' }
+};
+
+// --- 次ボタン更新関数 ---
+ function updateNextButton() {
+   const hiddenSpot = localStorage.getItem('hiddenSpot');
+   const enabled = hiddenSpot !== null;
+
+   nextBtn.disabled = !enabled;
+   nextBtn.querySelector('.lang-ja').textContent = enabled
+     ? buttonTexts.ja.active
+     : buttonTexts.ja.inactive;
+   nextBtn.querySelector('.lang-en').textContent = enabled
+     ? buttonTexts.en.active
+     : buttonTexts.en.inactive;
+   nextBtn.querySelector('.lang-cn').textContent = enabled
+     ? buttonTexts.cn.active
+     : buttonTexts.cn.inactive;
+ }
 
   const userAttributes = JSON.parse(localStorage.getItem('userAttributes') || '{}');
   const step1Spot = JSON.parse(localStorage.getItem('step1Spot') || 'null');
@@ -166,11 +189,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function selectSpot(spot, div) {
-    document.querySelectorAll('.spot-item').forEach(d => d.classList.remove('selected'));
-    div.classList.add('selected');
-    localStorage.setItem('hiddenSpot', JSON.stringify(spot));
-  }
+  // --- スポット選択処理 ---
+    function selectSpot(spot, div) {
+      document.querySelectorAll('.spot-item').forEach(d => d.classList.remove('selected'));
+      div.classList.add('selected');
+      localStorage.setItem('hiddenSpot', JSON.stringify(spot));
+      updateNextButton(); // ←ここ大事！
+    }
 
   langButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -179,13 +204,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      if (!localStorage.getItem('hiddenSpot')) {
-        alert('穴場スポットを1つ選んでください');
-        return;
-      }
-      window.location.href = 'route.html';
-    });
-  }
-});
+  // --- 次ボタンクリック ---
+   if (nextBtn) {
+     nextBtn.addEventListener('click', () => {
+       const hiddenSpot = localStorage.getItem('hiddenSpot');
+       if (!hiddenSpot) {
+         alert('穴場スポットを選んでください');
+         return;
+       }
+       window.location.href = 'route.html';
+     });
+   }
+ });
