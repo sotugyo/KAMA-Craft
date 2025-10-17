@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentLang = localStorage.getItem('siteLanguage') || 'ja';
 
-    // ===== コンソールでローカルストレージ確認 =====
+    // ===== コンソールでローカルストレージ確認 (デバッグ用なのでそのまま残します) =====
     console.log("=== step1Spot ===");
     console.log(JSON.parse(localStorage.getItem('step1Spot') || '{}'));
 
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return message;
     }
 
-    // ===== スポットカード作成 =====
+    // ===== スポットカード作成 (説明文の出力処理を削除済み) =====
     function createSpotCards(spots, durations = []) {
         const container = document.getElementById('spot-cards-container');
         const messageContainer = document.getElementById('overall-route-message-container');
@@ -122,17 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
         spots.forEach((spot, index) => {
             const isLast = index === spots.length - 1;
             const spotName = spot.name[currentLang] || spot.name.ja || spot.label;
-     // ★★★ 修正ポイント: 説明文を文字列として取得する ★★★
-        let spotDescription = '';
-        if (typeof spot.description === 'object' && spot.description !== null) {
-            // オブジェクトの場合、現在の言語の文字列を取得
-            spotDescription = spot.description[currentLang] || spot.description.ja || '';
-        } else if (typeof spot.description === 'string') {
-            // 文字列の場合はそのまま使用
-            spotDescription = spot.description;
-        }
-        // ★★★ 修正ポイント終わり ★★★
-
+            
+            // ★★★ 修正済み: spot.descriptionを出力する行を削除 ★★★
+            
             const cardHtml = `
                 <div class="spot-card">
                     <h4 class="card-label">${spot.label}</h4>
@@ -144,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                     <div class="spot-info">
                         <h4 class="spot-name-dynamic"><span style="font-size:14px;color:#999;">${spot.label}: </span>${spotName}</h4>
-                        ${spot.description ? `<p class="spot-desc-dynamic">${spot.description}</p>` : ''}
                         <p>営業時間: <strong>${spot.opening_hours}</strong></p>
                         <p>涼しさ: <strong>${spot.rating}</strong></p>
                     </div>
