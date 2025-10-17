@@ -1,89 +1,141 @@
-@charset "UTF-8";
+/* ======================================== */
+/* 基本設定 (area.css から継承)            */
+/* ======================================== */
+:root {
+  --base-bg: #fffaf5;       /* 背景クリーム色 */
+  --main-blue: #3A6A8A;     /* 濃い青 */
+  --accent-blue: #4da6ff;   /* 選択/ボタン用の明るい青 */
+  --text-dark: #333333;     /* 文字黒 */
+  --text-light: #FFFFFF;
+  --border-color: #DDDDDD;  /* カード境界色 */
+}
 
-/* 基本設定 */
 body {
-  font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
-  text-align: center;
-  background-color: #fffaf5;
   margin: 0;
-  padding: 20px 20px 40px;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--base-bg);
+  color: var(--text-dark);
 }
 
-h1 {
-  font-size: 28px;
-  color: #0066cc;
-  font-weight: bold;
-  margin: 30px 0 15px;
-  border-bottom: 3px solid #0066cc;
-  display: inline-block;
-  padding-bottom: 6px;
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-p {
-  font-size: 16px;
-  margin-bottom: 30px;
+/* ======================================== */
+/* ヒーローセクション（ヘッダー & 言語切替） */
+/* ======================================== */
+.hero-section {
+  min-height: 30vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--text-light);
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+              url('images/title-bg2.jpg') center/cover no-repeat;
 }
 
+.hero-content h1 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+
+.hero-content p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+
+/* --- 言語切替ボタン --- */
 #language-switcher {
-  position: fixed;
-  top: 16px;
-  right: 16px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
   z-index: 1000;
 }
 
 #language-switcher button {
-  margin-left: 8px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #4da6ff;
-  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--text-light);
+  color: var(--text-light);
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-left: 10px;
   cursor: pointer;
-  font-size: 14px;
   transition: background-color 0.2s;
+  font-size: 14px;
 }
 
 #language-switcher button:hover {
-  background-color: #3399ff;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
-/* =================================== */
-/* 3ページ目 独自スタイル 完全版（高さ揃え & 余白調整） */
-/* =================================== */
+/* ======================================== */
+/* スポットカードエリア                      */
+/* ======================================== */
+.spot-selection-section {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 40px 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
 
+.spot-selection-section h1 {
+  font-size: 1.8rem;
+  color: var(--main-blue);
+  margin: 0 0 10px;
+  border-bottom: 2px solid var(--main-blue);
+  display: inline-block;
+  padding-bottom: 6px;
+  font-weight: bold;
+}
+
+.spot-selection-section p {
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* --- スポット一覧 --- */
 #spotContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: stretch; /* 高さを揃える */
-  gap: 20px; /* カード間隔 */
-  padding: 16px;
+  align-items: stretch;
+  gap: 20px;
   flex-wrap: nowrap;
   overflow-x: visible;
 }
 
-/* ラッパー：距離ラベル＋カード */
 .spot-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-shrink: 0;
 }
 
 /* 距離ラベル */
 .spot-distance-label {
-  font-size: 13px;
-  color: #0066cc;
-  margin-bottom: 12px; /* カードとの間隔を広げる */
+  font-size: 0.8rem;
+  color: var(--main-blue);
+  margin-bottom: 12px;
   font-weight: bold;
   text-align: center;
 }
 
-/* スポットカード */
+/* --- カード --- */
 .spot-item {
   flex: 1 1 auto;
   width: 280px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
+  background-color: #fff;
+  border: 2px solid var(--border-color);
   border-radius: 12px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.08);
   text-align: left;
@@ -92,91 +144,78 @@ p {
   justify-content: flex-start;
   transition: all 0.25s ease-in-out;
   overflow: hidden;
+  cursor: pointer;
 }
 
-/* ホバー時 */
 .spot-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
-/* 画像 */
 .spot-item img {
   width: 100%;
   height: 180px;
   object-fit: cover;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  border-radius: 12px 12px 0 0;
   display: block;
 }
 
-/* カード内の詳細情報 */
 .spot-details {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 10px 12px;
+  padding: 15px;
 }
 
-/* タイトル */
-.spot-details h3.spot-name {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 6px 0;
+.spot-details h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0 0 8px 0;
   line-height: 1.3;
-  color: #333;
+  color: var(--text-dark);
 }
 
-/* 説明文 */
 .spot-details p.spot-description {
-  font-size: 14px;
+  font-size: 0.9rem;
   color: #555;
-  line-height: 1.4;
-  margin: 0 0 8px 0; /* 説明文と追加情報の間隔を少し広げる */
+  line-height: 1.5;
+  margin: 0 0 10px 0;
   min-height: 60px;
 }
 
-/* 追加情報 */
-.spot-details p.spot-info {
-  font-size: 12px;
-  color: #777;
-  margin: 6px 0 0 0; /* 上下の余白を広げて詰まりすぎない */
-  border-top: 1px solid #eee;
-  padding-top: 6px;  /* 線との間隔を広げる */
-}
-
-.spot-details p.spot-info a {
-  color: #0066cc;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.spot-details p.spot-info a:hover {
-  text-decoration: underline;
-}
-
-/* 段落調整 */
 .spot-details p {
+  font-size: 0.85rem;
+  color: #555;
   margin: 0;
-  line-height: 1.25;
+  line-height: 1.5;
+}
+
+.spot-details p strong {
+  color: var(--text-dark);
 }
 
 .spot-details p + p {
   margin-top: 4px;
 }
 
-/* 高さを揃える：JavaScriptで高さを設定可能 */
-.spot-item { display: flex; flex-direction: column; }
-
-/* 選択中のスポット */
-.spot-item.selected {
-  border-color: #4da6ff;
-  transform: scale(1.03);
-  box-shadow: 0 8px 20px rgba(77, 166, 255, 0.4);
+.spot-details p a {
+  color: var(--main-blue);
+  text-decoration: underline;
+  font-weight: normal;
 }
 
-/* 候補がない場合 */
+.spot-details p a:hover {
+  color: var(--main-blue);
+  text-decoration: none;
+}
+
+.spot-item.selected {
+  border-color: var(--accent-blue);
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(77, 166, 255, 0.4);
+}
+
 .no-results {
   width: 100%;
   padding: 40px 20px;
@@ -185,22 +224,55 @@ p {
   color: #777;
 }
 
-/* 次へボタン */
-#nextBtn {
-  width: 200px;
-  padding: 14px;
-  font-size: 17px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  background-color: #4da6ff;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 30px;
-  transition: all 0.2s;
+/* --- 選択状態 --- */
+.spot-item.selected {
+  border-color: var(--main-blue);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(58, 106, 138, 0.3);
 }
 
-#nextBtn:hover {
-  background-color: #3399ff;
-  transform: scale(1.05);
+/* --- 無効状態 --- */
+.spot-item.disabled {
+  opacity: 0.4;
+  border-color: #e0e0e0;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ======================================== */
+/* 「次へ進む」ボタン                        */
+/* ======================================== */
+#next-step {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 40px auto 0;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text-light);
+  background-color: var(--main-blue);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+  box-shadow: 0 4px 10px rgba(58, 106, 138, 0.3);
+}
+
+#next-step:hover {
+  opacity: 0.9;
+}
+
+/* 無効状態のボタン */
+#next-step:disabled {
+  background-color: #B0C4DE; /* 1ページ目と同色 */
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* KAMA-Craftタイトルをクリック可能にする */
+#title {
+  cursor: pointer;      /* ポインターを手に */
+  position: relative;   /* z-indexを効かせるため必要 */
+  z-index: 10;          /* 他要素より前面に表示 */
 }
