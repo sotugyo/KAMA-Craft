@@ -122,6 +122,17 @@ document.addEventListener('DOMContentLoaded', () => {
         spots.forEach((spot, index) => {
             const isLast = index === spots.length - 1;
             const spotName = spot.name[currentLang] || spot.name.ja || spot.label;
+     // ★★★ 修正ポイント: 説明文を文字列として取得する ★★★
+        let spotDescription = '';
+        if (typeof spot.description === 'object' && spot.description !== null) {
+            // オブジェクトの場合、現在の言語の文字列を取得
+            spotDescription = spot.description[currentLang] || spot.description.ja || '';
+        } else if (typeof spot.description === 'string') {
+            // 文字列の場合はそのまま使用
+            spotDescription = spot.description;
+        }
+        // ★★★ 修正ポイント終わり ★★★
+
             const cardHtml = `
                 <div class="spot-card">
                     <h4 class="card-label">${spot.label}</h4>
