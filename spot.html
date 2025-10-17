@@ -7,6 +7,19 @@
   <link rel="stylesheet" href="spot.css">
 </head>
 <body>
+
+  <!-- ===== ヘッダーエリア ===== -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <h1 id="title">KAMA-Craft</h1>
+      <p id="description">
+        <span class="lang-ja">創る、あなただけの鎌倉旅</span>
+        <span class="lang-en" hidden>Create your own Kamakura trip</span>
+        <span class="lang-cn" hidden>创造您自己的镰仓之旅</span>
+      </p>
+    </div>
+  </header>
+
   <!-- 言語切替ボタン -->
   <div id="language-switcher">
     <button data-lang="ja">日本語</button>
@@ -33,12 +46,14 @@
     <!-- JSでジャンルに合った3つのスポットをランダム表示 -->
   </div>
 
-  <!-- 次へ進むボタン -->
-  <button id="nextBtn">
-    <span class="lang-ja">次へ</span>
-    <span class="lang-en" style="display:none">Next</span>
-    <span class="lang-cn" style="display:none">下一步</span>
-  </button>
+  <!-- 次へボタン -->
+     <button id="next-step" disabled>
+       <span class="lang-ja">穴場スポットを選んでください</span>
+       <span class="lang-en" hidden>Please select a hidden spot</span>
+       <span class="lang-cn" hidden>请选择一个隐藏景点</span>
+     </button>
+
+
 
   <!-- JSを最後に読み込む -->
   <script>
@@ -60,6 +75,33 @@
         });
       });
     });
+
+    // --- 次ボタン制御 ---
+    function updateNextButton() {
+    const hiddenSpot = localStorage.getItem('hiddenSpot');
+    const enabled = hiddenSpot !== null; // ← nullでなければOK
+
+    const t = buttonTexts[currentLang];
+    nextBtn.querySelector('.lang-ja').textContent = enabled ? buttonTexts.ja.active : buttonTexts.ja.inactive;
+    nextBtn.querySelector('.lang-en').textContent = enabled ? buttonTexts.en.active : buttonTexts.en.inactive;
+    nextBtn.querySelector('.lang-cn').textContent = enabled ? buttonTexts.cn.active : buttonTexts.cn.inactive;
+
+    nextBtn.disabled = !enabled; // ← これも忘れずに！
+  }
+
+  // --- タイトルクリックで戻る --
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.getElementById('title');
+  titleElement.addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
+
+
+  // --- 次のページへ ---
+  nextBtn.addEventListener('click', () => {
+    if (!nextBtn.disabled) window.location.href = 'route.html';
+  });
+});
   </script>
   <script src="spot.js"></script>
 </body>
