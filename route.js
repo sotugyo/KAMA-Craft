@@ -40,10 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
             img: step1Data.img || '',
             lat: parseFloat(step1Data.lat),
             lng: parseFloat(step1Data.lng),
-            website: step1Data.website || '#',
-            opening_hours: rowIndex >= 0 ? sheetData[rowIndex][10] : step1Data.openingHours || '不明',
-            rating: rowIndex >= 0 ? sheetData[rowIndex][9] : step1Data.coolLevel || 'N/A',
-            description: rowIndex >= 0 ? sheetData[rowIndex][descriptionCol] : step1Data.description || ''
+            website: step1Data.url || '#',
+            opening_hours: step1Data.hours || (rowIndex >= 0 ? sheetData[rowIndex][10] : '不明'),            
+            rating:  step1Data.coolness || (rowIndex >= 0 ? sheetData[rowIndex][9] : 'N/A'),
+            description: step1Data.description || (rowIndex >= 0 ? sheetData[rowIndex][descriptionCol] : '')
         });
     }
 
@@ -72,10 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
             img: step2Data.img || '',
             lat: parseFloat(step2Data.lat),
             lng: parseFloat(step2Data.lng),
-            website: step2Data.website || '#',
-            opening_hours: rowIndex >= 0 ? sheetData[rowIndex][10] : step2Data.openingHours || '不明',
-            rating: rowIndex >= 0 ? sheetData[rowIndex][9] : step2Data.coolLevel || 'N/A',
-            description: rowIndex >= 0 ? sheetData[rowIndex][descriptionCol] : step2Data.description || ''
+            website: step2Data.url || '#',
+            opening_hours: step2Data.hours || (rowIndex >= 0 ? sheetData[rowIndex][10] : '不明'),
+            rating: step2Data.coolness || (rowIndex >= 0 ? sheetData[rowIndex][9] : 'N/A'),
+            description:  step2Data.description || (rowIndex >= 0 ? sheetData[rowIndex][descriptionCol] : '')
         });
     }
 
