@@ -21,24 +21,25 @@
     </style>
 </head>
 <body>
+<!-- ===== ヘッダーエリア ===== -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <h1 id="title">KAMA-Craft</h1>
+      <p id="description">
+        <span class="lang-ja">創る、あなただけの鎌倉旅</span>
+        <span class="lang-en" hidden>Create your own Kamakura trip</span>
+        <span class="lang-cn" hidden>创造您自己的镰仓之旅</span>
+      </p>
+    </div>
+  </header>
+
     <div id="language-switcher">
         <button data-lang="ja">日本語</button>
         <button data-lang="en">English</button>
         <button data-lang="cn">中文</button>
     </div>
 
-    <header id="page-header">
-        <div id="header-top-bg">
-            <p id="logo-text">KAMA-Craft</p>
-            <p id="catch-phrase">
-                <span class="lang-ja">創る、あなただけの旅の鎌倉</span>
-                <span class="lang-en">Create your own KAMAKURA</span>
-                <span class="lang-cn">打造你的专属镰仓</span>
-            </p>
-            <div class="hill-separator"></div>
-        </div>
-
-        <div id="header-bottom-bg">
+           <div id="header-bottom-bg">
             <h2>
                 <span class="lang-ja">完成した旅のプランはこちら</span>
                 <span class="lang-en">Your complete travel plan</span>
@@ -85,8 +86,14 @@
                     el.style.display = 'block';
                 }
             });
+// --- タイトルクリックで戻る --
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.getElementById('title');
+  titleElement.addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
 
-            if (window.updateLanguage) {
+  if (window.updateLanguage) {
                 window.updateLanguage(lang);
             }
             localStorage.setItem('siteLanguage', lang);
