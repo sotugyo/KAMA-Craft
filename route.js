@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentLang = localStorage.getItem('siteLanguage') || 'ja';
 
-    // ===== コンソールでローカルストレージ確認 (デバッグ用なのでそのまま残します) =====
+    // ===== コンソールでローカルストレージ確認 =====
     console.log("=== step1Spot ===");
     console.log(JSON.parse(localStorage.getItem('step1Spot') || '{}'));
 
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (step1Data?.lat && step1Data?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === step1Data.name.ja);
         routeSpots.push({
-            label: { ja: "スタート", en: "Start", cn: "起点" },
+            label: "スタート",
             name: step1Data.name || {ja: 'スタート地点'},
             img: step1Data.img || '',
             lat: parseFloat(step1Data.lat),
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hiddenData?.lat && hiddenData?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === hiddenData.name.ja);
         routeSpots.push({
-            label: { ja: "穴場スポット", en: "Hidden Gem", cn: "私房景点" },
+            label: "穴場スポット",
             name: hiddenData.name || {ja: '穴場スポット'},
             img: hiddenData.img || '',
             lat: parseFloat(hiddenData.lat),
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (step2Data?.lat && step2Data?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === step2Data.name.ja);
         routeSpots.push({
-            label: { ja: "ゴール", en: "Goal", cn: "终点" },
+            label: "ゴール",
             name: step2Data.name || {ja: 'ゴール地点'},
             img: step2Data.img || '',
             lat: parseFloat(step2Data.lat),
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return message;
     }
 
-    // ===== スポットカード作成 (説明文の出力処理を削除済み) =====
+    // ===== スポットカード作成 =====
     function createSpotCards(spots, durations = []) {
         const container = document.getElementById('spot-cards-container');
         const messageContainer = document.getElementById('overall-route-message-container');
@@ -121,17 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         spots.forEach((spot, index) => {
             const isLast = index === spots.length - 1;
-            const spotLabel = typeof spot.label === 'object' ? (spot.label[currentLang] || spot.label.ja) : spot.label;
             const spotName = spot.name[currentLang] || spot.name.ja || spot.label;
-
-            let spotDescription = '';
-            if (typeof spot.description === 'object' && spot.description !== null) {
-                spotDescription = spot.description[currentLang] || spot.description.ja || '';
-            } else if (typeof spot.description === 'string') {
-                spotDescription = spot.description;
-            }
-            // ★★★ 修正済み: spot.descriptionを出力する行を削除 ★★★
-            
             const cardHtml = `
                 <div class="spot-card">
                     <h4 class="card-label">${spot.label}</h4>
@@ -143,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                     <div class="spot-info">
                         <h4 class="spot-name-dynamic"><span style="font-size:14px;color:#999;">${spot.label}: </span>${spotName}</h4>
+                        ${spot.description ? `<p class="spot-desc-dynamic">${spot.description}</p>` : ''}
                         <p>営業時間: <strong>${spot.opening_hours}</strong></p>
                         <p>涼しさ: <strong>${spot.rating}</strong></p>
                     </div>
