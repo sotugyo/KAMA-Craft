@@ -1,66 +1,83 @@
 @charset "UTF-8";
 
-/* =================================== */
-/* 基本設定とヘッダー */
-/* =================================== */
-body {
-    font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
-    text-align: center;
-    background-color: #fffaf5;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+/* ======================================== */
+/* 基本設定 (area.css から継承)            */
+/* ======================================== */
+:root {
+  --base-bg: #fffaf5;       /* 背景クリーム色 */
+  --main-blue: #3A6A8A;     /* 濃い青 */
+  --accent-blue: #4da6ff;   /* 選択/ボタン用の明るい青 */
+  --text-dark: #333333;     /* 文字黒 */
+  --text-light: #FFFFFF;
+  --border-color: #DDDDDD;  /* カード境界色 */
 }
 
+body {
+  margin: 0;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--base-bg);
+  color: var(--text-dark);
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* ======================================== */
+/* ヒーローセクション（ヘッダー & 言語切替） */
+/* ======================================== */
+.hero-section {
+  min-height: 30vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--text-light);
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+              url('images/title-bg2.jpg') center/cover no-repeat;
+}
+
+.hero-content h1 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+
+.hero-content p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+
+/* --- 言語切替ボタン --- */
 #language-switcher {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 1000;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
 #language-switcher button {
-    margin-left: 8px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background-color: #4da6ff;
-    color: #fff;
-    cursor: pointer;
-    font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--text-light);
+  color: var(--text-light);
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
 }
 
-#page-header {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px 15px 0;
+#language-switcher button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
-#logo-text {
-    font-size: 24px;
-    font-weight: bold;
-    color: #0066cc;
-    margin-bottom: 5px;
-}
-
-#catch-phrase {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.separator {
-    border: 0;
-    border-top: 1px solid #ddd;
-    margin: 10px 0;
-}
-
-h2 {
-    font-size: 24px;
-    color: #0066cc;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
 
 /* =================================== */
 /* 地図表示エリア */
@@ -193,7 +210,7 @@ h2 {
 
 /* 矢印を所要時間の上下に表示 */
 .route-time::before, .route-time::after {
-    content: "↓";
+    content: "→";
     display: block;
     font-size: 18px;
     color: #4da6ff;
