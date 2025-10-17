@@ -4,7 +4,7 @@
 /* 基本設定 (area.css から継承)            */
 /* ======================================== */
 :root {
-  --base-bg: #fffaf5;       /* 背景クリーム色 */
+  --base-bg: #fffaf5;       /* 背景クリーム色 (元) */
   --main-blue: #3A6A8A;     /* 濃い青 */
   --accent-blue: #4da6ff;   /* 選択/ボタン用の明るい青 */
   --text-dark: #333333;     /* 文字黒 */
@@ -12,11 +12,12 @@
   --border-color: #DDDDDD;  /* カード境界色 */
 }
 
+/* bodyをspot.cssに合わせて変更 */
 body {
   margin: 0;
   line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: var(--base-bg);
+  font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif; /* spot.cssのフォント */
+  background: #f9fbfd; /* spot.cssの背景色 */
   color: var(--text-dark);
 }
 
@@ -87,11 +88,12 @@ body {
 /* =================================== */
 /* 地図表示エリア */
 /* =================================== */
+/* 境界線を削除し、シンプルな背景色に */
 #map-container {
     padding: 10px 0;
-    background-color: #fff;
-    border-top: 1px dashed #4da6ff;
-    border-bottom: 1px dashed #4da6ff;
+    background-color: transparent; /* 背景を透明（bodyの#f9fbfdに合わせる） */
+    border-top: none; 
+    border-bottom: none;
 }
 
 #map {
@@ -101,20 +103,22 @@ body {
     border: 1px solid #e0e0e0;
     max-width: 800px;
     margin: 0 auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05); /* 軽い影を追加 */
 }
-
 
 
 /* =================================== */
 /* スポットカードとルート情報 */
 /* =================================== */
+/* spot-selection-sectionにデザインを合わせる */
 #route-details-section {
     padding: 30px 15px;
     background-color: #fff;
-    border: 2px solid #ccccff; /* 紫がかった枠線 */
+    border: 2px solid var(--border-color); /* border-colorで統一 */
     border-radius: 12px;
     max-width: 800px;
     margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* 影を追加 */
 }
 
 #spot-cards-container {
@@ -125,30 +129,34 @@ body {
     flex-wrap: nowrap;
 }
 
+/* spot-itemにデザインを合わせる */
 .spot-card {
     flex-basis: 31%;
     background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
+    border: 2px solid var(--border-color); /* 境界線の太さと色を調整 */
+    border-radius: 12px; /* 角を大きく */
     padding: 10px 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08); /* 影を強調 */
     text-align: center;
-    box-sizing: inline-block;
+    box-sizing: border-box; /* inline-blockから修正 */
     display: flex;
     flex-direction: column;
+    overflow: hidden; /* 画像の角を丸めるために必要 */
 }
 
 .card-label {
-    font-size: 16px;
-    color: #555 ;
+    font-size: 1rem; /* 少し大きく */
+    color: var(--main-blue) ; /* 色を調整 */
     margin: 0 0 10px;
+    font-weight: bold;
 }
 
 .image-link-container {
     display: block;
     height: 100px;
-    background: linear-gradient(to bottom, #ccf2ff 50%, #e6ffe6 100%);
-    border-radius: 6px;
+    /* 背景グラデーションを削除し、シンプルに */
+    background-color: #f0f0f0; 
+    border-radius: 8px; /* 角を調整 */
     margin-bottom: 10px;
     position: relative;
     overflow: hidden;
@@ -158,7 +166,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 8px; /* 角を調整 */
 }
 
 .spot-info {
@@ -168,15 +176,18 @@ body {
 }
 
 .spot-info h4 {
-    font-size: 15px;
+    font-size: 1.1rem; /* spot-itemのh3に合わせて調整 */
+    font-weight: bold;
     margin: 0 0 5px;
-    color: #333;
+    color: var(--text-dark); /* 色を調整 */
+    line-height: 1.3;
 }
 
 .spot-info p {
-    font-size: 13px;
+    font-size: 0.9rem; /* spot-itemのpに合わせて調整 */
+    color: #555;
     margin: 3px 0;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 
@@ -192,19 +203,19 @@ body {
 }
 
 .route-time {
-    font-size: 14px;
+    font-size: 1rem; /* 少し大きく */
     font-weight: bold;
-    color: #000000;
+    color: var(--main-blue); /* 色を調整 */
     white-space: nowrap;
     position: relative;
 }
 
 /* 矢印を所要時間の上下に表示 */
 .route-time::before, .route-time::after {
-    content: "→";
+    content: "↓"; /* 矢印の方向を修正 */
     display: block;
-    font-size: 18px;
-    color: #4da6ff;
+    font-size: 1.4rem; /* 少し大きく */
+    color: var(--accent-blue);
     margin: 5px 0;
 }
 
@@ -215,10 +226,11 @@ body {
 }
 
 .overall-route-message {
-    font-size: 14px;
+    font-size: 1rem; /* 少し大きく */
     color: #333;
     line-height: 1.5;
     margin-bottom: 15px;
+    font-weight: 500;
 }
 
 .route-summary {
@@ -230,19 +242,21 @@ body {
 }
 /* スポット名（ボタン風）と徒歩時間（矢印） */
 .route-summary > div {
-    font-size: 14px;
+    font-size: 0.9rem; /* 小さく */
     font-weight: bold;
     margin: 5px;
 }
 .route-summary-item {
     padding: 5px 10px;
-    border: 1px solid #0066cc;
+    border: 1px solid var(--main-blue); /* 色を調整 */
     border-radius: 4px;
-    background-color: #e6f7ff;
-    color: #0066cc;
+    background-color: #e6f7ff; /* 明るい青 */
+    color: var(--main-blue);
 }
 .route-summary-arrow {
-    color: #333;
+    color: #555; /* 色を調整 */
+    font-size: 1.2rem;
+    margin: 0 5px;
 }
 
 
@@ -267,26 +281,32 @@ body {
     /* ルート情報（所要時間） - スマホ表示: カードの間に縦方向で表示 */
     .route-info {
         flex-basis: 100%;
-        width: 90%;
+        width: 100%; /* 90%から100%に変更 */
         margin: 5px 0 15px;
         flex-direction: row; /* 横並びに戻す */
         justify-content: center;
-        border-top: 1px dashed #ccccff;
-        border-bottom: 1px dashed #ccccff;
+        /* 区切り線をメインカラーに合わせて調整 */
+        border-top: 1px dashed var(--main-blue); 
+        border-bottom: 1px dashed var(--main-blue);
         padding: 5px 0;
     }
 
     .route-time::before, .route-time::after {
-        display: none; /* 縦の矢印を非表示 */
+        content: none; /* PC用の縦の矢印を非表示 */
+        display: none;
     }
+    
     .route-time {
         position: relative;
     }
+    /* スマホ用に下の矢印を再追加 */
     .route-time::before {
-        content: "→"; /* 横の矢印を挿入 */
+        content: "↓"; 
         display: inline-block;
         margin-right: 8px;
-        font-size: 20px;
-        color: #4da6ff;
+        font-size: 1.4rem; /* PC矢印に合わせて調整 */
+        color: var(--accent-blue);
+        line-height: 1; /* 行の高さを調整 */
+        vertical-align: middle;
     }
 }
