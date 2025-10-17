@@ -1,130 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>完成した旅のプラン</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="route.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    /* ピンのラベルを常時表示 */
-    .leaflet-tooltip {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #4da6ff;
-      color: #000;
-      font-weight: bold;
-      padding: 2px 5px;
-      white-space: nowrap;
-      opacity: 1 !important;
-      border-radius: 4px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>完成した旅のプラン</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <link rel="stylesheet" href="route.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* ピンのラベルを常時表示 */
+    .leaflet-tooltip {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #4da6ff;
+      color: #000;
+      font-weight: bold;
+      padding: 2px 5px;
+      white-space: nowrap;
+      opacity: 1 !important;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ===== ヘッダーエリア ===== -->
-  <header class="hero-section">
-    <div class="hero-content">
-      <h1 id="title">KAMA-Craft</h1>
-      <p id="description">
-        <span class="lang-ja">創る、あなただけの鎌倉旅</span>
-        <span class="lang-en" hidden>Create your own Kamakura trip</span>
-        <span class="lang-cn" hidden>创造您自己的镰仓之旅</span>
-      </p>
-    </div>
+    <header class="hero-section">
+    <div class="hero-content">
+      <h1 id="title">KAMA-Craft</h1>
+      <p id="description">
+        <span class="lang-ja">創る、あなただけの鎌倉旅</span>
+        <span class="lang-en" hidden>Create your own Kamakura trip</span>
+        <span class="lang-cn" hidden>创造您自己的镰仓之旅</span>
+      </p>
+    </div>
 
-    <!-- 言語切替ボタン -->
-    <div id="language-switcher">
-      <button data-lang="ja">日本語</button>
-      <button data-lang="en">English</button>
-      <button data-lang="cn">中文</button>
-    </div>
+        <div id="language-switcher">
+      <button data-lang="ja">日本語</button>
+      <button data-lang="en">English</button>
+      <button data-lang="cn">中文</button>
+    </div>
+  </header>
 
-    <!-- ページタイトル -->
-    <div id="header-bottom-bg">
-      <h2>
-        <span class="lang-ja">完成した旅のプランはこちら</span>
-        <span class="lang-en" hidden>Your complete travel plan</span>
-        <span class="lang-cn" hidden>您的完整旅行计划</span>
-      </h2>
-      <hr class="dashed-separator">
-    </div>
-  </header>
+    <div id="page-step-title">
+    <h2>
+      <span class="lang-ja">ステップ4：プランが完成しました</span>
+      <span class="lang-en" hidden>Step 4: Your plan is complete</span>
+      <span class="lang-cn" hidden>第4步：您的计划已完成</span>
+    </h2>
+    <p class="sub-text">
+      <span class="lang-ja">以下のルートをご確認ください。</span>
+      <span class="lang-en" hidden>Please check the route below.</span>
+      <span class="lang-cn" hidden>请查看以下路线。</span>
+    </p>
+  </div>
 
-  <!-- ===== マップ表示 ===== -->
-  <div id="map-container">
-    <div id="map"></div>
-  </div>
 
-  <div id="google-map-link-container" style="display:none;"></div>
+    <div id="map-container">
+    <div id="map"></div>
+  </div>
 
-  <!-- ===== ルート詳細 ===== -->
-  <div id="route-details-section">
-    <div id="spot-cards-container">
-      <!-- JSでスポットカードを表示 -->
-    </div>
-    <div id="overall-route-message-container">
-      <!-- JSで全体メッセージを表示 -->
-    </div>
-  </div>
-
-  <!-- ===== JSライブラリ ===== -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
-
-  <!-- ===== 言語切替スクリプト ===== -->
-  <script>
-    const langButtons = document.querySelectorAll('#language-switcher button');
-    let currentLang = localStorage.getItem('siteLanguage') || 'ja';
-
-    function switchLang(lang) {
-      currentLang = lang;
-
-      // いったん全部非表示
-      document.querySelectorAll('.lang-ja, .lang-en, .lang-cn').forEach(el => {
-        el.style.display = 'none';
-      });
-
-      // 選択した言語を表示
-      document.querySelectorAll(`.lang-${lang}`).forEach(el => {
-        if (el.tagName === 'H2' || el.tagName === 'P') {
-          el.style.display = 'block';
-        } else if (el.tagName === 'SPAN') {
-          el.style.display = 'inline';
-        } else {
-          el.style.display = 'block';
-        }
-      });
-
-      // route.js側での言語更新がある場合
-      if (window.updateLanguage) {
-        window.updateLanguage(lang);
-      }
-
-      localStorage.setItem('siteLanguage', lang);
-    }
-
-    langButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        switchLang(button.getAttribute('data-lang'));
-      });
-    });
-
-    switchLang(currentLang);
-
-    // タイトルクリックでトップへ戻る
-    document.addEventListener('DOMContentLoaded', () => {
-      const titleElement = document.getElementById('title');
-      titleElement.addEventListener('click', () => {
-        window.location.href = 'index.html';
-      });
-    });
-  </script>
-
-  <!-- ルート描画用スクリプト -->
-  <script src="route.js"></script>
-
+    
 </body>
 </html>
