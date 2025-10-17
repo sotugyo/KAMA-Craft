@@ -48,6 +48,12 @@
             <hr class="dashed-separator">
         </div>
     </header>
+// --- タイトルクリックで戻る --
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.getElementById('title');
+  titleElement.addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
 
     <div id="map-container">
         <div id="map"></div>
@@ -86,12 +92,6 @@
                     el.style.display = 'block';
                 }
             });
-// --- タイトルクリックで戻る --
-  document.addEventListener('DOMContentLoaded', () => {
-    const titleElement = document.getElementById('title');
-  titleElement.addEventListener('click', () => {
-  window.location.href = 'index.html';
-});
 
   if (window.updateLanguage) {
                 window.updateLanguage(lang);
