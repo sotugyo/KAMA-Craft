@@ -78,6 +78,11 @@ body {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
+/* 見出し */
+.route-selection-section {
+  text-align: center; /* 中央寄せ */
+  margin-top: 80px;
+}
 
 /* =================================== */
 /* 地図表示エリア */
