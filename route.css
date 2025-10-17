@@ -211,7 +211,7 @@ body {
 
 /* 矢印を所要時間の上下に表示 */
 .route-time::before, .route-time::after {
-    content: "↓"; /* 矢印の方向を修正 */
+    content: "→"; /* 矢印の方向を修正 */
     display: block;
     font-size: 1.4rem; /* 少し大きく */
     color: var(--accent-blue);
