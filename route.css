@@ -1,81 +1,122 @@
 @charset "UTF-8";
 
 /* ======================================== */
-/* 基本設定 (area.css から継承)            */
+/* 基本設定 (area.css から継承)           */
 /* ======================================== */
 :root {
-  --base-bg: #fffaf5;       /* 背景クリーム色 */
-  --main-blue: #3A6A8A;     /* 濃い青 */
-  --accent-blue: #4da6ff;   /* 選択/ボタン用の明るい青 */
-  --text-dark: #333333;     /* 文字黒 */
-  --text-light: #FFFFFF;
-  --border-color: #DDDDDD;  /* カード境界色 */
+  --base-bg: #fffaf5;       /* 背景クリーム色 */
+  --main-blue: #3A6A8A;     /* 濃い青 */
+  --accent-blue: #4da6ff;   /* 選択/ボタン用の明るい青 */
+  --text-dark: #333333;     /* 文字黒 */
+  --text-light: #FFFFFF;
+  --border-color: #DDDDDD;  /* カード境界色 */
 }
 
 body {
-  margin: 0;
-  line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: var(--base-bg);
-  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--base-bg);
+  color: var(--text-dark);
 }
 
 .container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
 /* ======================================== */
 /* ヒーローセクション（ヘッダー & 言語切替） */
 /* ======================================== */
 .hero-section {
-  min-height: 30vh;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: var(--text-light);
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-              url('images/title-bg2.jpg') center/cover no-repeat;
+  /* 修正: 高さを調整し、ページタイトルを重ねないバナーとして機能させる */
+  min-height: 18vh; /* 例: 高さを抑える */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--text-light);
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+              url('images/title-bg2.jpg') center/cover no-repeat;
 }
 
 .hero-content h1 {
-  font-size: clamp(2rem, 5vw, 2.8rem);
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
 }
 
 .hero-content p {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
 }
 
 
 /* --- 言語切替ボタン --- */
 #language-switcher {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
 #language-switcher button {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid var(--text-light);
-  color: var(--text-light);
-  padding: 8px 16px;
-  border-radius: 20px;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--text-light);
+  color: var(--text-light);
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
 }
 
 #language-switcher button:hover {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+
+/* =================================== */
+/* ページタイトル（ステップ3のように独立） */
+/* =================================== */
+#page-step-title {
+    background-color: #FFFFFF; /* 白い背景 */
+    padding: 40px 20px; /* 上下のパディングを広く取る */
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* わずかな影で区切りを出す */
+}
+
+#page-step-title h2 {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    color: var(--text-dark);
+    margin: 0;
+    padding-bottom: 10px;
+    position: relative;
+    display: inline-block; /* 罫線の幅をテキストに合わせる */
+}
+
+/* ステップ3画像のような下線 */
+#page-step-title h2::after {
+    content: "";
+    display: block;
+    width: 100%;
+    max-width: 400px; /* 線の最大幅を制限して、中央に寄せる */
+    height: 3px;
+    background-color: var(--accent-blue); /* 明るい青の線 */
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* 中央寄せの調整 */
+    transform: translateX(-50%); /* 中央寄せの調整 */
+}
+
+#page-step-title .sub-text {
+    color: #777;
+    font-size: 1rem;
+    margin-top: 15px;
 }
 
 
@@ -83,19 +124,19 @@ body {
 /* 地図表示エリア */
 /* =================================== */
 #map-container {
-    padding: 10px 0;
-    background-color: #fff;
-    border-top: 1px dashed #4da6ff;
-    border-bottom: 1px dashed #4da6ff;
+    padding: 10px 0;
+    background-color: #fff;
+    border-top: none; /* 独立したタイトルセクションが上にあるため削除 */
+    border-bottom: 1px dashed #4da6ff;
 }
 
 #map {
-    width: 95%;
-    height: 350px;
-    border-radius: 6px;
-    border: 1px solid #e0e0e0;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 95%;
+    height: 350px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 
@@ -104,140 +145,140 @@ body {
 /* スポットカードとルート情報 */
 /* =================================== */
 #route-details-section {
-    padding: 30px 15px;
-    background-color: #fff;
-    border: 2px solid #ccccff; /* 紫がかった枠線 */
-    border-radius: 12px;
-    max-width: 800px;
-    margin: 20px auto;
+    padding: 30px 15px;
+    background-color: #fff;
+    border: 2px solid #ccccff; /* 紫がかった枠線 */
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 20px auto;
 }
 
 #spot-cards-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch; /* 高さ揃え */
-    margin-bottom: 20px;
-    flex-wrap: nowrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* 高さ揃え */
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
 }
 
 .spot-card {
-    flex-basis: 31%;
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 10px 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    text-align: center;
-    box-sizing: inline-block;
-    display: flex;
-    flex-direction: column;
+    flex-basis: 31%;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-align: center;
+    box-sizing: border-box; /* ここを修正: inline-block は不適切 */
+    display: flex;
+    flex-direction: column;
 }
 
 .card-label {
-    font-size: 16px;
-    color: #555 ;
-    margin: 0 0 10px;
+    font-size: 16px;
+    color: #555 ;
+    margin: 0 0 10px;
 }
 
 .image-link-container {
-    display: block;
-    height: 100px;
-    background: linear-gradient(to bottom, #ccf2ff 50%, #e6ffe6 100%);
-    border-radius: 6px;
-    margin-bottom: 10px;
-    position: relative;
-    overflow: hidden;
+    display: block;
+    height: 100px;
+    background: linear-gradient(to bottom, #ccf2ff 50%, #e6ffe6 100%);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
 }
 
 .image-link-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
 .spot-info {
-    text-align: left;
-    padding: 0 5px;
-    flex-grow: 1; /* 残りのスペースを埋める */
+    text-align: left;
+    padding: 0 5px;
+    flex-grow: 1; /* 残りのスペースを埋める */
 }
 
 .spot-info h4 {
-    font-size: 15px;
-    margin: 0 0 5px;
-    color: #333;
+    font-size: 15px;
+    margin: 0 0 5px;
+    color: #333;
 }
 
 .spot-info p {
-    font-size: 13px;
-    margin: 3px 0;
-    line-height: 1.4;
+    font-size: 13px;
+    margin: 3px 0;
+    line-height: 1.4;
 }
 
 
 /* ルート情報（所要時間） - PC表示 */
 .route-info {
-    flex-basis: 3%;
-    text-align: center;
-    margin-top: 110px; /* カードの中央付近に調整 */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-basis: 3%;
+    text-align: center;
+    margin-top: 110px; /* カードの中央付近に調整 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .route-time {
-    font-size: 14px;
-    font-weight: bold;
-    color: #000000;
-    white-space: nowrap;
-    position: relative;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+    white-space: nowrap;
+    position: relative;
 }
 
 /* 矢印を所要時間の上下に表示 */
 .route-time::before, .route-time::after {
-    content: "→";
-    display: block;
-    font-size: 18px;
-    color: #4da6ff;
-    margin: 5px 0;
+    content: "→";
+    display: block;
+    font-size: 18px;
+    color: var(--accent-blue);
+    margin: 5px 0;
 }
 
 /* **「〇〇神社→徒歩15分で...」のメッセージ部分** */
 #overall-route-message-container {
-    text-align: center;
-    padding-top: 10px;
+    text-align: center;
+    padding-top: 10px;
 }
 
 .overall-route-message {
-    font-size: 14px;
-    color: #333;
-    line-height: 1.5;
-    margin-bottom: 15px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 15px;
 }
 
 .route-summary {
-    display: flex;
-    flex-wrap: wrap; /* スマホで折り返す可能性を考慮 */
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap; /* スマホで折り返す可能性を考慮 */
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 }
 /* スポット名（ボタン風）と徒歩時間（矢印） */
 .route-summary > div {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px;
 }
 .route-summary-item {
-    padding: 5px 10px;
-    border: 1px solid #0066cc;
-    border-radius: 4px;
-    background-color: #e6f7ff;
-    color: #0066cc;
+    padding: 5px 10px;
+    border: 1px solid #0066cc;
+    border-radius: 4px;
+    background-color: #e6f7ff;
+    color: #0066cc;
 }
 .route-summary-arrow {
-    color: #333;
+    color: #333;
 }
 
 
@@ -246,42 +287,42 @@ body {
 /* =================================== */
 @media screen and (max-width: 768px) {
 
-    #page-header { padding-top: 50px; } /* 固定ボタンがヘッダーを隠さないように */
+    #page-header { padding-top: 50px; } /* 固定ボタンがヘッダーを隠さないように */
 
-    #spot-cards-container {
-        flex-direction: column; /* 縦に積む */
-        align-items: center;
-    }
+    #spot-cards-container {
+        flex-direction: column; /* 縦に積む */
+        align-items: center;
+    }
 
-    .spot-card {
-        flex-basis: 100%;
-        width: 100%;
-        margin-bottom: 15px;
-    }
+    .spot-card {
+        flex-basis: 100%;
+        width: 100%;
+        margin-bottom: 15px;
+    }
 
-    /* ルート情報（所要時間） - スマホ表示: カードの間に縦方向で表示 */
-    .route-info {
-        flex-basis: 100%;
-        width: 90%;
-        margin: 5px 0 15px;
-        flex-direction: row; /* 横並びに戻す */
-        justify-content: center;
-        border-top: 1px dashed #ccccff;
-        border-bottom: 1px dashed #ccccff;
-        padding: 5px 0;
-    }
+    /* ルート情報（所要時間） - スマホ表示: カードの間に縦方向で表示 */
+    .route-info {
+        flex-basis: 100%;
+        width: 90%;
+        margin: 5px 0 15px;
+        flex-direction: row; /* 横並びに戻す */
+        justify-content: center;
+        border-top: 1px dashed #ccccff;
+        border-bottom: 1px dashed #ccccff;
+        padding: 5px 0;
+    }
 
-    .route-time::before, .route-time::after {
-        display: none; /* 縦の矢印を非表示 */
-    }
-    .route-time {
-        position: relative;
-    }
-    .route-time::before {
-        content: "→"; /* 横の矢印を挿入 */
-        display: inline-block;
-        margin-right: 8px;
-        font-size: 20px;
-        color: #4da6ff;
-    }
+    .route-time::before, .route-time::after {
+        display: none; /* 縦の矢印を非表示 */
+    }
+    .route-time {
+        position: relative;
+    }
+    .route-time::before {
+        content: "→"; /* 横の矢印を挿入 */
+        display: inline-block;
+        margin-right: 8px;
+        font-size: 20px;
+        color: var(--accent-blue);
+    }
 }
