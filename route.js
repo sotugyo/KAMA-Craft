@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (step1Data?.lat && step1Data?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === step1Data.name.ja);
         routeSpots.push({
-            label: "スタート",
+            label: { ja: "スタート", en: "Start", cn: "起点" },
             name: step1Data.name || {ja: 'スタート地点'},
             img: step1Data.img || '',
             lat: parseFloat(step1Data.lat),
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hiddenData?.lat && hiddenData?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === hiddenData.name.ja);
         routeSpots.push({
-            label: "穴場スポット",
+            label: { ja: "穴場スポット", en: "Hidden Gem", cn: "私房景点" },
             name: hiddenData.name || {ja: '穴場スポット'},
             img: hiddenData.img || '',
             lat: parseFloat(hiddenData.lat),
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (step2Data?.lat && step2Data?.lng) {
         const rowIndex = sheetData.findIndex(row => row[nameCol] === step2Data.name.ja);
         routeSpots.push({
-            label: "ゴール",
+            label: { ja: "ゴール", en: "Goal", cn: "终点" },
             name: step2Data.name || {ja: 'ゴール地点'},
             img: step2Data.img || '',
             lat: parseFloat(step2Data.lat),
@@ -121,8 +121,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         spots.forEach((spot, index) => {
             const isLast = index === spots.length - 1;
+            const spotLabel = typeof spot.label === 'object' ? (spot.label[currentLang] || spot.label.ja) : spot.label;
             const spotName = spot.name[currentLang] || spot.name.ja || spot.label;
-            
+
+            let spotDescription = '';
+            if (typeof spot.description === 'object' && spot.description !== null) {
+                spotDescription = spot.description[currentLang] || spot.description.ja || '';
+            } else if (typeof spot.description === 'string') {
+                spotDescription = spot.description;
+            }
             // ★★★ 修正済み: spot.descriptionを出力する行を削除 ★★★
             
             const cardHtml = `
