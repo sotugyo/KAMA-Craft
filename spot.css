@@ -2,7 +2,7 @@
 /* 基本設定 (area.css から継承)            */
 /* ======================================== */
 :root {
-  --base-bg: #F8F6F2;       /* 背景クリーム色 */
+  --base-bg: #fffaf5;       /* 背景クリーム色 */
   --main-blue: #3A6A8A;     /* 濃い青 */
   --accent-blue: #4da6ff;   /* 選択/ボタン用の明るい青 */
   --text-dark: #333333;     /* 文字黒 */
@@ -80,7 +80,7 @@ body {
 /* スポットカードエリア                      */
 /* ======================================== */
 .spot-selection-section {
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   padding: 40px 20px;
@@ -241,6 +241,26 @@ body {
   border-radius: 8px;
   color: #777;
 }
+
+/* ======================================== */
+/* 英語表示時のカード調整                   */
+/* ======================================== */
+html[lang="en"] .spot-details h3 {
+  font-size: 1rem; /* タイトル少し小さめ */
+}
+
+html[lang="en"] .spot-details p,
+html[lang="en"] .spot-details .spot-description {
+  font-size: 0.8rem; /* 本文も小さめに */
+  line-height: 1.4;
+}
+
+/* カードの高さを固定してズレ防止 */
+.spot-item {
+  height: 420px; /* 日本語・英語で共通の高さ */
+  overflow: hidden;
+}
+
 
 /* --- 選択状態 --- */
 .spot-item.selected {
