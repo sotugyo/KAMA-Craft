@@ -90,13 +90,13 @@ body {
 
 /* 穴場スポットセクションの見出しと説明 */
 .spot-selection-section {
-  text-align: center; /* 中央寄せ */
+  text-align: center;
   margin-top: 80px;
 }
 
 .spot-selection-section h1 {
   font-size: 2rem;
-  color: #222; /* 黒っぽく落ち着いた色 */
+  color: #222;
   margin: 0 0 15px;
   border-bottom: 2px solid var(--main-blue);
   display: inline-block;
@@ -124,12 +124,12 @@ body {
 /* --- スポット一覧 --- */
 #spotContainer {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap; /* ✅横並びではみ出さないように変更 */
   justify-content: center;
   align-items: stretch;
   gap: 20px;
-  flex-wrap: nowrap;
-  overflow-x: visible;
+  overflow-x: hidden; /* ✅横スクロール防止 */
+  padding: 10px;
 }
 
 .spot-wrapper {
@@ -150,7 +150,6 @@ body {
 
 /* --- カード --- */
 .spot-item {
-  flex: 1 1 auto;
   width: 280px;
   background-color: #fff;
   border: 2px solid var(--border-color);
@@ -242,26 +241,6 @@ body {
   color: #777;
 }
 
-/* ======================================== */
-/* 英語表示時のカード調整                   */
-/* ======================================== */
-html[lang="en"] .spot-details h3 {
-  font-size: 1rem; /* タイトル少し小さめ */
-}
-
-html[lang="en"] .spot-details p,
-html[lang="en"] .spot-details .spot-description {
-  font-size: 0.8rem; /* 本文も小さめに */
-  line-height: 1.4;
-}
-
-/* カードの高さを固定してズレ防止 */
-.spot-item {
-  height: 420px; /* 日本語・英語で共通の高さ */
-  overflow: hidden;
-}
-
-
 /* --- 選択状態 --- */
 .spot-item.selected {
   border-color: var(--main-blue);
@@ -275,6 +254,15 @@ html[lang="en"] .spot-details .spot-description {
   border-color: #e0e0e0;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+/* ======================================== */
+/* 言語別フォントサイズ調整 (英語・中国語用) */
+/* ======================================== */
+html[lang="en"] .spot-details,
+html[lang="cn"] .spot-details {
+  font-size: 0.85em; /* ✅文字を少し小さく */
+  line-height: 1.4;
 }
 
 /* ======================================== */
@@ -303,14 +291,14 @@ html[lang="en"] .spot-details .spot-description {
 
 /* 無効状態のボタン */
 #next-step:disabled {
-  background-color: #B0C4DE; /* 1ページ目と同色 */
+  background-color: #B0C4DE;
   cursor: not-allowed;
   box-shadow: none;
 }
 
 /* KAMA-Craftタイトルをクリック可能にする */
 #title {
-  cursor: pointer;      /* ポインターを手に */
-  position: relative;   /* z-indexを効かせるため必要 */
-  z-index: 10;          /* 他要素より前面に表示 */
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
 }
