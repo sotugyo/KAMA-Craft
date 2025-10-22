@@ -124,11 +124,12 @@ body {
 /* --- スポット一覧 --- */
 #spotContainer {
   display: flex;
-  flex-wrap: wrap; /* ✅横並びではみ出さないように変更 */
+  flex-direction: row;
   justify-content: center;
   align-items: stretch;
-  gap: 20px;
-  overflow-x: hidden; /* ✅横スクロール防止 */
+  gap: 18px; /* 少しだけ狭く */
+  flex-wrap: nowrap; /* ✅折り返さない！横並び固定 */
+  overflow-x: auto; /* ✅スマホで見切れ防止 */
   padding: 10px;
 }
 
@@ -150,7 +151,7 @@ body {
 
 /* --- カード --- */
 .spot-item {
-  width: 280px;
+  width: 230px; /* ✅細長く調整 */
   background-color: #fff;
   border: 2px solid var(--border-color);
   border-radius: 12px;
@@ -171,7 +172,7 @@ body {
 
 .spot-item img {
   width: 100%;
-  height: 180px;
+  height: 150px; /* ✅高さも調整してバランス良く */
   object-fit: cover;
   border-radius: 12px 12px 0 0;
   display: block;
@@ -261,10 +262,9 @@ body {
 /* ======================================== */
 html[lang="en"] .spot-details,
 html[lang="cn"] .spot-details {
-  font-size: 0.85em; /* ✅文字を少し小さく */
+  font-size: 0.8em;
   line-height: 1.4;
 }
-
 /* ======================================== */
 /* 「次へ進む」ボタン                        */
 /* ======================================== */
