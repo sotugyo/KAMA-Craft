@@ -1,228 +1,259 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KAMA-Craft｜旅のプランを作成</title>
-  <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAMA-Craft｜旅のプランを作成</title>
+  <link rel="stylesheet" href="index.css">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <header class="hero-section">
-    <div class="hero-content">
-      <h1 id="title">KAMA-Craft</h1>
-      <p id="description">あなただけの鎌倉旅を</p>
-    </div>
-  </header>
+  <header class="hero-section">
+    <div class="hero-content">
+      <h1 id="title">KAMA-Craft</h1>
+      <p id="description">あなただけの鎌倉旅を</p>
+    </div>
+  </header>
 
-  <div id="language-switcher">
-    <button type="button" data-lang="ja">日本語</button>
-    <button type="button" data-lang="en">English</button>
-    <button type="button" data-lang="cn">中文</button>
-  </div>
+  <div id="language-switcher">
+    <button type="button" data-lang="ja">日本語</button>
+    <button type="button" data-lang="en">English</button>
+    <button type="button" data-lang="cn">中文</button>
+  </div>
 
-  <section class="process-steps">
-    <h2 id="process-title">KAMA-Craftの使い方</h2>
-    <div class="steps-container">
-      
-      <div class="step-item">
-        <div class="step-icon">1</div>
-        <h3 id="step1-title">属性選択</h3>
-      </div>
+  <section class="process-steps">
+    <h2 id="process-title">KAMA-Craftの使い方</h2>
+    <div class="steps-container">
+      
+      <div class="step-item">
+        <div class="step-icon">1</div>
+        <h3 id="step1-title">属性選択</h3>
+      </div>
 
-      <div class="step-arrow">→</div>
+      <div class="step-arrow">→</div>
 
-      <div class="step-item">
-        <div class="step-icon">2</div>
-        <h3 id="step2-title">スタート・ゴール地点選択</h3>
-      </div>
+      <div class="step-item">
+        <div class="step-icon">2</div>
+        <h3 id="step2-title">スタート・ゴール地点選択</h3>
+      </div>
 
-      <div class="step-arrow">→</div>
+      <div class="step-arrow">→</div>
 
-      <div class="step-item">
-        <div class="step-icon">3</div>
-        <h3 id="step3-title">穴場スポット選択</h3>
-      </div>
+      <div class="step-item">
+        <div class="step-icon">3</div>
+        <h3 id="step3-title">穴場スポット選択</h3>
+      </div>
 
-      <div class="step-arrow">→</div>
+      <div class="step-arrow">→</div>
 
-      <div class="step-item">
-        <div class="step-icon">4</div>
-        <h3 id="step4-title">ルート案内</h3>
-      </div>
+      <div class="step-item">
+        <div class="step-icon">4</div>
+        <h3 id="step4-title">ルート案内</h3>
+      </div>
 
-    </div>
-  </section>
+    </div>
+  </section>
 
-  <main class="container">
-    <form id="attributeForm">
+  <main class="container">
+    <form id="attributeForm">
 
-      <section class="selection-group">
-        <h2 id="label-companions">同行者はどなたですか？</h2>
-        <div class="options-grid" id="companions-grid">
-          </div>
-      </section>
+      <section class="selection-group">
+        <h2 id="label-companions">同行者はどなたですか？</h2>
+        <div class="options-grid" id="companions-grid">
+          </div>
+      </section>
 
-      <section class="selection-group">
-        <h2 id="label-stay">滞在時間はどのくらいですか？</h2>
-        <div class="options-grid" id="stay-grid">
-          </div>
-      </section>
+      <section class="selection-group">
+        <h2 id="label-stay">滞在時間はどのくらいですか？</h2>
+        <div class="options-grid" id="stay-grid">
+          </div>
+      </section>
 
-      <section class="selection-group">
-        <h2 id="label-interests">どんなことに興味がありますか？</h2>
-        <div class="options-grid photo-grid" id="interests-grid">
-          </div>
-      </section>
+      <section class="selection-group">
+        <h2 id="label-interests">どんなことに興味がありますか？</h2>
+        <div class="options-grid photo-grid" id="interests-grid">
+          </div>
+      </section>
 
-      <input type="hidden" name="companions" id="companions">
-      <input type="hidden" name="stay" id="stay">
-      <input type="hidden" name="interests" id="interests">
-      <input type="hidden" name="3nplus" id="3nplus"> <div class="button-container">
-        <button type="submit" class="next-button" id="submit-btn" disabled>完了</button>
-      </div>
-    </form>
-  </main>
+      <input type="hidden" name="companions" id="companions">
+      <input type="hidden" name="stay" id="stay">
+      <input type="hidden" name="interests" id="interests">
+      <input type="hidden" name="3nplus" id="3nplus"> <div class="button-container">
+        <button type="submit" class="next-button" id="submit-btn" disabled>完了</button>
+      </div>
+    </form>
+  </main>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      
-      const texts = {
-        ja: {
-          title: "KAMA-Craft",
-          description: "いくつかの簡単な質問に答えるだけであなただけの鎌倉旅をご提案します",
-          processTitle: "KAMA-Craftの使い方",
-          step1Title: "属性選択",
-          step2Title: "スタート・ゴール地点選択",
-          step3Title: "穴場スポット選択",
-          step4Title: "ルート案内",
-          companions: "同行者はどなたですか？",
-          companionsOptions: { solo: "ひとり旅", couple: "カップル", family: "家族", friends: "友人" },
-          stay: "滞在時間はどのくらいですか？",
-          stayOptions: { daytrip: "日帰り", "1n2d": "1泊2日", "2n3d": "2泊3日", "3nplus": "3泊以上" },
-          interests: "どんなことに興味がありますか？",
-          interestsOptions: { "History": "歴史・寺社・文化", "Nature": "自然・景観", "Food": "グルメ・カフェ", "Shopping": "お土産・雑貨", "Activity": "体験・アクティビティ" },
-          submit: "プランを作成する",
-          submitDisabled: "すべて選択してください"
-        },
-        en: {
-          title: "KAMA-Craft",
-          description: "Just answer a few simple questions and we will suggest a personalized Kamakura trip just for you.",
-          processTitle: "How to Use KAMA-Craft",
-          step1Title: "Select Attributes",
-          step2Title: "Select Start & Goal",
-          step3Title: "Select Hidden Spot",
-          step4Title: "Route Guidance",
-          companions: "Who are you traveling with?",
-          companionsOptions: { solo: "Solo", couple: "Couple", family: "Family", friends: "Friends" },
-          stay: "How long is your stay?",
-          stayOptions: { daytrip: "Day Trip", "1n2d": "1 Night 2 Days", "2n3d": "2 Nights 3 Days", "3nplus": "3+ Nights" },
-          interests: "What are you interested in?",
-          interestsOptions: { "History": "History/Culture", "Nature": "Nature/Scenery", "Food": "Gourmet/Cafe", "Shopping": "Souvenirs/Goods", "Activity": "Experiences/Activities" },
-          submit: "Create My Plan",
-          submitDisabled: "Please select all items"
-        },
-        cn: {
-          title: "KAMA-Craft",
-          description: "只需回答几个简单问题，我们就会为您推荐专属的镰仓之旅。",
-          processTitle: "KAMA-Craft 使用方法",
-          step1Title: "选择属性",
-          step2Title: "选择起点和终点",
-          step3Title: "选择私房景点",
-          step4Title: "路线向导",
-          companions: "您和谁一起旅行？",
-          companionsOptions: { solo: "独自旅行", couple: "情侣", family: "家庭", friends: "朋友" },
-          stay: "您会停留多长时间？",
-          stayOptions: { daytrip: "当天往返", "1n2d": "1晚2天", "2n3d": "2晚3天", "3nplus": "3晚以上" },
-          interests: "您对什么感兴趣？",
-          interestsOptions: { "History": "历史/文化", "Nature": "自然/景观", "Food": "美食/咖啡", "Shopping": "纪念品/杂货", "Activity": "体验/活动" },
-          submit: "创建我的计划",
-          submitDisabled: "请选择所有项目"
-        }
-      };
-      
-      const form = document.getElementById("attributeForm");
-      const submitBtn = document.getElementById("submit-btn");
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      const texts = {
+        ja: {
+          title: "KAMA-Craft",
+          description: "いくつかの簡単な質問に答えるだけであなただけの鎌倉旅をご提案します",
+          processTitle: "KAMA-Craftの使い方",
+          step1Title: "属性選択",
+          step2Title: "スタート・ゴール地点選択",
+          step3Title: "穴場スポット選択",
+          step4Title: "ルート案内",
+          companions: "同行者はどなたですか？",
+          companionsOptions: { solo: "ひとり旅", couple: "カップル", family: "家族", friends: "友人" },
+          stay: "滞在時間はどのくらいですか？",
+          stayOptions: { daytrip: "日帰り", "1n2d": "1泊2日", "2n3d": "2泊3日", "3nplus": "3泊以上" },
+          interests: "どんなことに興味がありますか？",
+          interestsOptions: { 
+            "History": { label: "歴史・寺社・文化" }, 
+            "Nature": { label: "自然・景観" }, 
+            "Food": { label: "グルメ・カフェ" }, 
+          	 "Shopping": { label: "お土産・雑貨" }, 
+          	 "Activity": { label: "体験・アクティビティ" } 
+          },
+          submit: "プランを作成する",
+          submitDisabled: "すべて選択してください"
+        },
+        en: {
+          title: "KAMA-Craft",
+          description: "Just answer a few simple questions and we will suggest a personalized Kamakura trip just for you.",
+          processTitle: "How to Use KAMA-Craft",
+          step1Title: "Select Attributes",
+          step2Title: "Select Start & Goal",
+          step3Title: "Select Hidden Spot",
+          step4Title: "Route Guidance",
+          companions: "Who are you traveling with?",
+          companionsOptions: { solo: "Solo", couple: "Couple", family: "Family", friends: "Friends" },
+          stay: "How long is your stay?",
+          stayOptions: { daytrip: "Day Trip", "1n2d": "1 Night 2 Days", "2n3d": "2 Nights 3 Days", "3nplus": "3+ Nights" },
+          interests: "What are you interested in?",
+          interestsOptions: { 
+            "History": { label: "History/Culture" }, 
+          	 "Nature": { label: "Nature/Scenery" }, 
+          	 "Food": { label: "Gourmet/Cafe" }, 
+          	 "Shopping": { label: "Souvenirs/Goods" }, 
+          	 "Activity": { label: "Experiences/Activities" } 
+          },
+          submit: "Create My Plan",
+          submitDisabled: "Please select all items"
+        },
+        cn: {
+          title: "KAMA-Craft",
+          description: "只需回答几个简单问题，我们就会为您推荐专属的镰仓之旅。",
+          processTitle: "KAMA-Craft 使用方法",
+          step1Title: "选择属性",
+          step2Title: "选择起点和终点",
+          step3Title: "选择私房景点",
+          step4Title: "路线向导",
+          companions: "您和谁一起旅行？",
+          companionsOptions: { solo: "独自旅行", couple: "情侣", family: "家庭", friends: "朋友" },
+          stay: "您会停留多长时间？",
+          stayOptions: { daytrip: "当天往返", "1n2d": "1晚2天", "2n3d": "2晚3天", "3nplus": "3晚以上" },
+          interests: "您对什么感兴趣？",
+          interestsOptions: { 
+          	 "History": { label: "历史/文化" }, 
+  	       	 "Nature": { label: "自然/景观" }, 
+  	       	 "Food": { label: "美食/咖啡" }, 
+  	       	 "Shopping": { label: "纪念品/杂货" }, 
+  	 	     	 "Activity": { label: "体验/活动" } 
+  	       },
+  	       submit: "创建我的计划",
+          submitDisabled: "请选择所有项目"
+        }
+      };
+      
+      const form = document.getElementById("attributeForm");
+      const submitBtn = document.getElementById("submit-btn");
 
-      const titleElement = document.getElementById('title');
-      titleElement.style.cursor = 'pointer'; 
-      titleElement.addEventListener('click', () => {
-        window.location.reload();
-      });
+      const titleElement = document.getElementById('title');
+      titleElement.style.cursor = 'pointer'; 
+      titleElement.addEventListener('click', () => {
+        window.location.reload();
+      });
 
-      function handleCardSelection(group, value) {
-        document.querySelectorAll(`[data-group="${group}"]`).forEach(el => el.classList.remove('selected'));
-        document.querySelector(`[data-group="${group}"][data-value="${value}"]`).classList.add('selected');
-        document.getElementById(group).value = value;
-        checkAllSelected();
-      }
+      function handleCardSelection(group, value) {
+        document.querySelectorAll(`[data-group="${group}"]`).forEach(el => el.classList.remove('selected'));
+        document.querySelector(`[data-group="${group}"][data-value="${value}"]`).classList.add('selected');
+        document.getElementById(group).value = value;
+        checkAllSelected();
+      }
 
-      function checkAllSelected() {
-        const allSelected = ['companions', 'stay', 'interests'].every(id => document.getElementById(id).value);
-        submitBtn.disabled = !allSelected;
-        const lang = localStorage.getItem("siteLanguage") || "ja";
-        submitBtn.textContent = allSelected ? texts[lang].submit : texts[lang].submitDisabled;
-      }
+      function checkAllSelected() {
+        const allSelected = ['companions', 'stay', 'interests'].every(id => document.getElementById(id).value);
+        submitBtn.disabled = !allSelected;
+        const lang = localStorage.getItem("siteLanguage") || "ja";
+        submitBtn.textContent = allSelected ? texts[lang].submit : texts[lang].submitDisabled;
+      }
 
-      const createCards = (group, options, isPhoto = false) => {
-        const grid = document.getElementById(`${group}-grid`);
-        grid.innerHTML = '';
-        for (const [value, label] of Object.entries(options)) {
-          const card = document.createElement('div');
-          card.className = `option-card ${isPhoto ? 'photo-card' : ''}`;
-          card.dataset.group = group;
-          card.dataset.value = value;
-          card.innerHTML = `<span>${label}</span>`;
-          card.addEventListener('click', () => handleCardSelection(group, value));
-          grid.appendChild(card);
-        }
-      };
+      const createCards = (group, options, isPhoto = false) => {
+        const grid = document.getElementById(`${group}-grid`);
+        grid.innerHTML = '';
+        for (const [value, data] of Object.entries(options)) {
+          const card = document.createElement('div');
+          card.className = `option-card ${isPhoto ? 'photo-card' : ''}`;
+          card.dataset.group = group;
+          card.dataset.value = value;
 
-      function switchLang(lang) {
-        localStorage.setItem("siteLanguage", lang);
-        const t = texts[lang];
+          // dataがオブジェクトか文字列かで処理を分岐
+          if (typeof data === 'object' && data !== null && data.label) {
+          	 // dataが {label: "..."} の場合 (interestsOptions)
+          	 card.innerHTML = `<span>${data.label}</span>`;
+          	 if (isPhoto && data.image) {
+          	 	 // (imageプロパティがあれば背景画像に設定 ※CSS側で指定するため、ここは実行されない)
+          	 	 card.style.backgroundImage = `url('${data.image}')`;
+          	 }
+          } else {
+          	 // dataが文字列の場合 (companionsOptions, stayOptions)
+          	 card.innerHTML = `<span>${String(data)}</span>`;
+          }
 
-        document.getElementById("title").innerHTML = t.title;
-        document.getElementById("description").innerHTML = t.description;
-        document.getElementById("process-title").textContent = t.processTitle;
-        document.getElementById("step1-title").textContent = t.step1Title;
-        document.getElementById("step2-title").textContent = t.step2Title;
-        document.getElementById("step3-title").textContent = t.step3Title;
-        document.getElementById("step4-title").textContent = t.step4Title;
-        document.getElementById("label-companions").textContent = t.companions;
-        document.getElementById("label-stay").textContent = t.stay;
-        document.getElementById("label-interests").textContent = t.interests;
+          card.addEventListener('click', () => handleCardSelection(group, value));
+          grid.appendChild(card);
+        }
+      };
 
-        createCards('companions', t.companionsOptions);
-        createCards('stay', t.stayOptions);
-        createCards('interests', t.interestsOptions, true);
-        
-        ['companions', 'stay', 'interests'].forEach(id => { document.getElementById(id).value = ''; });
-        checkAllSelected();
-      }
+      function switchLang(lang) {
+        localStorage.setItem("siteLanguage", lang);
+        const t = texts[lang];
 
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const userAttributes = {
-          companions: document.getElementById("companions").value,
-          stay: document.getElementById("stay").value,
-          interests: document.getElementById("interests").value
-        };
-        localStorage.setItem("userAttributes", JSON.stringify(userAttributes));
-        window.location.href = "area.html";
-      });
+        document.getElementById("title").innerHTML = t.title;
+        document.getElementById("description").innerHTML = t.description;
+        document.getElementById("process-title").textContent = t.processTitle;
+        document.getElementById("step1-title").textContent = t.step1Title;
+        document.getElementById("step2-title").textContent = t.step2Title;
+        document.getElementById("step3-title").textContent = t.step3Title;
+        document.getElementById("step4-title").textContent = t.step4Title;
+        document.getElementById("label-companions").textContent = t.companions;
+        document.getElementById("label-stay").textContent = t.stay;
+        document.getElementById("label-interests").textContent = t.interests;
 
-      document.querySelectorAll('#language-switcher button').forEach(button => {
-        button.addEventListener('click', (e) => switchLang(e.target.dataset.lang));
-      });
-      const lang = localStorage.getItem("siteLanguage") || "ja";
-      switchLang(lang);
-    });
-  </script>
+        createCards('companions', t.companionsOptions);
+        createCards('stay', t.stayOptions);
+        createCards('interests', t.interestsOptions, true);
+        
+        ['companions', 'stay', 'interests'].forEach(id => { document.getElementById(id).value = ''; });
+        checkAllSelected();
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const userAttributes = {
+          companions: document.getElementById("companions").value,
+          stay: document.getElementById("stay").value,
+          interests: document.getElementById("interests").value
+        };
+        localStorage.setItem("userAttributes", JSON.stringify(userAttributes));
+        window.location.href = "area.html";
+      });
+
+      document.querySelectorAll('#language-switcher button').forEach(button => {
+        button.addEventListener('click', (e) => switchLang(e.target.dataset.lang));
+      });
+      const lang = localStorage.getItem("siteLanguage") || "ja";
+      switchLang(lang);
+    });
+  </script>
 
 </body>
 </html>
