@@ -24,7 +24,6 @@ body {
 /* ================= ヘッダー & 言語切替 ================= */
 .hero-section {
   min-height: 50vh;
-  /* ▼▼▼ この部分を変更しました ▼▼▼ */
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('images/title-background.jpg');
   background-size: cover;
   background-position: center;
@@ -40,12 +39,12 @@ body {
 .hero-content h1 {
   font-size: clamp(2rem, 5vw, 2.8rem);
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .hero-content p {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 #language-switcher {
@@ -64,6 +63,7 @@ body {
   margin-left: 10px;
   transition: background-color 0.2s;
 }
+
 #language-switcher button:hover {
   background-color: rgba(255, 255, 255, 0.4);
 }
@@ -86,7 +86,7 @@ body {
   gap: 20px;
 }
 
-/* --- カードの基本スタイル（アイコンなし版） --- */
+/* --- 通常カード（アイコンなし） --- */
 .option-card {
   background-color: #FFFFFF;
   border: 2px solid var(--border-color);
@@ -96,7 +96,7 @@ body {
   text-align: center;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -106,7 +106,7 @@ body {
 
 .option-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .option-card span {
@@ -114,7 +114,7 @@ body {
   font-size: 1rem;
 }
 
-/* --- 写真カード以外の、選択されたカードのスタイル --- */
+/* --- 通常カード選択時 --- */
 .option-card.selected:not(.photo-card) {
   border-color: var(--main-blue);
   background-color: var(--main-blue);
@@ -123,7 +123,7 @@ body {
   box-shadow: 0 6px 16px rgba(58, 106, 138, 0.3);
 }
 
-/* --- 写真カードのスタイル --- */
+/* ================= 写真カード ================= */
 .photo-card {
   width: 200px;
   height: 150px;
@@ -131,39 +131,56 @@ body {
   color: var(--text-light);
   font-size: 1.2rem;
   font-weight: bold;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
   background-size: cover;
   background-position: center;
   border-radius: 10px;
-}
-
-.photo-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.2);
-  border-radius: 10px;
-  transition: background-color 0.2s;
-}
-
-/* --- 写真カードが選択された時のスタイル --- */
-.photo-card.selected::before {
-  content: '✔';
-  font-size: 50px;
+  border: 2px solid transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(58, 106, 138, 0.7);
+  overflow: hidden;
+}
+
+/* --- 写真カードのデフォルトオーバーレイ --- */
+.photo-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  transition: background-color 0.2s;
+  z-index: -1;
+}
+
+/* --- 選択時 --- */
+.photo-card.selected {
+  border-color: var(--main-blue);
+  box-shadow: 0 6px 16px rgba(58, 106, 138, 0.3);
+}
+.photo-card.selected::before {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* --- ホバー時（未選択） --- */
+.photo-card:not(.selected):hover::before {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* --- 写真カード文字（黒背景付き） --- */
+.photo-card span {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 4px 10px;
+  border-radius: 5px;
 }
 
 /* --- 背景画像設定 --- */
-.photo-card[data-value="History"] { background-image: url('https://images.unsplash.com/photo-1622327113583-e186b367de19?q=80&w=1974'); }
-.photo-card[data-value="Nature"] { background-image: url('https://images.unsplash.com/photo-1589226322923-8e07b27599a4?q=80&w=2070'); }
-.photo-card[data-value="Food"] { background-image: url('https://images.unsplash.com/photo-1588860205510-8a4b3d115b80?q=80&w=1974'); }
-.photo-card[data-value="Shopping"] { background-image: url('https://images.unsplash.com/photo-1614728263943-b9c4187ac5b3?q=80&w=1974'); }
+.photo-card[data-value="History"] { background-image: url('images/history.jpg'); }
+.photo-card[data-value="Nature"] { background-image: url('images/nature.jpg'); }
+.photo-card[data-value="Food"] { background-image: url('images/food.jpg'); }
+.photo-card[data-value="Shopping"] { background-image: url('images/shopping.jpg'); }
+.photo-card[data-value="Activity"] { background-image: url('images/activity.jpg'); }
 
 /* ================= 送信ボタン ================= */
 .button-container {
@@ -195,8 +212,8 @@ body {
   background-color: #FFFFFF;
   padding: 50px 20px;
   text-align: center;
-  border-bottom: 1px solid #eee;
   border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 }
 
 .process-steps h2 {
@@ -253,7 +270,7 @@ body {
     flex-direction: column;
     gap: 20px;
   }
-  
+
   .step-item {
     width: 100%;
   }
