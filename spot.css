@@ -1,18 +1,5 @@
-/* ======================================== */
-/* 基本設定                                 */
-/* ======================================== */
-:root {
-  --base-bg: #fffaf5;
-  --main-blue: #3A6A8A;
-  --accent-blue: #4da6ff;
-  --text-dark: #333333;
-  --text-light: #FFFFFF;
-  --border-color: #DDDDDD;
-}
-
-body {
-  margin: 0;/* ------------------------------
-   基本設定
+/* ------------------------------
+   基本リセット
 ------------------------------ */
 * {
   box-sizing: border-box;
@@ -53,7 +40,7 @@ body {
 }
 
 /* ------------------------------
-   セクション（タイトル周り）
+   タイトル
 ------------------------------ */
 .spot-selection-section {
   max-width: 900px;
@@ -73,14 +60,22 @@ body {
 }
 
 /* ------------------------------
-   スポット一覧（PCデフォルト：横スクロール）
+   ⭐ PCで中央寄せを実現する wrapper
+------------------------------ */
+.spot-area-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ------------------------------
+   スポット一覧（PC デフォルト：横並び）
 ------------------------------ */
 #spotContainer {
   display: flex;
   flex-direction: row;
   gap: 16px;
-  overflow-x: auto;
   padding: 16px;
+  overflow-x: auto;
   scroll-snap-type: x mandatory;
 }
 
@@ -89,7 +84,7 @@ body {
 }
 
 /* ------------------------------
-   スポットItem（カード）
+   スポットカード
 ------------------------------ */
 .spot-item {
   background: white;
@@ -145,12 +140,10 @@ body {
 }
 
 /* ------------------------------
-   📱 スマホ専用の縦並びレイアウト
-   （今回追加した部分！）
+   📱 スマホ（完全縦並び）
 ------------------------------ */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
 
-  /* タイトル小さく */
   .spot-selection-section h1 {
     font-size: 1.6rem;
   }
@@ -159,9 +152,9 @@ body {
     font-size: 1rem;
   }
 
-  /* 🎉 スマホ：縦並びに変更！！ */
+  /* ⭐ スマホでは縦並び！ */
   #spotContainer {
-    flex-direction: column;     /* ← これが本命！ */
+    flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
     padding: 8px 16px;
@@ -181,259 +174,5 @@ body {
     width: 90%;
     font-size: 1.1rem;
     padding: 14px;
-  }
-}
-
-  line-height: 1.6;
-  font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
-  background: #f9fbfd;
-  color: #333;
-}
-
-
-
-/* ======================================== */
-/* Hero（タイトル背景）                     */
-/* ======================================== */
-.hero-section {
-  min-height: 30vh;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: var(--text-light);
-
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-              url('images/title-bg2.jpg') center/cover no-repeat;
-}
-
-.hero-content h1 {
-  font-size: clamp(2rem, 5vw, 2.8rem);
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-}
-
-.hero-content p {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-}
-
-
-
-/* ======================================== */
-/* 言語切替ボタン                            */
-/* ======================================== */
-#language-switcher {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-}
-
-#language-switcher button {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid var(--text-light);
-  color: var(--text-light);
-  padding: 10px 18px; /* ←スマホでも押しやすい */
-  border-radius: 20px;
-  margin-left: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 15px;
-}
-
-#language-switcher button:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
-
-
-/* ======================================== */
-/* セクションタイトル                        */
-/* ======================================== */
-.spot-selection-section {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 40px 20px;
-  margin: 60px 16px 40px;
-  text-align: center;
-}
-
-.spot-selection-section h1 {
-  font-size: 2rem;
-  color: #222;
-  margin: 0 0 15px;
-  border-bottom: 2px solid var(--main-blue);
-  display: inline-block;
-  padding-bottom: 8px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.spot-selection-section p {
-  color: #555;
-  font-size: 1.1rem;
-  margin-bottom: 40px;
-}
-
-
-
-/* ======================================== */
-/* スポットエリア（カード横スクロール）      */
-/* ======================================== */
-#spotContainer {
-  display: flex;
-  gap: 16px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding: 16px 10px;
-
-  /* スマホで“スワイプ → パチッと止まる”効果 */
-  scroll-snap-type: x mandatory;
-}
-
-.spot-wrapper {
-  scroll-snap-align: center;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-
-/* --- 距離ラベル --- */
-.spot-distance-label {
-  font-size: 0.8rem;
-  color: var(--main-blue);
-  margin-bottom: 12px;
-  font-weight: bold;
-  text-align: center;
-}
-
-
-
-/* ======================================== */
-/* カード                                    */
-/* ======================================== */
-.spot-item {
-  width: 230px;
-  background-color: #fff;
-  border: 2px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-  cursor: pointer;
-  overflow: hidden;
-
-  transition: all 0.25s ease-in-out;
-}
-
-.spot-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-}
-
-.spot-item img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  display: block;
-}
-
-
-
-/* --- カード内テキスト --- */
-.spot-details {
-  padding: 15px;
-}
-
-.spot-details h3 {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin: 0 0 8px 0;
-}
-
-.spot-details p.spot-description {
-  font-size: 0.9rem;
-  color: #555;
-  min-height: 60px;
-  margin-bottom: 10px;
-}
-
-.spot-details p {
-  font-size: 0.85rem;
-  color: #555;
-  margin: 0;
-}
-
-
-
-/* --- 選択状態 --- */
-.spot-item.selected {
-  border-color: var(--accent-blue);
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 6px 16px rgba(77, 166, 255, 0.4);
-}
-
-
-
-/* ======================================== */
-/* 次へボタン                                */
-/* ======================================== */
-#next-step {
-  display: block;
-  width: 100%;
-  max-width: 400px;
-  margin: 40px auto;
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--text-light);
-  background-color: var(--main-blue);
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(58, 106, 138, 0.3);
-  transition: opacity 0.2s ease-in-out;
-}
-
-#next-step:hover {
-  opacity: 0.9;
-}
-
-#next-step:disabled {
-  background-color: #B0C4DE;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-
-
-/* ======================================== */
-/* スマホ専用最適化（追加）                 */
-/* ======================================== */
-@media (max-width: 480px) {
-  .spot-selection-section h1 {
-    font-size: 1.5rem;
-  }
-
-  .spot-selection-section p {
-    font-size: 0.95rem;
-  }
-
-  .spot-item {
-    width: 200px;
-  }
-
-  .spot-item img {
-    height: 130px;
-  }
-
-  #next-step {
-    font-size: 1rem;
-    padding: 12px 20px;
   }
 }
