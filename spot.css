@@ -308,9 +308,9 @@ html[lang="cn"] .spot-details {
 /* ======================================== */
 @media (max-width: 600px) {
   #spotContainer {
-    display: flex !important;       /* ← 念のため強制 */
-    flex-direction: column !important; 
-    flex-wrap: nowrap !important;   /* ← wrapでもOKだが明示する */
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
     align-items: center !important;
     gap: 24px !important;
     overflow-x: visible !important;
@@ -325,7 +325,8 @@ html[lang="cn"] .spot-details {
   .spot-item {
     width: 100% !important;
   }
-}
+}  /* ← これで終わり（ここで確実に閉じる） */
+
 
   .spot-item {
     width: 100%;              /* ← 画面幅に合わせる */
