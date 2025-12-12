@@ -1,304 +1,218 @@
-/* ======================================== */
-/* 基本設定 (area.css から継承)            */
-/* ======================================== */
-:root {
-  --base-bg: #fffaf5;       /* 背景クリーム色 */
-  --main-blue: #3A6A8A;     /* 濃い青 */
-  --accent-blue: #4da6ff;   /* 選択/ボタン用の明るい青 */
-  --text-dark: #333333;     /* 文字黒 */
-  --text-light: #FFFFFF;
-  --border-color: #DDDDDD;  /* カード境界色 */
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const sheetURL = "https://docs.google.com/spreadsheets/d/1w5waa7_xUlB-_wt0TfLhDw48ehg86yl6/gviz/tq?sheet=穴場&headers=1&tq=";
+  const spotContainer = document.getElementById('spotContainer');
+  const nextBtn = document.getElementById('next-step'); // ←ここ修正！
+  let currentLang = 'ja';
+  let recommendedSpots = [];
+  const langButtons = document.querySelectorAll('#language-switcher button');
 
-body {
-  margin: 0;
-  line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: var(--base-bg);
-  color: var(--text-dark);
-}
+  const buttonTexts = {
+  ja: { inactive: '穴場スポットを選んでください', active: '次へ' },
+  en: { inactive: 'Please select a hidden spot', active: 'Next' },
+  cn: { inactive: '请选择一个隐藏景点', active: '下一步' }
+};
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
+// --- 次ボタン更新関数 ---
+ function updateNextButton() {
+   const hiddenSpot = localStorage.getItem('hiddenSpot');
+   const enabled = hiddenSpot !== null;
 
-/* ======================================== */
-/* ヒーローセクション（ヘッダー & 言語切替） */
-/* ======================================== */
-.hero-section {
-  min-height: 30vh;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: var(--text-light);
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-              url('images/title-bg2.jpg') center/cover no-repeat;
-}
+   nextBtn.disabled = !enabled;
+   nextBtn.querySelector('.lang-ja').textContent = enabled
+     ? buttonTexts.ja.active
+     : buttonTexts.ja.inactive;
+   nextBtn.querySelector('.lang-en').textContent = enabled
+     ? buttonTexts.en.active
+     : buttonTexts.en.inactive;
+   nextBtn.querySelector('.lang-cn').textContent = enabled
+     ? buttonTexts.cn.active
+     : buttonTexts.cn.inactive;
+ }
 
-.hero-content h1 {
-  font-size: clamp(2rem, 5vw, 2.8rem);
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-}
+  const userAttributes = JSON.parse(localStorage.getItem('userAttributes') || '{}');
+  const step1Spot = JSON.parse(localStorage.getItem('step1Spot') || 'null');
+  const step2Spot = JSON.parse(localStorage.getItem('step2Spot') || 'null');
 
-.hero-content p {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-}
+  const genreMap = {
+    "歴史・寺社・文化": "History",
+    "自然・景観": "Nature",
+    "グルメ・カフェ": "Food",
+    "お土産・雑貨": "Shopping",
+    "体験・アクティビティ": "Activity"
+  };
+  const selectedGenre = genreMap[userAttributes.interests] || userAttributes.interests;
+  const maxDistanceKm = 2;
 
+  const labels = {
+    ja: { hours: '営業時間', cool: '涼しさ', website: '公式サイト', reservation: '予約リンク',
+          distance: 'スタートからの距離', totalRoute: 'ゴールまでの総距離',
+          walk: '徒歩', about: '約', unitKm: 'km', unitMin: '分',
+          recommendation: 'あなたへのオススメ度' },
+    en: { hours: 'Opening Hours', cool: 'Cool Level', website: 'Official Site', reservation: 'Reservation Link',
+          distance: 'Distance from Start', totalRoute: 'Total Distance to Goal',
+          walk: 'Walk', about: 'approx.', unitKm: 'km', unitMin: 'min',
+          recommendation: 'Recommended for You' },
+    cn: { hours: '营业时间', cool: '凉爽度', website: '官网', reservation: '预约链接',
+          distance: '从起点的距离', totalRoute: '到终点的总距离',
+          walk: '步行', about: '约', unitKm: '公里', unitMin: '分钟',
+          recommendation: '为您推荐度' }
+  };
 
-/* --- 言語切替ボタン --- */
-#language-switcher {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-}
+  const companionMap = {
+    solo: 'ひとり旅',
+    couple: 'カップル',
+    family: '家族',
+    friends: '友人',
+    group: 'グループ',
+    'ひとり旅': 'ひとり旅',
+    'カップル': 'カップル',
+    '家族': '家族',
+    '友人': '友人',
+    'グループ': 'グループ'
+  };
 
-#language-switcher button {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid var(--text-light);
-  color: var(--text-light);
-  padding: 8px 16px;
-  border-radius: 20px;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 14px;
-}
+  const userCompanionKey = companionMap[userAttributes.companions] || 'ひとり旅';
 
-#language-switcher button:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
+  function getDistance(lat1, lng1, lat2, lng2) {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat/2)**2 + Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) * Math.sin(dLng/2)**2;
+    return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
 
-/* ======================================== */
-/* スポットカードエリア                      */
-/* ======================================== */
-.spot-selection-section {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 40px 20px;
-  margin-bottom: 40px;
-  text-align: center;
-}
+  function getStars(score) {
+    return '★'.repeat(score) + '☆'.repeat(5 - score);
+  }
 
-/* 穴場スポットセクションの見出しと説明 */
-.spot-selection-section {
-  text-align: center;
-  margin-top: 80px;
-}
+  fetch(sheetURL)
+    .then(res => res.text())
+    .then(data => {
+      const json = JSON.parse(data.substr(47).slice(0, -2));
+      const rows = json.table.rows;
 
-.spot-selection-section h1 {
-  font-size: 2rem;
-  color: #222;
-  margin: 0 0 15px;
-  border-bottom: 2px solid var(--main-blue);
-  display: inline-block;
-  padding-bottom: 8px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
+      const allSpots = rows.map(row => {
+        const latLngString = row.c[8]?.v || "0,0";
+        const [lat, lng] = latLngString.split(',').map(coord => parseFloat(coord.trim()));
 
-.spot-selection-section p {
-  color: #555;
-  font-size: 1.1rem;
-  margin-bottom: 40px;
-  font-weight: 400;
-}
+        const companionScores = {
+          'ひとり旅': parseInt(row.c[17]?.v) || 0,
+          'カップル': parseInt(row.c[18]?.v) || 0,
+          '家族': parseInt(row.c[19]?.v) || 0,
+          '友人': parseInt(row.c[20]?.v) || 0,
+          'グループ': parseInt(row.c[21]?.v) || 0
+        };
 
+        return {
+          genre: row.c[0]?.v || '',
+          name: { ja: row.c[1]?.v || '', en: row.c[2]?.v || '', cn: row.c[3]?.v || '' },
+          img: row.c[4]?.v || '',
+          description: { ja: row.c[5]?.v || '', en: row.c[6]?.v || '', cn: row.c[7]?.v || '' },
+          lat, lng,
+          coolLevel: row.c[9]?.v || '',
+          openingHours: row.c[10]?.v || '',
+          website: row.c[14]?.v || '',
+          reservation: row.c[15]?.v || '',
+          companionScores
+        };
+      });
 
-/* 全体に少し余白感を出すために body も調整 */
-body {
-  font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
-  background: #f9fbfd;
-  color: #333;
-}
+      const filteredSpots = allSpots
+        .filter(s => s.genre === selectedGenre)
+        .map(s => {
+          if (step1Spot?.lat && s.lat) {
+            const distanceFromStart = getDistance(step1Spot.lat, step1Spot.lng, s.lat, s.lng);
+            const distanceToGoal = step2Spot?.lat ? getDistance(s.lat, s.lng, step2Spot.lat, step2Spot.lng) : 0;
+            const totalRouteDistance = distanceFromStart + distanceToGoal;
+            return { ...s, distanceFromStart, totalRouteDistance };
+          }
+          return s;
+        })
+        .filter(s => s.distanceFromStart !== undefined && s.distanceFromStart <= maxDistanceKm);
 
+      if (filteredSpots.length === 0) {
+        spotContainer.innerHTML = `<p>条件に合うスポットが見つかりませんでした。</p>`;
+        nextBtn.style.display = 'none';
+        return;
+      }
 
-/* --- スポット一覧 --- */
-#spotContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-  gap: 18px; /* 少しだけ狭く */
-  flex-wrap: nowrap; /* ✅折り返さない！横並び固定 */
-  overflow-x: auto; /* ✅スマホで見切れ防止 */
-  padding: 10px;
-}
+      recommendedSpots = filteredSpots.sort((a, b) => {
+        const scoreA = a.companionScores[userCompanionKey] || 0;
+        const scoreB = b.companionScores[userCompanionKey] || 0;
+        if (scoreA !== scoreB) return scoreB - scoreA;
+        return (a.distanceFromStart || 0) - (b.distanceFromStart || 0);
+      }).slice(0, 4);
 
-.spot-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
-}
+      displaySpots(recommendedSpots, userCompanionKey);
+    })
+    .catch(err => {
+      console.error("穴場スポット取得失敗:", err);
+      spotContainer.innerHTML = "<p>データを読み込めませんでした</p>";
+    });
 
-/* 距離ラベル */
-.spot-distance-label {
-  font-size: 0.8rem;
-  color: var(--main-blue);
-  margin-bottom: 12px;
-  font-weight: bold;
-  text-align: center;
-}
+  function displaySpots(spotsToDisplay, userCompanion) {
+    spotContainer.innerHTML = '';
+    const l = labels[currentLang];
 
-/* --- カード --- */
-.spot-item {
-  width: 230px; /* ✅細長く調整 */
-  background-color: #fff;
-  border: 2px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  transition: all 0.25s ease-in-out;
-  overflow: hidden;
-  cursor: pointer;
-}
+    spotsToDisplay.forEach(spot => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'spot-wrapper';
 
-.spot-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-}
+      // 上に距離ラベル
+      const distanceLabel = document.createElement('div');
+      distanceLabel.className = 'spot-distance-label';
+      const walkMinutes = Math.round((spot.distanceFromStart || 0) * 15);
+      distanceLabel.textContent = `${l.distance}: ${(spot.distanceFromStart || 0).toFixed(2)} ${l.unitKm}（${l.walk}${l.about}${walkMinutes} ${l.unitMin}）`;
 
-.spot-item img {
-  width: 100%;
-  height: 150px; /* ✅高さも調整してバランス良く */
-  object-fit: cover;
-  border-radius: 12px 12px 0 0;
-  display: block;
-}
+      const div = document.createElement('div');
+      div.className = 'spot-item';
 
-.spot-details {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 15px;
-}
+      let detailsHtml = `<p class="spot-description">${spot.description[currentLang] || spot.description.ja}</p>`;
+      if (spot.openingHours) detailsHtml += `<p><strong>${l.hours}:</strong> ${spot.openingHours}</p>`;
+      if (spot.coolLevel) detailsHtml += `<p><strong>${l.cool}:</strong> ${spot.coolLevel}</p>`;
+      if (spot.website) detailsHtml += `<p><a href="${spot.website}" target="_blank">${l.website}</a></p>`;
+      if (spot.reservation) detailsHtml += `<p><a href="${spot.reservation}" target="_blank">${l.reservation}</a></p>`;
+      detailsHtml += `<p><strong>${l.recommendation}:</strong> ${getStars(spot.companionScores[userCompanion] || 0)}</p>`;
+      detailsHtml += `<p><strong>${l.totalRoute}:</strong> ${(spot.totalRouteDistance || 0).toFixed(2)} ${l.unitKm}</p>`;
 
-.spot-details h3 {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin: 0 0 8px 0;
-  line-height: 1.3;
-  color: var(--text-dark);
-}
+      div.innerHTML = `<img src="${spot.img}" alt="${spot.name.ja}">
+                       <div class="spot-details">
+                         <h3>${spot.name[currentLang] || spot.name.ja}</h3>
+                         ${detailsHtml}
+                       </div>`;
 
-.spot-details p.spot-description {
-  font-size: 0.9rem;
-  color: #555;
-  line-height: 1.5;
-  margin: 0 0 10px 0;
-  min-height: 60px;
-}
+      div.addEventListener('click', () => selectSpot(spot, div));
 
-.spot-details p {
-  font-size: 0.85rem;
-  color: #555;
-  margin: 0;
-  line-height: 1.5;
-}
+      wrapper.appendChild(distanceLabel);
+      wrapper.appendChild(div);
+      spotContainer.appendChild(wrapper);
+    });
+  }
 
-.spot-details p strong {
-  color: var(--text-dark);
-}
+  // --- スポット選択処理 ---
+    function selectSpot(spot, div) {
+      document.querySelectorAll('.spot-item').forEach(d => d.classList.remove('selected'));
+      div.classList.add('selected');
+      localStorage.setItem('hiddenSpot', JSON.stringify(spot));
+      updateNextButton(); // ←ここ大事！
+    }
 
-.spot-details p + p {
-  margin-top: 4px;
-}
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentLang = btn.dataset.lang;
+      displaySpots(recommendedSpots, userCompanionKey);
+    });
+  });
 
-.spot-details p a {
-  color: var(--main-blue);
-  text-decoration: underline;
-  font-weight: normal;
-}
-
-.spot-details p a:hover {
-  color: var(--main-blue);
-  text-decoration: none;
-}
-
-.spot-item.selected {
-  border-color: var(--accent-blue);
-  transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 6px 16px rgba(77, 166, 255, 0.4);
-}
-
-.no-results {
-  width: 100%;
-  padding: 40px 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  color: #777;
-}
-
-/* --- 選択状態 --- */
-.spot-item.selected {
-  border-color: var(--main-blue);
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 6px 16px rgba(58, 106, 138, 0.3);
-}
-
-/* --- 無効状態 --- */
-.spot-item.disabled {
-  opacity: 0.4;
-  border-color: #e0e0e0;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* ======================================== */
-/* 言語別フォントサイズ調整 (英語・中国語用) */
-/* ======================================== */
-html[lang="en"] .spot-details,
-html[lang="cn"] .spot-details {
-  font-size: 0.8em;
-  line-height: 1.4;
-}
-/* ======================================== */
-/* 「次へ進む」ボタン                        */
-/* ======================================== */
-#next-step {
-  display: block;
-  width: 100%;
-  max-width: 400px;
-  margin: 40px auto 0;
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--text-light);
-  background-color: var(--main-blue);
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: opacity 0.2s ease-in-out;
-  box-shadow: 0 4px 10px rgba(58, 106, 138, 0.3);
-}
-
-#next-step:hover {
-  opacity: 0.9;
-}
-
-/* 無効状態のボタン */
-#next-step:disabled {
-  background-color: #B0C4DE;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* KAMA-Craftタイトルをクリック可能にする */
-#title {
-  cursor: pointer;
-  position: relative;
-  z-index: 10;
-}
+  // --- 次ボタンクリック ---
+   if (nextBtn) {
+     nextBtn.addEventListener('click', () => {
+       const hiddenSpot = localStorage.getItem('hiddenSpot');
+       if (!hiddenSpot) {
+         alert('穴場スポットを選んでください');
+         return;
+       }
+       window.location.href = 'route.html';
+     });
+   }
+ });
