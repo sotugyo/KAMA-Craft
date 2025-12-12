@@ -122,36 +122,24 @@ body {
 
 
 /* --- スポット一覧 --- */
+/* PCデフォルト（横並び） */
 #spotContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: stretch;
-  gap: 18px; /* 少しだけ狭く */
-  flex-wrap: nowrap; /* ✅折り返さない！横並び固定 */
-  overflow-x: auto; /* ✅スマホで見切れ防止 */
+  gap: 18px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
   padding: 10px;
 }
 
 .spot-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   flex-shrink: 0;
 }
 
-/* 距離ラベル */
-.spot-distance-label {
-  font-size: 0.8rem;
-  color: var(--main-blue);
-  margin-bottom: 12px;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* --- カード --- */
 .spot-item {
-  width: 230px; /* ✅細長く調整 */
+  width: 230px; /* ← PC用のwidthはここだけで定義！ */
   background-color: #fff;
   border: 2px solid var(--border-color);
   border-radius: 12px;
@@ -165,6 +153,17 @@ body {
   cursor: pointer;
 }
 
+
+/* 距離ラベル */
+.spot-distance-label {
+  font-size: 0.8rem;
+  color: var(--main-blue);
+  margin-bottom: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* --- カード --- */
 .spot-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
@@ -308,13 +307,12 @@ html[lang="cn"] .spot-details {
 /* ======================================== */
 @media (max-width: 600px) {
   #spotContainer {
-    display: flex !important;
     flex-direction: column !important;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    gap: 24px !important;
+    flex-wrap: wrap !important; /* ← これ追加！！ */
     overflow-x: visible !important;
     overflow-y: visible !important;
+    align-items: center !important;
+    gap: 24px !important;
   }
 
   .spot-wrapper {
@@ -324,11 +322,5 @@ html[lang="cn"] .spot-details {
 
   .spot-item {
     width: 100% !important;
-  }
-}  /* ← これで終わり（ここで確実に閉じる） */
-
-
-  .spot-item {
-    width: 100%;              /* ← 画面幅に合わせる */
   }
 }
