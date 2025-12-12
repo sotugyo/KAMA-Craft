@@ -1,31 +1,27 @@
 /* ======================================== */
-/* 基本設定 (area.css から継承)            */
+/* 基本設定                                 */
 /* ======================================== */
 :root {
-  --base-bg: #fffaf5;       /* 背景クリーム色 */
-  --main-blue: #3A6A8A;     /* 濃い青 */
-  --accent-blue: #4da6ff;   /* 選択/ボタン用の明るい青 */
-  --text-dark: #333333;     /* 文字黒 */
+  --base-bg: #fffaf5;
+  --main-blue: #3A6A8A;
+  --accent-blue: #4da6ff;
+  --text-dark: #333333;
   --text-light: #FFFFFF;
-  --border-color: #DDDDDD;  /* カード境界色 */
+  --border-color: #DDDDDD;
 }
 
 body {
   margin: 0;
   line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: var(--base-bg);
-  color: var(--text-dark);
+  font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+  background: #f9fbfd;
+  color: #333;
 }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
+
 
 /* ======================================== */
-/* ヒーローセクション（ヘッダー & 言語切替） */
+/* Hero（タイトル背景）                     */
 /* ======================================== */
 .hero-section {
   min-height: 30vh;
@@ -36,6 +32,7 @@ body {
   align-items: center;
   text-align: center;
   color: var(--text-light);
+
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
               url('images/title-bg2.jpg') center/cover no-repeat;
 }
@@ -52,7 +49,10 @@ body {
 }
 
 
-/* --- 言語切替ボタン --- */
+
+/* ======================================== */
+/* 言語切替ボタン                            */
+/* ======================================== */
 #language-switcher {
   position: absolute;
   top: 20px;
@@ -64,34 +64,30 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid var(--text-light);
   color: var(--text-light);
-  padding: 8px 16px;
+  padding: 10px 18px; /* ←スマホでも押しやすい */
   border-radius: 20px;
-  margin-left: 10px;
+  margin-left: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 #language-switcher button:hover {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
+
+
 /* ======================================== */
-/* スポットカードエリア                      */
+/* セクションタイトル                        */
 /* ======================================== */
 .spot-selection-section {
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   padding: 40px 20px;
-  margin-bottom: 40px;
+  margin: 60px 16px 40px;
   text-align: center;
-}
-
-/* 穴場スポットセクションの見出しと説明 */
-.spot-selection-section {
-  text-align: center;
-  margin-top: 80px;
 }
 
 .spot-selection-section h1 {
@@ -109,38 +105,35 @@ body {
   color: #555;
   font-size: 1.1rem;
   margin-bottom: 40px;
-  font-weight: 400;
 }
 
 
-/* 全体に少し余白感を出すために body も調整 */
-body {
-  font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
-  background: #f9fbfd;
-  color: #333;
-}
 
-
-/* --- スポット一覧 --- */
+/* ======================================== */
+/* スポットエリア（カード横スクロール）      */
+/* ======================================== */
 #spotContainer {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-  gap: 18px; /* 少しだけ狭く */
-  flex-wrap: nowrap; /* ✅折り返さない！横並び固定 */
-  overflow-x: auto; /* ✅スマホで見切れ防止 */
-  padding: 10px;
+  gap: 16px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 16px 10px;
+
+  /* スマホで“スワイプ → パチッと止まる”効果 */
+  scroll-snap-type: x mandatory;
 }
 
 .spot-wrapper {
+  scroll-snap-align: center;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-shrink: 0;
 }
 
-/* 距離ラベル */
+
+
+/* --- 距離ラベル --- */
 .spot-distance-label {
   font-size: 0.8rem;
   color: var(--main-blue);
@@ -149,20 +142,21 @@ body {
   text-align: center;
 }
 
-/* --- カード --- */
+
+
+/* ======================================== */
+/* カード                                    */
+/* ======================================== */
 .spot-item {
-  width: 230px; /* ✅細長く調整 */
+  width: 230px;
   background-color: #fff;
   border: 2px solid var(--border-color);
   border-radius: 12px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  transition: all 0.25s ease-in-out;
-  overflow: hidden;
   cursor: pointer;
+  overflow: hidden;
+
+  transition: all 0.25s ease-in-out;
 }
 
 .spot-item:hover {
@@ -172,17 +166,15 @@ body {
 
 .spot-item img {
   width: 100%;
-  height: 150px; /* ✅高さも調整してバランス良く */
+  height: 150px;
   object-fit: cover;
-  border-radius: 12px 12px 0 0;
   display: block;
 }
 
+
+
+/* --- カード内テキスト --- */
 .spot-details {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   padding: 15px;
 }
 
@@ -190,89 +182,40 @@ body {
   font-size: 1.1rem;
   font-weight: bold;
   margin: 0 0 8px 0;
-  line-height: 1.3;
-  color: var(--text-dark);
 }
 
 .spot-details p.spot-description {
   font-size: 0.9rem;
   color: #555;
-  line-height: 1.5;
-  margin: 0 0 10px 0;
   min-height: 60px;
+  margin-bottom: 10px;
 }
 
 .spot-details p {
   font-size: 0.85rem;
   color: #555;
   margin: 0;
-  line-height: 1.5;
 }
 
-.spot-details p strong {
-  color: var(--text-dark);
-}
 
-.spot-details p + p {
-  margin-top: 4px;
-}
 
-.spot-details p a {
-  color: var(--main-blue);
-  text-decoration: underline;
-  font-weight: normal;
-}
-
-.spot-details p a:hover {
-  color: var(--main-blue);
-  text-decoration: none;
-}
-
+/* --- 選択状態 --- */
 .spot-item.selected {
   border-color: var(--accent-blue);
   transform: translateY(-5px) scale(1.03);
   box-shadow: 0 6px 16px rgba(77, 166, 255, 0.4);
 }
 
-.no-results {
-  width: 100%;
-  padding: 40px 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  color: #777;
-}
 
-/* --- 選択状態 --- */
-.spot-item.selected {
-  border-color: var(--main-blue);
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 6px 16px rgba(58, 106, 138, 0.3);
-}
-
-/* --- 無効状態 --- */
-.spot-item.disabled {
-  opacity: 0.4;
-  border-color: #e0e0e0;
-  cursor: not-allowed;
-  pointer-events: none;
-}
 
 /* ======================================== */
-/* 言語別フォントサイズ調整 (英語・中国語用) */
-/* ======================================== */
-html[lang="en"] .spot-details,
-html[lang="cn"] .spot-details {
-  font-size: 0.8em;
-  line-height: 1.4;
-}
-/* ======================================== */
-/* 「次へ進む」ボタン                        */
+/* 次へボタン                                */
 /* ======================================== */
 #next-step {
   display: block;
   width: 100%;
   max-width: 400px;
-  margin: 40px auto 0;
+  margin: 40px auto;
   padding: 15px 30px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -281,24 +224,44 @@ html[lang="cn"] .spot-details {
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: opacity 0.2s ease-in-out;
   box-shadow: 0 4px 10px rgba(58, 106, 138, 0.3);
+  transition: opacity 0.2s ease-in-out;
 }
 
 #next-step:hover {
   opacity: 0.9;
 }
 
-/* 無効状態のボタン */
 #next-step:disabled {
   background-color: #B0C4DE;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-/* KAMA-Craftタイトルをクリック可能にする */
-#title {
-  cursor: pointer;
-  position: relative;
-  z-index: 10;
+
+
+/* ======================================== */
+/* スマホ専用最適化（追加）                 */
+/* ======================================== */
+@media (max-width: 480px) {
+  .spot-selection-section h1 {
+    font-size: 1.5rem;
+  }
+
+  .spot-selection-section p {
+    font-size: 0.95rem;
+  }
+
+  .spot-item {
+    width: 200px;
+  }
+
+  .spot-item img {
+    height: 130px;
+  }
+
+  #next-step {
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
 }
