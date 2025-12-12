@@ -302,25 +302,26 @@ html[lang="cn"] .spot-details {
   z-index: 10;
 }
 
-/* ======================================== */
-/* スマホ表示（〜600px）では縦並びに変更 */
-/* ======================================== */
+/* 最強強制リセット（PCは横、スマホは縦） */
+#spotContainer {
+  display: flex !important;
+  flex-direction: row !important;
+}
+
 @media (max-width: 600px) {
   #spotContainer {
     flex-direction: column !important;
-    flex-wrap: wrap !important; /* ← これ追加！！ */
-    overflow-x: visible !important;
-    overflow-y: visible !important;
     align-items: center !important;
-    gap: 24px !important;
+    overflow-x: visible !important;
   }
 
-  .spot-wrapper {
+  #spotContainer .spot-wrapper {
     width: 100% !important;
     max-width: 330px !important;
   }
 
-  .spot-item {
+  #spotContainer .spot-item {
     width: 100% !important;
   }
 }
+
