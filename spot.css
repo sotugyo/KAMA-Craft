@@ -302,21 +302,30 @@ html[lang="cn"] .spot-details {
   position: relative;
   z-index: 10;
 }
+
 /* ======================================== */
 /* スマホ表示（〜600px）では縦並びに変更 */
 /* ======================================== */
 @media (max-width: 600px) {
   #spotContainer {
-    flex-direction: column;   /* ← 縦並びにする */
-    align-items: center;      /* ← 真ん中揃え */
-    gap: 24px;                /* ← カード間の余白大きめに */
-    overflow-x: visible;      /* ← 横スクロール無効 */
+    display: flex !important;       /* ← 念のため強制 */
+    flex-direction: column !important; 
+    flex-wrap: nowrap !important;   /* ← wrapでもOKだが明示する */
+    align-items: center !important;
+    gap: 24px !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
   }
 
   .spot-wrapper {
-    width: 100%;
-    max-width: 330px;         /* ← カードが大きすぎないよう調整 */
+    width: 100% !important;
+    max-width: 330px !important;
   }
+
+  .spot-item {
+    width: 100% !important;
+  }
+}
 
   .spot-item {
     width: 100%;              /* ← 画面幅に合わせる */
