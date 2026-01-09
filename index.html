@@ -200,11 +200,10 @@
           	 // dataが {label: "..."} の場合 (interestsOptions)
           	 card.innerHTML = `<span>${data.label}</span>`;
           	 if (isPhoto && data.image) {
-          	 	 // (imageプロパティがあれば背景画像に設定 ※CSS側で指定するため、ここは実行されない)
+          	 	 // imageプロパティがあれば背景画像に設定 
           	 	 card.style.backgroundImage = `url('${data.image}')`;
           	 }
           } else {
-          	 // dataが文字列の場合 (companionsOptions, stayOptions)
           	 card.innerHTML = `<span>${String(data)}</span>`;
           }
 
