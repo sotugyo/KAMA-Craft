@@ -183,7 +183,7 @@
         updateNextButton();
       }
 
-      // --- 同じスポットをもう片方で選べないように ---
+      // --- 同じスポットをもう片方で選択不可にする ---
       function disableSameSpot(targetStep, selectedIndex) {
         document.querySelectorAll(`#step${targetStep} .spot-item`).forEach(d => d.classList.remove('disabled'));
         const target = document.querySelector(`#step${targetStep} .spot-item[data-index="${selectedIndex}"]`);
