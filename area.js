@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sheetURL = "https://docs.google.com/spreadsheets/d/1w5waa7_xUlB-_wt0TfLhDw48ehg86yl6/gviz/tq?sheet=有名&headers=1&tq=";
 
   let currentLang = 'ja';
-  let allSpotsData = []; // スポットデータを保持する配列
+  let allSpotsData = []; 
 
   // --- Googleスプレッドシートからデータ取得 ---
   fetch(sheetURL)
@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
           img: row.c[4]?.v,
           lat: lat,
           lng: lng,
-          coolness: row.c[6]?.v,  // G列「涼しさ」
-          hours: row.c[7]?.v,     // H列「営業時間」
-          website_url: row.c[11]?.v // L列「ウェブサイトURL」
+          coolness: row.c[6]?.v,
+          hours: row.c[7]?.v,
+          website_url: row.c[11]?.v
         };
       });
 
@@ -77,18 +77,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- スポット選択処理（クリック無効チェック付き） ---
   function selectSpot(spot, step, div) {
-    if (div.classList.contains('disabled')) return; // 無効化されたスポットは選択しない
+    if (div.classList.contains('disabled')) return;
 
     const spotIndex = div.dataset.index;
 
     if (step === 1) {
       localStorage.setItem('step1Spot', JSON.stringify(spot));
       highlightSelected('step1', div);
-      syncSelections(spotIndex, 2); // ステップ2を同期
+      syncSelections(spotIndex, 2);
     } else {
       localStorage.setItem('step2Spot', JSON.stringify(spot));
       highlightSelected('step2', div);
-      syncSelections(spotIndex, 1); // ステップ1を同期
+      syncSelections(spotIndex, 1);
     }
   }
 
