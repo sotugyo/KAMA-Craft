@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!form) return;
 
   form.addEventListener("submit", (event) => {
-    event.preventDefault(); // ページリロードを防ぐ
+    event.preventDefault();
 
     // フォームの入力値を取得
     const data = {
@@ -15,15 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
       stay: document.getElementById("stay").value,
       interests: document.getElementById("interests").value,
     };
-
-    // 取得したデータを確認（開発用）
+    
     console.log("ユーザーの選択データ:", data);
 
-    // ローカルストレージに保存（次の画面で使える）
+    // ローカルストレージに保存
     localStorage.setItem("userAttributes", JSON.stringify(data));
 
 
-   // 次のページに遷移（ここでは仮に area.html に設定）
+   // 次のページに遷移
     window.location.href = "area.html";
   });
 });
