@@ -1,6 +1,4 @@
-/* ======================================== */
 /* 基本設定                                 */
-/* ======================================== */
 :root {
   --base-bg: #F8F6F2;
   --main-blue: #3A6A8A;
@@ -23,9 +21,7 @@ body {
   padding: 40px 20px;
 }
 
-/* ======================================== */
-/* ヒーローセクション（ヘッダー & 言語切替） */
-/* ======================================== */
+/* ヘッダー & 言語切替 */
 .hero-section {
   min-height: 30vh;
   padding: 20px;
@@ -72,9 +68,8 @@ body {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
-/* ======================================== */
+
 /* スポット選択エリア                        */
-/* ======================================== */
 .spot-selection-section {
   background-color: #FFF;
   border-radius: 8px;
@@ -94,7 +89,7 @@ body {
   margin-bottom: 40px;
 }
 
-/* --- カテゴリー見出し（点線装飾） --- */
+/* --- カテゴリー見出し --- */
 .spot-category h2 {
   font-size: 1.5rem;
   margin: 40px 0 20px;
@@ -168,9 +163,7 @@ body {
   pointer-events: none;
 }
 
-/* ======================================== */
 /* 「次へ進む」ボタン                        */
-/* ======================================== */
 #next-step {
   display: block;
   width: 100%;
@@ -194,14 +187,14 @@ body {
 
 /* 無効状態のボタン */
 #next-step:disabled {
-  background-color: #B0C4DE; /* 1ページ目と同色 */
+  background-color: #B0C4DE;
   cursor: not-allowed;
   box-shadow: none;
 }
 
 /* KAMA-Craftタイトルをクリック可能にする */
 #title {
-  cursor: pointer;      /* ポインターを手に */
-  position: relative;   /* z-indexを効かせるため必要 */
-  z-index: 10;          /* 他要素より前面に表示 */
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
 }
