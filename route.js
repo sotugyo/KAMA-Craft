@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const routeSpots = [];
 
-    // 修正ポイント 1: name と description が多言語オブジェクトであることを前提にデータを構築
     
     // ===== スタートスポット =====
     if (step1Data?.lat && step1Data?.lng) {
@@ -80,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
             description:  step2Data.description || (rowIndex >= 0 ? sheetData[rowIndex][descriptionCol] : '')
         });
     }
-    // 修正ポイント 1 終わり
 
     // ===== 地図初期化 =====
     const map = L.map('map').setView([35.3199, 139.5501], 14);
@@ -125,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
         spots.forEach((spot, index) => {
             const isLast = index === spots.length - 1;
             
-            // 修正ポイント 2: 多言語データからの文字列取得を共通化
             const spotLabel = typeof spot.label === 'object' ? (spot.label[currentLang] || spot.label.ja) : spot.label;
             const spotName = spot.name[currentLang] || spot.name.ja || spotLabel;
             
@@ -135,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (typeof spot.description === 'string') {
                 spotDescription = spot.description;
             }
-            // 修正ポイント 2 終わり
+            
 
             const cardHtml = `
                 <div class="spot-card">
@@ -164,14 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (spot.lat && spot.lng) {
                 L.marker([spot.lat, spot.lng])
                     .addTo(markerGroup)
-                    // 修正ポイント 3: マーカーのツールチップと言語を対応させる
                     .bindTooltip(spotLabel, { permanent: true, direction: 'top', offset: [0,-25] })
                     .bindPopup(`<strong>${spotName}</strong> (${spotLabel})`);
-                    // 修正ポイント 3 終わり
+                    
             }
         });
 
-        // 固定文すべて削除済み
+        
         const overallRouteMessage = generateOverallRouteMessage(spots, durations);
         if (overallRouteMessage) {
             messageContainer.insertAdjacentHTML('beforeend', `
@@ -180,16 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 修正ポイント 4: 言語切り替え時にカードとマップを再描画する
+    
     window.updateLanguage = function(lang) {
         currentLang = lang;
         const durations = document.getElementById('spot-cards-container').dataset.durations ?
                             JSON.parse(document.getElementById('spot-cards-container').dataset.durations) : [];
         
-        // 言語が変わったらカードを再作成し、同時にマップ上のピンの表示も更新される
         createSpotCards(routeSpots, durations);
     };
-    // 修正ポイント 4 終わり
+    
 
     const coords = routeSpots.filter(s => s.lat && s.lng).map(s => [s.lng, s.lat]);
 
