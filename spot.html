@@ -67,12 +67,10 @@
       button.addEventListener('click', () => {
         const lang = button.getAttribute('data-lang');
 
-        // いったん全部非表示
         document.querySelectorAll('.lang-ja, .lang-en, .lang-cn').forEach(el => {
           el.style.display = 'none';
         });
 
-        // 選択された言語だけ表示
         document.querySelectorAll(`.lang-${lang}`).forEach(el => {
           el.style.display = '';
         });
@@ -82,14 +80,14 @@
     // --- 次ボタン制御 ---
     function updateNextButton() {
     const hiddenSpot = localStorage.getItem('hiddenSpot');
-    const enabled = hiddenSpot !== null; // ← nullでなければOK
+    const enabled = hiddenSpot !== null; 
 
     const t = buttonTexts[currentLang];
     nextBtn.querySelector('.lang-ja').textContent = enabled ? buttonTexts.ja.active : buttonTexts.ja.inactive;
     nextBtn.querySelector('.lang-en').textContent = enabled ? buttonTexts.en.active : buttonTexts.en.inactive;
     nextBtn.querySelector('.lang-cn').textContent = enabled ? buttonTexts.cn.active : buttonTexts.cn.inactive;
 
-    nextBtn.disabled = !enabled; // ← これも忘れずに！
+    nextBtn.disabled = !enabled; 
   }
 
   // --- タイトルクリックで戻る --
