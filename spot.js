@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const sheetURL = "https://docs.google.com/spreadsheets/d/1w5waa7_xUlB-_wt0TfLhDw48ehg86yl6/gviz/tq?sheet=穴場&headers=1&tq=";
   const spotContainer = document.getElementById('spotContainer');
-  const nextBtn = document.getElementById('next-step'); // ←ここ修正！
+  const nextBtn = document.getElementById('next-step'); 
   let currentLang = 'ja';
   let recommendedSpots = [];
   const langButtons = document.querySelectorAll('#language-switcher button');
